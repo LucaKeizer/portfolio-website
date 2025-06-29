@@ -157,6 +157,21 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
     }))
   ].sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
 
+  // Resume download handler
+  const handleResumeDownload = () => {
+    const resumeFile = language === 'en' ? '/resume/resume-en.pdf' : '/resume/resume-nl.pdf'
+    const fileName = language === 'en' ? 'Luca_Keizer_Resume.pdf' : 'Luca_Keizer_CV.pdf'
+    
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement('a')
+    link.href = resumeFile
+    link.download = fileName
+    link.target = '_blank'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -204,14 +219,13 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
           >
             {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
           </a>
-          <a 
-            href="/resume.pdf" 
-            target="_blank"
+          <button 
+            onClick={handleResumeDownload}
             className="btn-secondary inline-flex items-center justify-center"
           >
             <ExternalLink className="h-4 w-4 mr-2" />
             {language === 'en' ? 'Download Resume' : 'Download CV'}
-          </a>
+          </button>
         </div>
       </motion.div>
     </motion.div>

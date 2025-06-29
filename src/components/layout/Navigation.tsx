@@ -23,6 +23,21 @@ export default function Navigation() {
   const { language, setLanguage } = useLanguage()
   const { viewMode, setViewMode, isFreelanceMode, isProfessionalMode } = useViewMode()
 
+  // Resume download handler
+  const handleResumeDownload = () => {
+    const resumeFile = language === 'en' ? '/resume/resume-en.pdf' : '/resume/resume-nl.pdf'
+    const fileName = language === 'en' ? 'Luca_Keizer_Resume.pdf' : 'Luca_Keizer_CV.pdf'
+    
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement('a')
+    link.href = resumeFile
+    link.download = fileName
+    link.target = '_blank'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const navItems = [
     {
       href: '#about',
@@ -121,15 +136,17 @@ export default function Navigation() {
 
             {/* Resume Download - Only in Professional Mode */}
             {isProfessionalMode && (
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={handleResumeDownload}>
                 <Download className="h-4 w-4 mr-2" />
                 {language === 'en' ? 'Resume' : 'CV'}
               </Button>
             )}
 
             {/* Contact CTA */}
-            <Button variant="gradient">
-              {language === 'en' ? 'Get in Touch' : 'Contact'}
+            <Button variant="gradient" asChild>
+              <a href="#contact">
+                {language === 'en' ? 'Get in Touch' : 'Contact'}
+              </a>
             </Button>
 
             {/* Reset Welcome Button - For Testing (Remove in Production) */}
@@ -225,16 +242,18 @@ export default function Navigation() {
 
                   {/* Resume Download - Only in Professional Mode */}
                   {isProfessionalMode && (
-                    <Button variant="outline" className="w-full">
+                    <Button variant="outline" className="w-full" onClick={handleResumeDownload}>
                       <Download className="h-4 w-4 mr-2" />
                       {language === 'en' ? 'Download Resume' : 'Download CV'}
                     </Button>
                   )}
 
                   {/* Contact CTA */}
-                  <Button variant="gradient" className="w-full">
-                    <Mail className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                  <Button variant="gradient" className="w-full" asChild>
+                    <a href="#contact" onClick={() => setIsOpen(false)}>
+                      <Mail className="h-4 w-4 mr-2" />
+                      {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                    </a>
                   </Button>
                 </div>
               </div>
