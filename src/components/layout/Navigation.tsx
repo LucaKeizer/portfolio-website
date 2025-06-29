@@ -131,6 +131,20 @@ export default function Navigation() {
             <Button variant="gradient">
               {language === 'en' ? 'Get in Touch' : 'Contact'}
             </Button>
+
+            {/* Reset Welcome Button - For Testing (Remove in Production) */}
+            {process.env.NODE_ENV === 'development' && (
+              <button
+                onClick={() => {
+                  localStorage.removeItem('luca-portfolio-visited')
+                  window.location.reload()
+                }}
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                title="Reset welcome modal (dev only)"
+              >
+                Reset
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
