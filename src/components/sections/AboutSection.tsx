@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { 
   MapPin, 
   Calendar, 
@@ -40,6 +40,20 @@ const itemVariants = {
   }
 }
 
+// Smooth transition variants for mode switching
+const modeContentVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20,
+    transition: { duration: 0.3 }
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+}
+
 const iconMap: Record<string, React.ReactNode> = {
   MapPin: <MapPin className="h-4 w-4" />,
   Calendar: <Calendar className="h-4 w-4" />,
@@ -52,10 +66,16 @@ const iconMap: Record<string, React.ReactNode> = {
 
 function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+    <motion.div
+      variants={modeContentVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+    >
       
       {/* Bio & Business Info */}
-      <motion.div variants={itemVariants} className="space-y-6">
+      <div className="space-y-6">
         
         {/* Main Bio */}
         <div className="bg-card p-6 rounded-xl border border-border">
@@ -101,10 +121,10 @@ function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
             }
           </p>
         </div>
-      </motion.div>
+      </div>
 
       {/* Business Skills */}
-      <motion.div variants={itemVariants} className="space-y-6">
+      <div className="space-y-6">
         {freelanceAbout.businessSkills.map((category, categoryIndex) => (
           <div key={categoryIndex} className="bg-card p-6 rounded-xl border border-border">
             <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
@@ -147,8 +167,8 @@ function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
             ))}
           </div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   )
 }
 
@@ -172,10 +192,16 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+    <motion.div
+      variants={modeContentVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+    >
       
       {/* Bio & Professional Info */}
-      <motion.div variants={itemVariants} className="space-y-6">
+      <div className="space-y-6">
         
         {/* Main Bio */}
         <div className="bg-card p-6 rounded-xl border border-border">
@@ -225,10 +251,10 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Technical Skills */}
-      <motion.div variants={itemVariants} className="space-y-6">
+      <div className="space-y-6">
         <h3 className="text-xl font-semibold">
           {language === 'en' ? 'Technical Expertise' : 'Technische Expertise'}
         </h3>
@@ -270,28 +296,17 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
             </div>
           </div>
         ))}
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   )
 }
 
 export default function AboutSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
   
-  console.log('AboutSection rendering with mode:', viewMode, 'language:', language)
-
-  // Add safety check
+  // Don't show loading state for mode switching
   if (!viewMode || !language) {
-    return (
-      <section id="about" className="section-padding">
-        <div className="container-padding">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Loading...</p>
-          </div>
-        </div>
-      </section>
-    )
+    return null
   }
 
   return (
@@ -305,12 +320,18 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
           className="max-w-6xl mx-auto"
         >
           
-          {/* Section Header */}
+          {/* Section Header - Always visible, but content changes */}
           <motion.div variants={itemVariants} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               {language === 'en' ? 'About Me' : 'Over Mij'}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <motion.p 
+              key={`header-${viewMode}`}
+              variants={modeContentVariants}
+              initial="hidden"
+              animate="visible"
+              className="text-xl text-muted-foreground max-w-3xl mx-auto"
+            >
               {isFreelance 
                 ? (language === 'en' 
                     ? 'Your trusted partner for digital solutions that grow your business'
@@ -321,15 +342,17 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
                     : 'Bouw innovatieve software oplossingen met moderne technologieën en engineering excellentie'
                   )
               }
-            </p>
+            </motion.p>
           </motion.div>
 
-          {/* Mode-specific content */}
-          {isFreelance ? (
-            <FreelanceAboutSection language={language} />
-          ) : (
-            <ProfessionalAboutSection language={language} />
-          )}
+          {/* Mode-specific content with smooth transitions */}
+          <AnimatePresence mode="wait">
+            {isFreelance ? (
+              <FreelanceAboutSection key="freelance" language={language} />
+            ) : (
+              <ProfessionalAboutSection key="professional" language={language} />
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

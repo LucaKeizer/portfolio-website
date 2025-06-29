@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, MapPin, Building, ExternalLink, Award } from 'lucide-react'
 import type { SectionProps } from '@/types'
 import { workExperience, education } from '@/data/experience'
@@ -22,6 +22,20 @@ const itemVariants = {
     opacity: 1,
     x: 0,
     transition: { duration: 0.6 }
+  }
+}
+
+// Smooth transition variants for mode switching
+const modeContentVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20,
+    transition: { duration: 0.3 }
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
   }
 }
 
@@ -128,9 +142,7 @@ function TimelineItem({
   )
 }
 
-export default function ExperienceSection({ language, viewMode }: SectionProps) {
-  if (viewMode !== 'professional') return null
-
+function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
   // Combine work experience and education, sort by start date (newest first)
   const allExperience = [
     ...workExperience.map(exp => ({ ...exp, type: 'work' as const })),
@@ -146,6 +158,69 @@ export default function ExperienceSection({ language, viewMode }: SectionProps) 
   ].sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
 
   return (
+    <motion.div
+      variants={modeContentVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+    >
+      {/* Timeline */}
+      <div className="relative">
+        {allExperience.map((exp, index) => (
+          <TimelineItem
+            key={exp.id}
+            title={exp.position}
+            company={exp.company}
+            location={exp.location}
+            startDate={exp.startDate}
+            endDate={exp.endDate}
+            description={exp.description}
+            achievements={exp.achievements}
+            technologies={exp.technologies}
+            type={exp.type}
+            language={language}
+          />
+        ))}
+      </div>
+
+      {/* Additional Info */}
+      <motion.div 
+        variants={itemVariants}
+        className="mt-12 bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20"
+      >
+        <h3 className="text-lg font-semibold mb-3">
+          {language === 'en' ? 'What\'s Next?' : 'Wat Komt Er?'}
+        </h3>
+        <p className="text-muted-foreground mb-4">
+          {language === 'en' 
+            ? 'I\'m always interested in new challenges and opportunities to grow as a software engineer. Whether it\'s a exciting startup, established company, or innovative project - let\'s talk!'
+            : 'Ik ben altijd geïnteresseerd in nieuwe uitdagingen en kansen om te groeien als software engineer. Of het nu een spannende startup, gevestigd bedrijf of innovatief project is - laten we praten!'
+          }
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a 
+            href="mailto:keizerluca@gmail.com"
+            className="btn-primary inline-flex items-center justify-center"
+          >
+            {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+          </a>
+          <a 
+            href="/resume.pdf" 
+            target="_blank"
+            className="btn-secondary inline-flex items-center justify-center"
+          >
+            <ExternalLink className="h-4 w-4 mr-2" />
+            {language === 'en' ? 'Download Resume' : 'Download CV'}
+          </a>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+export default function ExperienceSection({ language, viewMode }: SectionProps) {
+  // Always render the section but conditionally show content
+  return (
     <section id="experience" className="section-padding">
       <div className="container-padding">
         <motion.div 
@@ -156,69 +231,35 @@ export default function ExperienceSection({ language, viewMode }: SectionProps) 
           className="max-w-4xl mx-auto"
         >
           
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'en' ? 'Professional Journey' : 'Professionele Reis'}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              {language === 'en' 
-                ? 'My career progression in software engineering, from education to current role'
-                : 'Mijn carrièreontwikkeling in software engineering, van opleiding tot huidige rol'
-              }
-            </p>
-          </motion.div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {allExperience.map((exp, index) => (
-              <TimelineItem
-                key={exp.id}
-                title={exp.position}
-                company={exp.company}
-                location={exp.location}
-                startDate={exp.startDate}
-                endDate={exp.endDate}
-                description={exp.description}
-                achievements={exp.achievements}
-                technologies={exp.technologies}
-                type={exp.type}
-                language={language}
-              />
-            ))}
-          </div>
-
-          {/* Additional Info */}
-          <motion.div 
-            variants={itemVariants}
-            className="mt-12 bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20"
-          >
-            <h3 className="text-lg font-semibold mb-3">
-              {language === 'en' ? 'What\'s Next?' : 'Wat Komt Er?'}
-            </h3>
-            <p className="text-muted-foreground mb-4">
-              {language === 'en' 
-                ? 'I\'m always interested in new challenges and opportunities to grow as a software engineer. Whether it\'s a exciting startup, established company, or innovative project - let\'s talk!'
-                : 'Ik ben altijd geïnteresseerd in nieuwe uitdagingen en kansen om te groeien als software engineer. Of het nu een spannende startup, gevestigd bedrijf of innovatief project is - laten we praten!'
-              }
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a 
-                href="mailto:keizerluca@gmail.com"
-                className="btn-primary inline-flex items-center justify-center"
+          {/* Section Header - Always visible when in professional mode */}
+          <AnimatePresence>
+            {viewMode === 'professional' && (
+              <motion.div 
+                variants={itemVariants} 
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                className="text-center mb-16"
               >
-                {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
-              </a>
-              <a 
-                href="/resume.pdf" 
-                target="_blank"
-                className="btn-secondary inline-flex items-center justify-center"
-              >
-                <ExternalLink className="h-4 w-4 mr-2" />
-                {language === 'en' ? 'Download Resume' : 'Download CV'}
-              </a>
-            </div>
-          </motion.div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  {language === 'en' ? 'Professional Journey' : 'Professionele Reis'}
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  {language === 'en' 
+                    ? 'My career progression in software engineering, from education to current role'
+                    : 'Mijn carrièreontwikkeling in software engineering, van opleiding tot huidige rol'
+                  }
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Experience Content - Only show in professional mode */}
+          <AnimatePresence>
+            {viewMode === 'professional' && (
+              <ExperienceContent key="experience-content" language={language} />
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

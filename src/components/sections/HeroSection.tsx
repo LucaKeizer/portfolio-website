@@ -29,6 +29,16 @@ const itemVariants = {
   }
 }
 
+// Animation variants for mode switching
+const modeVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  }
+}
+
 export default function HeroSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
   const isProfessional = viewMode === 'professional'
@@ -67,9 +77,12 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             <span className="gradient-text">Luca Keizer</span>
           </motion.h1>
 
-          {/* Title/Role */}
+          {/* Title/Role - Animated based on mode */}
           <motion.h2 
-            variants={itemVariants}
+            key={`title-${viewMode}`}
+            variants={modeVariants}
+            initial="hidden"
+            animate="visible"
             className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-8"
           >
             {isFreelance ? (
@@ -83,9 +96,12 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             )}
           </motion.h2>
 
-          {/* Description */}
+          {/* Description - Animated based on mode */}
           <motion.p 
-            variants={itemVariants}
+            key={`description-${viewMode}`}
+            variants={modeVariants}
+            initial="hidden"
+            animate="visible"
             className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-12 max-w-3xl mx-auto"
           >
             {isFreelance ? (
@@ -122,9 +138,12 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             </div>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Animated based on mode */}
           <motion.div 
-            variants={itemVariants}
+            key={`cta-${viewMode}`}
+            variants={modeVariants}
+            initial="hidden"
+            animate="visible"
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             {isFreelance ? (
@@ -157,9 +176,12 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             )}
           </motion.div>
 
-          {/* Location & Availability */}
+          {/* Location & Availability - Animated based on mode */}
           <motion.div 
-            variants={itemVariants}
+            key={`location-${viewMode}`}
+            variants={modeVariants}
+            initial="hidden"
+            animate="visible"
             className="text-center text-muted-foreground"
           >
             <p className="text-sm">
