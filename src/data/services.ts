@@ -2,142 +2,93 @@ import type { Service } from '@/types'
 
 export const services: Service[] = [
   {
-    id: 'web-development',
-    title: 'Web Development',
-    description: 'Modern, responsive websites and web applications built with the latest technologies',
+    id: 'simple-website',
+    title: 'Simple Business Website',
+    description: 'Perfect for small businesses wanting a professional online presence',
     features: [
-      'Custom React/Next.js applications',
-      'Responsive design for all devices', 
-      'SEO optimization and performance',
-      'Content management systems',
-      'E-commerce functionality',
-      'Database integration',
-      'API development and integration',
-      'Hosting and deployment setup'
-    ],
-    price: {
-      from: 2500,
-      to: 8000,
-      currency: 'EUR',
-      period: 'project'
-    },
-    timeline: '2-8 weeks',
-    category: 'web-development'
-  },
-  {
-    id: 'booking-systems',
-    title: 'Booking & Scheduling Systems',
-    description: 'Complete booking platforms with calendar integration and automated notifications',
-    features: [
-      'Online appointment booking',
-      'Calendar integration',
-      'Automated email notifications',
-      'Customer management',
-      'Payment processing integration',
-      'Admin dashboard',
+      'Up to 5 pages (Home, About, Services, Contact)',
       'Mobile-responsive design',
-      'Multi-language support'
-    ],
-    price: {
-      from: 3500,
-      to: 6000,
-      currency: 'EUR',
-      period: 'project'
-    },
-    timeline: '3-6 weeks',
-    category: 'web-development'
-  },
-  {
-    id: 'automation',
-    title: 'Business Process Automation',
-    description: 'Custom automation solutions to streamline your business operations',
-    features: [
-      'Custom Python scripts',
-      'Data processing automation',
-      'Report generation',
-      'API integrations',
-      'Workflow optimization',
-      'Email automation',
-      'File processing systems',
-      'Cloud deployment'
-    ],
-    price: {
-      from: 1500,
-      to: 5000,
-      currency: 'EUR',
-      period: 'project'
-    },
-    timeline: '1-4 weeks',
-    category: 'automation'
-  },
-  {
-    id: 'data-analysis',
-    title: 'Data Analysis & Dashboards',
-    description: 'Transform your data into actionable insights with custom dashboards',
-    features: [
-      'Interactive data dashboards',
-      'Automated reporting',
-      'Data visualization',
-      'Machine learning insights',
-      'Real-time data processing',
-      'Excel/CSV integration',
-      'Cloud-based solutions',
-      'Custom analytics'
-    ],
-    price: {
-      from: 2000,
-      to: 7000,
-      currency: 'EUR',
-      period: 'project'
-    },
-    timeline: '2-6 weeks',
-    category: 'data-analysis'
-  },
-  {
-    id: 'consultation',
-    title: 'Technical Consultation',
-    description: 'Expert advice on technology decisions and software architecture',
-    features: [
-      'Technology stack recommendations',
-      'Code review and optimization',
-      'Architecture planning',
-      'Performance analysis',
-      'Security assessment',
-      'Scalability planning',
-      'Team training',
-      'Project planning'
-    ],
-    price: {
-      from: 75,
-      to: 125,
-      currency: 'EUR',
-      period: 'hour'
-    },
-    timeline: 'Flexible',
-    category: 'consultation'
-  },
-  {
-    id: 'maintenance',
-    title: 'Website Maintenance & Support',
-    description: 'Ongoing maintenance and support for your web applications',
-    features: [
-      'Regular updates and security patches',
-      'Performance monitoring',
-      'Backup management',
-      'Bug fixes and improvements',
-      'Content updates',
-      'Technical support',
-      'Analytics reporting',
-      'Hosting management'
+      'Contact form',
+      'Google Maps integration',
+      'Social media links',
+      'Basic SEO setup',
+      'Professional hosting included',
+      '1 month of free minor updates'
     ],
     price: {
       from: 150,
-      to: 500,
+      to: 250,
       currency: 'EUR',
-      period: 'month'
+      period: 'project'
     },
-    timeline: 'Ongoing',
-    category: 'web-development'
+    originalPrice: {
+      from: 899,
+      to: 1299,
+      currency: 'EUR'
+    },
+    timeline: '1-2 weeks',
+    category: 'web-development',
+    complexity: 'simple'
+  },
+  {
+    id: 'business-website',
+    title: 'Professional Business Website',
+    description: 'Complete website solution with booking system for service businesses',
+    features: [
+      'Everything in Simple Website',
+      'Up to 8 custom pages',
+      'Online appointment booking calendar',
+      'Automated email confirmations',
+      'Image gallery/portfolio section',
+      'Customer testimonials section',
+      'Google Analytics integration',
+      'Professional email setup',
+      '2 months of free updates'
+    ],
+    price: {
+      from: 300,
+      to: 450,
+      currency: 'EUR',
+      period: 'project'
+    },
+    originalPrice: {
+      from: 1799,
+      to: 2499,
+      currency: 'EUR'
+    },
+    timeline: '2-3 weeks',
+    category: 'web-development',
+    complexity: 'medium'
+  },
+  {
+    id: 'custom-website',
+    title: 'Custom Website Solution',
+    description: 'Tailored website with special features for your unique business needs',
+    features: [
+      'Everything in Professional Website',
+      'Custom functionality based on your needs',
+      'E-commerce capabilities (if needed)',
+      'Advanced forms and integrations',
+      'Custom design matching your brand',
+      'Performance optimization',
+      'Advanced SEO setup',
+      'Training on how to manage your site',
+      '3 months of free updates'
+    ],
+    price: {
+      from: 500,
+      to: 750,
+      currency: 'EUR',
+      period: 'project'
+    },
+    originalPrice: {
+      from: 2999,
+      to: 4499,
+      currency: 'EUR'
+    },
+    timeline: '3-4 weeks',
+    category: 'web-development',
+    complexity: 'complex'
   }
 ]
 
@@ -149,22 +100,22 @@ export const processSteps = [
       nl: 'Ontdekking & Planning'
     },
     description: {
-      en: 'We discuss your requirements, goals, and create a detailed project plan',
-      nl: 'We bespreken je vereisten, doelen en maken een gedetailleerd projectplan'
+      en: 'We discuss your business, goals, and plan your perfect website together',
+      nl: 'We bespreken je bedrijf, doelen en plannen samen je perfecte website'
     },
     duration: '1-2 days'
   },
   {
     step: 2,
     title: {
-      en: 'Design & Architecture',
-      nl: 'Ontwerp & Architectuur'
+      en: 'Design & Content',
+      nl: 'Ontwerp & Inhoud'
     },
     description: {
-      en: 'Design the user interface and plan the technical architecture',
-      nl: 'Ontwerp de gebruikersinterface en plan de technische architectuur'
+      en: 'Create the visual design and prepare all content for your website',
+      nl: 'Maak het visuele ontwerp en bereid alle inhoud voor je website voor'
     },
-    duration: '2-5 days'
+    duration: '2-4 days'
   },
   {
     step: 3,
@@ -173,21 +124,58 @@ export const processSteps = [
       nl: 'Ontwikkeling'
     },
     description: {
-      en: 'Build your application with regular progress updates',
-      nl: 'Bouw je applicatie met regelmatige voortgangsupdates'
+      en: 'Build your website with regular updates on progress',
+      nl: 'Bouw je website met regelmatige updates over de voortgang'
     },
     duration: '1-6 weeks'
   },
   {
     step: 4,
     title: {
-      en: 'Testing & Deployment',
-      nl: 'Testen & Deployment'
+      en: 'Launch & Training',
+      nl: 'Lancering & Training'
     },
     description: {
-      en: 'Thorough testing, deployment, and training on the final system',
-      nl: 'Grondig testen, deployment en training op het eindresultaat'
+      en: 'Launch your website and learn how to manage it yourself',
+      nl: 'Lanceer je website en leer hoe je deze zelf kunt beheren'
     },
-    duration: '2-3 days'
+    duration: '1-2 days'
   }
 ]
+
+export const discountInfo = {
+  title: {
+    en: 'Portfolio Building Special - 80% OFF!',
+    nl: 'Portfolio Opbouw Aanbieding - 80% KORTING!'
+  },
+  subtitle: {
+    en: 'First 5 clients get incredible discounts',
+    nl: 'Eerste 5 klanten krijgen ongelooflijke kortingen'
+  },
+  description: {
+    en: 'I\'m building my freelance portfolio and offering amazing deals for my first clients. You get a professional website for less than the cost of a weekend trip!',
+    nl: 'Ik bouw mijn freelance portfolio op en bied geweldige deals voor mijn eerste klanten. Je krijgt een professionele website voor minder dan de kosten van een weekendje weg!'
+  },
+  features: [
+    {
+      en: 'Same quality as full-price websites',
+      nl: 'Dezelfde kwaliteit als full-price websites'
+    },
+    {
+      en: '2+ years professional development experience',
+      nl: '2+ jaar professionele ontwikkelingservaring'
+    },
+    {
+      en: 'Extra care for portfolio projects',
+      nl: 'Extra zorg voor portfolio projecten'
+    },
+    {
+      en: 'Free updates included',
+      nl: 'Gratis updates inbegrepen'
+    }
+  ],
+  limitations: {
+    en: 'Only 5 spots available - 2 already taken!',
+    nl: 'Slechts 5 plekken beschikbaar - 2 al ingenomen!'
+  }
+}

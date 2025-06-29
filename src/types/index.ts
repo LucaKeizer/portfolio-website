@@ -75,6 +75,13 @@ export interface Service {
   }
   timeline: string
   category: 'web-development' | 'automation' | 'data-analysis' | 'consultation'
+    complexity: 'simple' | 'medium' | 'complex'
+    originalPrice?: {
+      from: number
+      to?: number
+      currency: 'EUR'
+      period?: 'project' | 'month' | 'hour'
+    }
 }
 
 export interface ContactFormData {
