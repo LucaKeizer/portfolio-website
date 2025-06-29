@@ -52,22 +52,6 @@ export const education: Education[] = [
       'Voltooide stage bij Japans tech bedrijf',
       'Leidde internationale studentenprojecten'
     ]
-  },
-  {
-    id: 'life-vwo',
-    institution: 'Life College',
-    degree: 'VWO',
-    field: 'Economie & Maatschappij',
-    location: 'Landsmeer, Nederland',
-    startDate: new Date('2015-09-01'),
-    endDate: new Date('2021-07-31'),
-    description: 'VWO diploma met focus op Economie & Maatschappij, aangevuld met IT en Bedrijfseconomie als keuzevakken.',
-    achievements: [
-      'Afgestudeerd met profiel Economie & Maatschappij',
-      'Keuzevakken: IT en Bedrijfseconomie',
-      'Deelgenomen aan programmeer wedstrijden',
-      'Leiderschapsrollen in studentenorganisaties'
-    ]
   }
 ]
 
