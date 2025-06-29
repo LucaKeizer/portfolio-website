@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
-import { featuredProjects } from '@/data/projects'
+import { getFeaturedProjects } from '@/data/projects'
 import { formatDate } from '@/lib/utils'
 
 const containerVariants = {
@@ -28,6 +28,7 @@ const cardVariants = {
 
 export default function ProjectsSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
+  const featuredProjects = getFeaturedProjects(viewMode)
 
   return (
     <section id="projects" className="section-padding bg-muted/30">
@@ -47,12 +48,12 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               {isFreelance
                 ? (language === 'en' 
-                    ? 'Recent client work showcasing real business impact and modern web solutions'
-                    : 'Recent klantwerk dat echte bedrijfsimpact en moderne weboplossingen toont'
+                    ? 'Real client websites and business solutions that delivered measurable results'
+                    : 'Echte klant websites en bedrijfsoplossingen die meetbare resultaten leverden'
                   )
                 : (language === 'en'
-                    ? 'Technical projects demonstrating software engineering skills and problem-solving abilities'
-                    : 'Technische projecten die software engineering vaardigheden en probleemoplossend vermogen tonen'
+                    ? 'Technical projects demonstrating software engineering skills and system architecture'
+                    : 'Technische projecten die software engineering vaardigheden en systeemarchitectuur tonen'
                   )
               }
             </p>
