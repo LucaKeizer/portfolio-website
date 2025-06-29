@@ -13,7 +13,8 @@ import {
   Building,
   CheckCircle,
   AlertCircle,
-  Clock
+  Clock,
+  Loader2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, ContactFormData } from '@/types'
@@ -68,61 +69,53 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
     
     try {
-      // Simulate form submission (replace with actual API call)
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // Create mailto link as fallback
-      const subject = encodeURIComponent(
-        formData.subject || 
-        (isFreelance 
-          ? (language === 'en' ? 'Project Inquiry from Website' : 'Project Aanvraag van Website')
-          : (language === 'en' ? 'Professional Inquiry from Website' : 'Professionele Aanvraag van Website')
-        )
-      )
-      
-      const body = encodeURIComponent(`
-Name: ${formData.name}
-Email: ${formData.email}
-${formData.company ? `Company: ${formData.company}` : ''}
-${formData.projectType ? `Project Type: ${formData.projectType}` : ''}
-${formData.budget ? `Budget: ${formData.budget}` : ''}
-${formData.timeline ? `Timeline: ${formData.timeline}` : ''}
-Preferred Contact: ${formData.preferredContact}
-
-Message:
-${formData.message}
-      `.trim())
-
-      window.location.href = `mailto:keizerluca@gmail.com?subject=${subject}&body=${body}`
-      
-      setSubmitStatus({
-        type: 'success',
-        message: language === 'en' 
-          ? 'Your email client should open now. If not, please email me directly at keizerluca@gmail.com'
-          : 'Je email programma zou nu moeten openen. Zo niet, stuur me dan direct een email naar keizerluca@gmail.com'
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          viewMode // Include current view mode for email context
+        }),
       })
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        message: '',
-        subject: '',
-        preferredContact: 'email',
-        projectType: '',
-        budget: '',
-        timeline: ''
-      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: language === 'en' 
+            ? 'Message sent successfully! I\'ll get back to you within 24 hours.'
+            : 'Bericht succesvol verzonden! Ik neem binnen 24 uur contact met je op.'
+        })
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          message: '',
+          subject: '',
+          preferredContact: 'email',
+          projectType: '',
+          budget: '',
+          timeline: ''
+        })
+      } else {
+        throw new Error(result.error || 'Failed to send message')
+      }
       
     } catch (error) {
+      console.error('Contact form error:', error)
       setSubmitStatus({
         type: 'error',
         message: language === 'en' 
-          ? 'Something went wrong. Please email me directly at keizerluca@gmail.com'
-          : 'Er ging iets mis. Stuur me alsjeblieft direct een email naar keizerluca@gmail.com'
+          ? 'Failed to send message. Please try emailing me directly at keizerluca@gmail.com'
+          : 'Kon bericht niet verzenden. Stuur me alsjeblieft direct een email naar keizerluca@gmail.com'
       })
     } finally {
       setIsSubmitting(false)
@@ -255,8 +248,8 @@ ${formData.message}
                 {submitStatus.type && (
                   <div className={`p-4 rounded-lg flex items-start space-x-3 ${
                     submitStatus.type === 'success' 
-                      ? 'bg-green-50 border border-green-200 text-green-800' 
-                      : 'bg-red-50 border border-red-200 text-red-800'
+                      ? 'bg-green-50 border border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-200' 
+                      : 'bg-red-50 border border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-200'
                   }`}>
                     {submitStatus.type === 'success' ? (
                       <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
@@ -281,9 +274,10 @@ ${formData.message}
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
                         placeholder={language === 'en' ? 'Your name' : 'Je naam'}
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -300,9 +294,10 @@ ${formData.message}
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
                         placeholder="your@email.com"
                         required
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -322,8 +317,9 @@ ${formData.message}
                         name="company"
                         value={formData.company}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
                         placeholder={language === 'en' ? 'Your company name' : 'Je bedrijfsnaam'}
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -340,12 +336,13 @@ ${formData.message}
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
                     placeholder={
                       isFreelance 
                         ? (language === 'en' ? 'e.g., Website project inquiry' : 'bijv. Website project aanvraag')
                         : (language === 'en' ? 'e.g., Job opportunity' : 'bijv. Baan mogelijkheid')
                     }
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -361,15 +358,15 @@ ${formData.message}
                         name="budget"
                         value={formData.budget}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
+                        disabled={isSubmitting}
                       >
                         <option value="">
                           {language === 'en' ? 'Select budget range' : 'Selecteer budget bereik'}
                         </option>
-                        <option value="under-2500">€ 1.000 - € 2.500</option>
-                        <option value="2500-5000">€ 2.500 - € 5.000</option>
-                        <option value="5000-10000">€ 5.000 - € 10.000</option>
-                        <option value="10000-plus">€ 10.000+</option>
+                        <option value="under-500">€ 150 - € 500</option>
+                        <option value="500-1000">€ 500 - € 1.000</option>
+                        <option value="1000-plus">€ 1.000+</option>
                         <option value="discuss">
                           {language === 'en' ? 'Let\'s discuss' : 'Laten we bespreken'}
                         </option>
@@ -385,7 +382,8 @@ ${formData.message}
                         name="timeline"
                         value={formData.timeline}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors"
+                        className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
+                        disabled={isSubmitting}
                       >
                         <option value="">
                           {language === 'en' ? 'Select timeline' : 'Selecteer tijdlijn'}
@@ -420,7 +418,7 @@ ${formData.message}
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={5}
-                      className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors resize-vertical"
+                      className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors resize-vertical bg-background"
                       placeholder={
                         isFreelance 
                           ? (language === 'en' 
@@ -433,6 +431,7 @@ ${formData.message}
                             )
                       }
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -452,6 +451,7 @@ ${formData.message}
                           checked={formData.preferredContact === method}
                           onChange={handleInputChange}
                           className="h-4 w-4 text-primary focus:ring-primary border-border"
+                          disabled={isSubmitting}
                         />
                         <span className="text-sm">
                           {method === 'email' && 'Email'}
@@ -473,7 +473,7 @@ ${formData.message}
                 >
                   {isSubmitting ? (
                     <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+                      <Loader2 className="h-4 w-4 animate-spin" />
                       <span>
                         {language === 'en' ? 'Sending...' : 'Versturen...'}
                       </span>
