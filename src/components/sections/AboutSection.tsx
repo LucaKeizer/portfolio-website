@@ -277,6 +277,22 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
 
 export default function AboutSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
+  
+  console.log('AboutSection rendering with mode:', viewMode, 'language:', language)
+
+  // Add safety check
+  if (!viewMode || !language) {
+    return (
+      <section id="about" className="section-padding">
+        <div className="container-padding">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="about" className="section-padding">

@@ -24,8 +24,14 @@ export function ViewModeProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setViewMode = (mode: ViewMode) => {
+    console.log('setViewMode called with:', mode)
     setViewModeState(mode)
     localStorage.setItem('preferred-view-mode', mode)
+    
+    // Add a small delay to ensure proper state synchronization
+    setTimeout(() => {
+      console.log('ViewMode set to:', mode)
+    }, 50)
   }
 
   const isFreelanceMode = viewMode === 'freelance'

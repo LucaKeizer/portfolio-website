@@ -41,10 +41,10 @@ export default function HomePage() {
         <HeroSection language={language} viewMode={viewMode} />
         
         {/* About Section */}
-        <AboutSection language={language} viewMode={viewMode} />
+        <AboutSection key={`about-${viewMode}`} language={language} viewMode={viewMode} />
         
         {/* Projects Section */}
-        <ProjectsSection language={language} viewMode={viewMode} />
+        <ProjectsSection key={`projects-${viewMode}`} language={language} viewMode={viewMode} />
 
         {/* Experience Section - Professional Mode Only */}
         <ExperienceSection language={language} viewMode={viewMode} />

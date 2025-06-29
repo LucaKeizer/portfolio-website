@@ -5,6 +5,7 @@ import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2 } from 'lucide
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { getFeaturedProjects } from '@/data/projects'
+import type { Project } from '@/types'
 import { formatDate } from '@/lib/utils'
 
 const containerVariants = {
@@ -28,7 +29,29 @@ const cardVariants = {
 
 export default function ProjectsSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
-  const featuredProjects = getFeaturedProjects(viewMode)
+  
+  // Add error handling for project loading with proper typing
+  let featuredProjects: Project[] = []
+  try {
+    featuredProjects = getFeaturedProjects(viewMode) || []
+  } catch (error) {
+    console.error('Error loading projects:', error)
+    featuredProjects = []
+  }
+
+  // Don't render if no projects available
+  if (!featuredProjects || featuredProjects.length === 0) {
+    return (
+      <section id="projects" className="section-padding bg-muted/30">
+        <div className="container-padding">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading projects...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="projects" className="section-padding bg-muted/30">
