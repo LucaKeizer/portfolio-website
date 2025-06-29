@@ -252,7 +252,11 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
 }
 
 export default function ExperienceSection({ language, viewMode }: SectionProps) {
-  // Always render the section but conditionally show content
+  // Don't render at all in freelance mode
+  if (viewMode !== 'professional') {
+    return null
+  }
+
   return (
     <section id="experience" className="section-padding">
       <div className="container-padding">
@@ -264,35 +268,24 @@ export default function ExperienceSection({ language, viewMode }: SectionProps) 
           className="max-w-4xl mx-auto"
         >
           
-          {/* Section Header - Always visible when in professional mode */}
-          <AnimatePresence>
-            {viewMode === 'professional' && (
-              <motion.div 
-                variants={itemVariants} 
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                className="text-center mb-16"
-              >
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  {language === 'en' ? 'Professional Journey' : 'Professionele Reis'}
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  {language === 'en' 
-                    ? 'My career progression in software engineering, from education to current role'
-                    : 'Mijn carrièreontwikkeling in software engineering, van opleiding tot huidige rol'
-                  }
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Section Header */}
+          <motion.div 
+            variants={itemVariants} 
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'en' ? 'Professional Journey' : 'Professionele Reis'}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              {language === 'en' 
+                ? 'My career progression in software engineering, from education to current role'
+                : 'Mijn carrièreontwikkeling in software engineering, van opleiding tot huidige rol'
+              }
+            </p>
+          </motion.div>
 
-          {/* Experience Content - Only show in professional mode */}
-          <AnimatePresence>
-            {viewMode === 'professional' && (
-              <ExperienceContent key="experience-content" language={language} />
-            )}
-          </AnimatePresence>
+          {/* Experience Content */}
+          <ExperienceContent language={language} />
         </motion.div>
       </div>
     </section>

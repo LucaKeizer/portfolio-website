@@ -341,6 +341,11 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
 }
 
 export default function ServicesSection({ language, viewMode }: SectionProps) {
+  // Don't render at all in professional mode
+  if (viewMode !== 'freelance') {
+    return null
+  }
+
   return (
     <section id="services" className="section-padding">
       <div className="container-padding">
@@ -351,35 +356,24 @@ export default function ServicesSection({ language, viewMode }: SectionProps) {
           viewport={{ once: true }}
         >
           
-          {/* Section Header - Always visible when in freelance mode */}
-          <AnimatePresence>
-            {viewMode === 'freelance' && (
-              <motion.div 
-                variants={itemVariants} 
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                className="text-center mb-16"
-              >
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  {language === 'en' ? 'Website Development Services' : 'Website Ontwikkeling Diensten'}
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  {language === 'en' 
-                    ? 'Professional websites for North Holland businesses - from simple landing pages to complete e-commerce solutions'
-                    : 'Professionele websites voor Noord-Holland bedrijven - van eenvoudige landingspagina\'s tot complete e-commerce oplossingen'
-                  }
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Section Header */}
+          <motion.div 
+            variants={itemVariants} 
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'en' ? 'Website Development Services' : 'Website Ontwikkeling Diensten'}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              {language === 'en' 
+                ? 'Professional websites for North Holland businesses - from simple landing pages to complete e-commerce solutions'
+                : 'Professionele websites voor Noord-Holland bedrijven - van eenvoudige landingspagina\'s tot complete e-commerce oplossingen'
+              }
+            </p>
+          </motion.div>
 
-          {/* Services Content - Only show in freelance mode */}
-          <AnimatePresence>
-            {viewMode === 'freelance' && (
-              <ServicesContent key="services-content" language={language} />
-            )}
-          </AnimatePresence>
+          {/* Services Content */}
+          <ServicesContent language={language} />
         </motion.div>
       </div>
     </section>
