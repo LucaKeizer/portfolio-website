@@ -17,7 +17,7 @@ import {
   Award
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { SectionProps } from '@/types'
+import type { SectionProps, LocalizedContent } from '@/types'
 import { services, processSteps, discountInfo } from '@/data/services'
 
 const containerVariants = {
@@ -79,6 +79,16 @@ function calculateDiscount(original: number, current: number) {
 }
 
 function ServicesContent({ language }: { language: 'en' | 'nl' }) {
+  // Helper function to get localized text
+  const getText = (content: LocalizedContent): string => {
+    return content[language]
+  }
+
+  // Helper function to get localized array
+  const getArray = (content: { en: string[]; nl: string[] }): string[] => {
+    return content[language]
+  }
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -95,27 +105,27 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
           <div className="flex items-center justify-center space-x-2 mb-3">
             <Zap className="h-5 w-5 text-orange-600" />
             <span className="text-lg font-bold text-orange-800 dark:text-orange-200">
-              {discountInfo.title[language]}
+              {getText(discountInfo.title)}
             </span>
             <Zap className="h-5 w-5 text-orange-600" />
           </div>
           <p className="text-orange-700 dark:text-orange-300 font-medium mb-3">
-            {discountInfo.subtitle[language]}
+            {getText(discountInfo.subtitle)}
           </p>
           <p className="text-sm text-orange-600 dark:text-orange-400 max-w-2xl mx-auto mb-4">
-            {discountInfo.description[language]}
+            {getText(discountInfo.description)}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-3xl mx-auto mb-4">
             {discountInfo.features.map((feature, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm text-orange-700 dark:text-orange-300">
                 <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0" />
-                <span>{feature[language]}</span>
+                <span>{getText(feature)}</span>
               </div>
             ))}
           </div>
           <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg border border-orange-300 dark:border-orange-700">
             <p className="text-sm font-medium text-orange-800 dark:text-orange-200">
-              {discountInfo.limitations[language]}
+              {getText(discountInfo.limitations)}
             </p>
           </div>
         </div>
@@ -195,28 +205,28 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
             </div>
 
             {/* Service Content */}
-            <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+            <h3 className="text-xl font-semibold mb-3">{getText(service.title)}</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              {service.description}
+              {getText(service.description)}
             </p>
 
             {/* Timeline */}
             <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
               <Clock className="h-4 w-4" />
-              <span>{service.timeline}</span>
+              <span>{getText(service.timeline)}</span>
             </div>
 
             {/* Features */}
             <div className="space-y-2 mb-6">
-              {service.features.slice(0, 6).map((feature, featureIndex) => (
+              {getArray(service.features).slice(0, 6).map((feature, featureIndex) => (
                 <div key={featureIndex} className="flex items-start space-x-2 text-sm">
                   <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                   <span>{feature}</span>
                 </div>
               ))}
-              {service.features.length > 6 && (
+              {getArray(service.features).length > 6 && (
                 <div className="text-sm text-muted-foreground">
-                  +{service.features.length - 6} {language === 'en' ? 'more features' : 'meer functies'}
+                  +{getArray(service.features).length - 6} {language === 'en' ? 'more features' : 'meer functies'}
                 </div>
               )}
             </div>
@@ -273,16 +283,16 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
                 </div>
 
                 {/* Step Title */}
-                <h4 className="font-semibold mb-2">{step.title[language]}</h4>
+                <h4 className="font-semibold mb-2">{getText(step.title)}</h4>
                 
                 {/* Step Description */}
                 <p className="text-sm text-muted-foreground mb-3">
-                  {step.description[language]}
+                  {getText(step.description)}
                 </p>
 
                 {/* Duration */}
                 <div className="text-xs text-primary font-medium">
-                  {step.duration}
+                  {getText(step.duration)}
                 </div>
               </div>
             </div>

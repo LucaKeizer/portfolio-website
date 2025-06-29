@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, MapPin, Building, ExternalLink, Award } from 'lucide-react'
-import type { SectionProps } from '@/types'
+import type { SectionProps, LocalizedContent } from '@/types'
 import { workExperience, education } from '@/data/experience'
 import { formatDate } from '@/lib/utils'
 
@@ -143,16 +143,35 @@ function TimelineItem({
 }
 
 function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
+  // Helper function to get localized text
+  const getText = (content: LocalizedContent | string): string => {
+    if (typeof content === 'string') return content
+    return content[language]
+  }
+
+  // Helper function to get localized array
+  const getArray = (content: { en: string[]; nl: string[] }): string[] => {
+    return content[language]
+  }
+
   // Combine work experience and education, sort by start date (newest first)
   const allExperience = [
-    ...workExperience.map(exp => ({ ...exp, type: 'work' as const })),
+    ...workExperience.map(exp => ({ 
+      ...exp, 
+      type: 'work' as const,
+      position: exp.position,
+      company: exp.company,
+      description: getText(exp.description),
+      achievements: getArray(exp.achievements),
+      technologies: exp.technologies
+    })),
     ...education.map(edu => ({ 
       ...edu, 
       type: 'education' as const,
-      position: edu.degree,
+      position: getText(edu.degree),
       company: edu.institution,
-      description: edu.description || '',
-      achievements: edu.achievements || [],
+      description: edu.description ? getText(edu.description) : '',
+      achievements: edu.achievements ? getArray(edu.achievements) : [],
       technologies: [] // Education doesn't have technologies
     }))
   ].sort((a, b) => b.startDate.getTime() - a.startDate.getTime())

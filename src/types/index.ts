@@ -4,9 +4,9 @@ export type ViewMode = 'freelance' | 'professional'
 
 export interface Project {
   id: string
-  title: string
-  description: string
-  longDescription?: string
+  title: LocalizedContent
+  description: LocalizedContent
+  longDescription?: LocalizedContent
   technologies: string[]
   category: 'web' | 'data' | 'mobile' | 'automation' | 'ml'
   status: 'completed' | 'in-progress' | 'concept'
@@ -19,14 +19,23 @@ export interface Project {
   client?: string
   role?: string
   team?: string[]
-  challenges?: string[]
-  solutions?: string[]
-  results?: string[]
+  challenges?: {
+    en: string[]
+    nl: string[]
+  }
+  solutions?: {
+    en: string[]
+    nl: string[]
+  }
+  results?: {
+    en: string[]
+    nl: string[]
+  }
   // Dual perspective content
-  freelanceDescription?: string
-  professionalDescription?: string
-  businessImpact?: string
-  technicalDetails?: string
+  freelanceDescription?: LocalizedContent
+  professionalDescription?: LocalizedContent
+  businessImpact?: LocalizedContent
+  technicalDetails?: LocalizedContent
 }
 
 export interface Experience {
@@ -36,8 +45,11 @@ export interface Experience {
   location: string
   startDate: Date
   endDate?: Date
-  description: string
-  achievements: string[]
+  description: LocalizedContent
+  achievements: {
+    en: string[]
+    nl: string[]
+  }
   technologies: string[]
   type: 'full-time' | 'part-time' | 'internship' | 'freelance'
 }
@@ -45,13 +57,16 @@ export interface Experience {
 export interface Education {
   id: string
   institution: string
-  degree: string
-  field?: string
+  degree: LocalizedContent | string
+  field?: LocalizedContent | string
   location: string
   startDate: Date
   endDate?: Date
-  description?: string
-  achievements?: string[]
+  description?: LocalizedContent
+  achievements?: {
+    en: string[]
+    nl: string[]
+  }
 }
 
 export interface Skill {
@@ -64,24 +79,26 @@ export interface Skill {
 
 export interface Service {
   id: string
-  title: string
-  description: string
-  features: string[]
+  title: LocalizedContent
+  description: LocalizedContent
+  features: {
+    en: string[]
+    nl: string[]
+  }
   price?: {
     from: number
     to?: number
     currency: 'EUR'
     period?: 'project' | 'month' | 'hour'
   }
-  timeline: string
+  originalPrice?: {
+    from: number
+    to?: number
+    currency: 'EUR'
+  }
+  timeline: LocalizedContent
   category: 'web-development' | 'automation' | 'data-analysis' | 'consultation'
-    complexity: 'simple' | 'medium' | 'complex'
-    originalPrice?: {
-      from: number
-      to?: number
-      currency: 'EUR'
-      period?: 'project' | 'month' | 'hour'
-    }
+  complexity?: 'simple' | 'medium' | 'complex'
 }
 
 export interface ContactFormData {

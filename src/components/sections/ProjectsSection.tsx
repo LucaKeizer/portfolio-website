@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { SectionProps } from '@/types'
+import type { SectionProps, LocalizedContent } from '@/types'
 import { getFeaturedProjects } from '@/data/projects'
 import type { Project } from '@/types'
 import { formatDate } from '@/lib/utils'
@@ -48,6 +48,16 @@ function ProjectsList({ projects, language, viewMode }: {
 }) {
   const isFreelance = viewMode === 'freelance'
 
+  // Helper function to get localized text
+  const getText = (content: LocalizedContent): string => {
+    return content[language]
+  }
+
+  // Helper function to get localized array
+  const getArray = (content: { en: string[]; nl: string[] } | undefined): string[] => {
+    return content ? content[language] : []
+  }
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -74,7 +84,7 @@ function ProjectsList({ projects, language, viewMode }: {
                   <p className="text-sm">
                     {language === 'en' ? 'Project Screenshot' : 'Project Screenshot'}
                   </p>
-                  <p className="text-xs mt-1">{project.title}</p>
+                  <p className="text-xs mt-1">{getText(project.title)}</p>
                 </div>
               </div>
               
@@ -120,10 +130,13 @@ function ProjectsList({ projects, language, viewMode }: {
                 )}
               </div>
               
-              <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
+              <h3 className="text-2xl font-bold mb-3">{getText(project.title)}</h3>
               
               <p className="text-muted-foreground leading-relaxed">
-                {isFreelance ? project.freelanceDescription : project.professionalDescription}
+                {isFreelance 
+                  ? (project.freelanceDescription ? getText(project.freelanceDescription) : getText(project.description))
+                  : (project.professionalDescription ? getText(project.professionalDescription) : getText(project.description))
+                }
               </p>
             </div>
 
@@ -151,12 +164,14 @@ function ProjectsList({ projects, language, viewMode }: {
                   <TrendingUp className="h-4 w-4" />
                   <span>{language === 'en' ? 'Business Impact' : 'Bedrijfsimpact'}</span>
                 </h4>
-                <p className="text-green-700 dark:text-green-300 text-sm">
-                  {project.businessImpact}
-                </p>
-                {project.results && project.results.length > 0 && (
+                {project.businessImpact && (
+                  <p className="text-green-700 dark:text-green-300 text-sm">
+                    {getText(project.businessImpact)}
+                  </p>
+                )}
+                {project.results && getArray(project.results).length > 0 && (
                   <ul className="mt-3 space-y-1">
-                    {project.results.slice(0, 3).map((result, resultIndex) => (
+                    {getArray(project.results).slice(0, 3).map((result, resultIndex) => (
                       <li key={resultIndex} className="text-green-700 dark:text-green-300 text-sm flex items-start space-x-2">
                         <div className="h-1.5 w-1.5 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
                         <span>{result}</span>
@@ -171,16 +186,18 @@ function ProjectsList({ projects, language, viewMode }: {
                   <Code2 className="h-4 w-4" />
                   <span>{language === 'en' ? 'Technical Highlights' : 'Technische Hoogtepunten'}</span>
                 </h4>
-                <p className="text-blue-700 dark:text-blue-300 text-sm">
-                  {project.technicalDetails}
-                </p>
-                {project.challenges && project.challenges.length > 0 && (
+                {project.technicalDetails && (
+                  <p className="text-blue-700 dark:text-blue-300 text-sm">
+                    {getText(project.technicalDetails)}
+                  </p>
+                )}
+                {project.challenges && getArray(project.challenges).length > 0 && (
                   <div className="mt-3">
                     <p className="text-blue-800 dark:text-blue-200 text-sm font-medium mb-1">
                       {language === 'en' ? 'Key Challenges Solved:' : 'Belangrijkste Uitdagingen Opgelost:'}
                     </p>
                     <ul className="space-y-1">
-                      {project.challenges.slice(0, 2).map((challenge, challengeIndex) => (
+                      {getArray(project.challenges).slice(0, 2).map((challenge, challengeIndex) => (
                         <li key={challengeIndex} className="text-blue-700 dark:text-blue-300 text-sm flex items-start space-x-2">
                           <div className="h-1.5 w-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
                           <span>{challenge}</span>
@@ -276,7 +293,7 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
               {isFreelance
                 ? (language === 'en' 
                     ? 'Real client websites and business solutions that delivered measurable results'
-                    : 'Echte klant websites en bedrijfsoplossingen die meetbare resultaten leverden'
+                    : 'Echte klantwebsites en bedrijfsoplossingen die meetbare resultaten leverden'
                   )
                 : (language === 'en'
                     ? 'Technical projects demonstrating software engineering skills and system architecture'
