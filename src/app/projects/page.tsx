@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ExternalLink, Github, Calendar, Filter } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Github, Calendar, Filter, Code2 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/hooks/useLanguage'
@@ -35,11 +35,46 @@ function ProjectCard({ project, language, viewMode }: {
   language: 'en' | 'nl', 
   viewMode: 'freelance' | 'professional' 
 }) {
+  const [imageError, setImageError] = useState(false)
   const isFreelance = viewMode === 'freelance'
 
   // Helper function to get localized text
   const getText = (content: LocalizedContent): string => {
     return content[language]
+  }
+
+  const handleImageError = () => {
+    setImageError(true)
+  }
+
+  const renderProjectImage = () => {
+    const hasValidImage = project.images && project.images.length > 0 && !imageError
+
+    if (hasValidImage) {
+      return (
+        <img
+          src={project.images[0]}
+          alt={getText(project.title)}
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          onError={handleImageError}
+        />
+      )
+    }
+
+    // Fallback placeholder (similar to ProjectsSection)
+    return (
+      <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center text-muted-foreground">
+        <div className="text-center">
+          <Code2 className="h-12 w-12 mx-auto mb-3 opacity-50" />
+          <p className="text-sm font-medium opacity-75">
+            {getText(project.title)}
+          </p>
+          <p className="text-xs mt-1 opacity-50">
+            {language === 'en' ? 'Project' : 'Project'}
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -49,19 +84,7 @@ function ProjectCard({ project, language, viewMode }: {
     >
       {/* Project Image */}
       <div className="relative h-48 overflow-hidden">
-        {project.images && project.images.length > 0 ? (
-          <img
-            src={project.images[0]}
-            alt={getText(project.title)}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center">
-            <div className="text-brand-600 text-sm font-medium">
-              {getText(project.title)}
-            </div>
-          </div>
-        )}
+        {renderProjectImage()}
         
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
