@@ -42,10 +42,6 @@ next-env.d.ts
 # OS
 Thumbs.db
 
-# Portfolio specific
-/public/resume/
-/public/projects/screenshots/
-
 # Build outputs
 dist/
 build/

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2 } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, LocalizedContent } from '@/types'
 import { getFeaturedProjects } from '@/data/projects'
@@ -246,6 +247,14 @@ function ProjectsList({ projects, language, viewMode }: {
                   </a>
                 </Button>
               )}
+              {project.githubUrl && !isFreelance && (
+                <Button variant="outline" asChild>
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="h-4 w-4 mr-2" />
+                    {language === 'en' ? 'View Code' : 'Bekijk Code'}
+                  </a>
+                </Button>
+              )}
               {project.caseStudyUrl && (
                 <Button variant="outline" asChild>
                   <a href={project.caseStudyUrl} target="_blank" rel="noopener noreferrer">
@@ -337,14 +346,31 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
             variants={cardVariants} 
             className="text-center mt-16"
           >
-            <Button variant="outline" size="lg" asChild>
-              <a href="#contact">
-                {isFreelance 
-                  ? (language === 'en' ? 'Start Your Project' : 'Start Je Project')
-                  : (language === 'en' ? 'Get in Touch' : 'Neem Contact Op')
-                }
-              </a>
-            </Button>
+            {isFreelance ? (
+              <div className="space-y-4">
+                <Button variant="outline" size="lg" asChild>
+                  <Link href="/projects">
+                    {language === 'en' ? 'View All Client Projects' : 'Bekijk Alle Klant Projecten'}
+                  </Link>
+                </Button>
+                
+                <div className="text-muted-foreground text-sm">
+                  {language === 'en' ? 'or' : 'of'}
+                </div>
+                
+                <Button variant="gradient" size="lg" asChild>
+                  <a href="#contact">
+                    {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
+                  </a>
+                </Button>
+              </div>
+            ) : (
+              <Button variant="gradient" size="lg" asChild>
+                <a href="#contact">
+                  {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                </a>
+              </Button>
+            )}
           </motion.div>
         </motion.div>
       </div>

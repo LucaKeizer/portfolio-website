@@ -36,6 +36,9 @@ export interface Project {
   professionalDescription?: LocalizedContent
   businessImpact?: LocalizedContent
   technicalDetails?: LocalizedContent
+  // For all projects page
+  showInFreelance?: boolean
+  showInProfessional?: boolean
 }
 
 export interface Experience {
