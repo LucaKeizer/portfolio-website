@@ -78,15 +78,42 @@ function ProjectsList({ projects, language, viewMode }: {
           {/* Project Image */}
           <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
             <div className="relative group">
-              <div className="bg-gradient-to-br from-brand-100 to-brand-200 h-64 md:h-80 rounded-xl flex items-center justify-center border border-border card-hover">
-                <div className="text-center text-muted-foreground">
-                  <Code2 className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-sm">
-                    {language === 'en' ? 'Project Screenshot' : 'Project Screenshot'}
-                  </p>
-                  <p className="text-xs mt-1">{getText(project.title)}</p>
+              {project.images && project.images.length > 0 ? (
+                <div className="h-64 md:h-80 rounded-xl overflow-hidden border border-border card-hover">
+                  <img
+                    src={project.images[0]}
+                    alt={getText(project.title)}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    onError={(e) => {
+                      // Fallback to placeholder if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const placeholder = target.nextElementSibling as HTMLElement;
+                      if (placeholder) placeholder.style.display = 'flex';
+                    }}
+                  />
+                  {/* Fallback placeholder */}
+                  <div className="w-full h-full bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center text-muted-foreground" style={{ display: 'none' }}>
+                    <div className="text-center">
+                      <Code2 className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                      <p className="text-sm">
+                        {language === 'en' ? 'Project Image' : 'Project Afbeelding'}
+                      </p>
+                      <p className="text-xs mt-1">{getText(project.title)}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="bg-gradient-to-br from-brand-100 to-brand-200 h-64 md:h-80 rounded-xl flex items-center justify-center border border-border card-hover">
+                  <div className="text-center text-muted-foreground">
+                    <Code2 className="h-16 w-16 mx-auto mb-4 opacity-50" />
+                    <p className="text-sm">
+                      {language === 'en' ? 'Project Image' : 'Project Afbeelding'}
+                    </p>
+                    <p className="text-xs mt-1">{getText(project.title)}</p>
+                  </div>
+                </div>
+              )}
               
               {/* Overlay with links */}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center space-x-4">
@@ -216,14 +243,6 @@ function ProjectsList({ projects, language, viewMode }: {
                   <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4 mr-2" />
                     {language === 'en' ? 'View Live' : 'Bekijk Live'}
-                  </a>
-                </Button>
-              )}
-              {project.githubUrl && !isFreelance && (
-                <Button variant="outline" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'View Code' : 'Bekijk Code'}
                   </a>
                 </Button>
               )}

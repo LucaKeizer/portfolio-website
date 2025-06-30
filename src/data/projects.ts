@@ -29,9 +29,9 @@ export const clientProjects: Project[] = [
     status: 'completed',
     startDate: new Date('2024-10-01'),
     endDate: new Date('2024-11-15'),
-    liveUrl: 'https://barbershop-demo.vercel.app',
+    liveUrl: 'https://barber-booking-website.vercel.app/',
     githubUrl: 'https://github.com/lucakeizer/barbershop-website',
-    images: ['/projects/barbershop/hero.jpg', '/projects/barbershop/booking.jpg', '/projects/barbershop/admin.jpg'],
+    images: ['/projects/barbershop/homepage.png'],
     client: 'Jan\'s Barbershop, Volendam',
     role: 'Full-Stack Developer',
     challenges: {
@@ -279,7 +279,7 @@ export const technicalProjects: Project[] = [
     status: 'completed',
     startDate: new Date('2023-09-01'),
     endDate: new Date('2024-01-31'),
-    images: ['/projects/container/3d-view.jpg', '/projects/container/algorithm.jpg'],
+    images: ['/projects/container/3d-view.png'],
     client: 'Sonic Equipment B.V.',
     role: 'Data Solutions Engineer',
     challenges: {

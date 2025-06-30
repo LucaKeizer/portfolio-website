@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/hooks/useLanguage'
 import { ViewModeProvider } from '@/hooks/useViewMode'
+import { ThemeProvider } from '@/hooks/useTheme'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -85,13 +86,15 @@ export default function RootLayout({
   return (
     <html lang="nl" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <LanguageProvider>
-          <ViewModeProvider>
-            <div className="min-h-screen bg-background">
-              {children}
-            </div>
-          </ViewModeProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <ViewModeProvider>
+              <div className="min-h-screen bg-background">
+                {children}
+              </div>
+            </ViewModeProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

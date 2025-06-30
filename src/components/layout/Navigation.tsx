@@ -14,6 +14,7 @@ import {
   Mail
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useViewMode } from '@/hooks/useViewMode'
 import { cn } from '@/lib/utils'
@@ -125,6 +126,9 @@ export default function Navigation() {
               </button>
             </div>
 
+            {/* Theme Toggle */}
+            <ThemeToggle showText />
+
             {/* Language Toggle */}
             <button
               onClick={() => setLanguage(language === 'en' ? 'nl' : 'en')}
@@ -229,6 +233,11 @@ export default function Navigation() {
                 {/* Controls Mobile */}
                 <div className="pt-4 border-t border-border space-y-3">
                   
+                  {/* Theme Toggle */}
+                  <div className="flex justify-center">
+                    <ThemeToggle showText />
+                  </div>
+
                   {/* Language Toggle */}
                   <button
                     onClick={() => setLanguage(language === 'en' ? 'nl' : 'en')}
