@@ -20,6 +20,8 @@ import type { SectionProps } from '@/types'
 import { personalInfo } from '@/data/personal'
 import { freelanceAbout, professionalAbout } from '@/data/about'
 import { calculateYearsOfExperience } from '@/lib/utils'
+import type { LocalizedContent } from '@/types'
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -191,6 +193,17 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
     }
   }
 
+  // Helper function to get localized text
+  const getText = (content: LocalizedContent): string => {
+    return content[language]
+  }
+
+  // Helper function to get localized skill description
+  const getSkillDescription = (description: LocalizedContent | string): string => {
+    if (typeof description === 'string') return description
+    return description[language]
+  }
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -271,7 +284,7 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
                  categoryIndex === 1 ? <Globe className="h-5 w-5" /> :
                  <Cloud className="h-5 w-5" />}
               </div>
-              <h4 className="text-lg font-semibold">{category.category}</h4>
+              <h4 className="text-lg font-semibold">{getText(category.category)}</h4>
             </div>
             
             <div className="space-y-4">
@@ -280,8 +293,14 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
                   <div className="flex justify-between items-center">
                     <span className="font-medium">{skill.name}</span>
                     <div className="flex items-center space-x-2">
-                      <span className="text-xs text-muted-foreground capitalize">{skill.level}</span>
-                      <span className="text-xs text-muted-foreground">{skill.years}y</span>
+                      <span className="text-xs text-muted-foreground capitalize">
+                        {language === 'en' ? skill.level : 
+                         skill.level === 'expert' ? 'expert' :
+                         skill.level === 'advanced' ? 'gevorderd' :
+                         skill.level === 'intermediate' ? 'tussenliggende' : skill.level
+                        }
+                      </span>
+                      <span className="text-xs text-muted-foreground">{skill.years}{language === 'en' ? 'y' : 'j'}</span>
                     </div>
                   </div>
                   <div className="w-full bg-muted rounded-full h-2">
@@ -290,7 +309,7 @@ function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
                       style={{ width: getSkillWidth(skill.level) }}
                     />
                   </div>
-                  <p className="text-xs text-muted-foreground">{skill.description}</p>
+                  <p className="text-xs text-muted-foreground">{getSkillDescription(skill.description)}</p>
                 </div>
               ))}
             </div>

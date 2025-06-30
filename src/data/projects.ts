@@ -1,5 +1,10 @@
 import type { Project, LocalizedContent } from '@/types'
 
+// Technology translation helper
+const createTech = (name: string, dutchName?: string) => {
+  return dutchName ? { en: name, nl: dutchName } : name
+}
+
 // CLIENT PROJECTS - For Freelance Mode (Business-focused)
 export const clientProjects: Project[] = [
   {
@@ -24,7 +29,15 @@ export const clientProjects: Project[] = [
       en: 'Full-stack Next.js application with TypeScript, Prisma ORM, PostgreSQL database, email automation using Resend API, and responsive design with Tailwind CSS.',
       nl: 'Full-stack Next.js applicatie met TypeScript, Prisma ORM, PostgreSQL database, e-mail automatisering met Resend API, en responsief ontwerp met Tailwind CSS.'
     } as LocalizedContent,
-    technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Resend API', 'Vercel'],
+    technologies: [
+      'Next.js',
+      'TypeScript', 
+      'Prisma', 
+      createTech('PostgreSQL', 'PostgreSQL Database') as string,
+      'Tailwind CSS', 
+      createTech('Resend API', 'E-mail API') as string, 
+      createTech('Vercel', 'Cloud Hosting') as string
+    ],
     category: 'web',
     status: 'completed',
     startDate: new Date('2024-10-01'),
@@ -107,7 +120,14 @@ export const clientProjects: Project[] = [
       en: 'React-based web application with Stripe payment integration, real-time order management, and responsive design optimized for mobile ordering.',
       nl: 'React-gebaseerde webapplicatie met Stripe betalingsintegratie, real-time orderbeheer, en responsief ontwerp geoptimaliseerd voor mobiel bestellen.'
     } as LocalizedContent,
-    technologies: ['React', 'Node.js', 'Stripe', 'MongoDB', 'Express', 'Socket.io'],
+    technologies: [
+      'React', 
+      'Node.js', 
+      createTech('Stripe', 'Betalingssysteem') as string, 
+      createTech('MongoDB', 'Database') as string, 
+      'Express', 
+      createTech('Socket.io', 'Real-time Communicatie') as string
+    ],
     category: 'web',
     status: 'completed',
     startDate: new Date('2024-07-01'),
@@ -189,7 +209,13 @@ export const clientProjects: Project[] = [
       en: 'Python automation scripts with API integrations, automated email workflows, and custom business logic implementation.',
       nl: 'Python automatiseringsscripts met API integraties, geautomatiseerde e-mail workflows, en aangepaste bedrijfslogica implementatie.'
     } as LocalizedContent,
-    technologies: ['Python', 'APIs', 'Email Automation', 'CSV Processing', 'Scheduling'],
+    technologies: [
+      'Python', 
+      createTech('APIs', 'API Integraties') as string, 
+      createTech('Email Automation', 'E-mail Automatisering') as string, 
+      createTech('CSV Processing', 'Bestandsverwerking') as string, 
+      createTech('Scheduling', 'Taakplanning') as string
+    ],
     category: 'automation',
     status: 'completed',
     startDate: new Date('2024-05-01'),
@@ -274,7 +300,14 @@ export const technicalProjects: Project[] = [
       en: 'Implemented advanced 3D bin packing algorithms with real-time visualization capabilities. Built using Python with custom mathematical optimization, REST API integration, and performance-optimized data structures. Achieved O(n log n) complexity for large dataset processing.',
       nl: 'Implementeerde geavanceerde 3D bin packing algoritmes met real-time visualisatiemogelijkheden. Gebouwd met Python met aangepaste wiskundige optimalisatie, REST API integratie, en prestatie-geoptimaliseerde datastructuren. Behaalde O(n log n) complexiteit voor grote dataset verwerking.'
     } as LocalizedContent,
-    technologies: ['Python', '3D Algorithms', 'Mathematical Optimization', 'REST API', 'Data Visualization', 'Performance Optimization'],
+    technologies: [
+      'Python', 
+      createTech('3D Algorithms', '3D Algoritmes') as string, 
+      createTech('Mathematical Optimization', 'Wiskundige Optimalisatie') as string, 
+      'REST API', 
+      createTech('Data Visualization', 'Data Visualisatie') as string, 
+      createTech('Performance Optimization', 'Prestatie Optimalisatie') as string
+    ],
     category: 'automation',
     status: 'completed',
     startDate: new Date('2023-09-01'),
@@ -355,7 +388,15 @@ export const technicalProjects: Project[] = [
       en: 'Built scalable ML pipeline using Python, scikit-learn, and Azure Functions. Implemented automated feature engineering, model training/validation, and real-time prediction serving. Achieved 95% accuracy in predictive maintenance models.',
       nl: 'Bouwde schaalbare ML pipeline met Python, scikit-learn, en Azure Functions. Implementeerde geautomatiseerde feature engineering, model training/validatie, en real-time voorspelling serving. Behaalde 95% nauwkeurigheid in predictive maintenance modellen.'
     } as LocalizedContent,
-    technologies: ['Python', 'Machine Learning', 'scikit-learn', 'Azure Functions', 'Pandas', 'NumPy', 'Real-time Processing'],
+    technologies: [
+      'Python', 
+      'Machine Learning', 
+      'scikit-learn', 
+      'Azure Functions', 
+      'Pandas', 
+      'NumPy', 
+      createTech('Real-time Processing', 'Real-time Verwerking') as string
+    ],
     category: 'data',
     status: 'completed',
     startDate: new Date('2023-08-01'),
@@ -437,7 +478,15 @@ export const technicalProjects: Project[] = [
       en: 'Developed comprehensive automation framework using Python, C#, and Revit API. Created custom Dynamo nodes, automated drawing generation, and implemented robust error handling. Built testing framework for CAD script reliability.',
       nl: 'Ontwikkelde uitgebreid automatiseringsframework met Python, C#, en Revit API. Creëerde aangepaste Dynamo nodes, geautomatiseerde tekening generatie, en implementeerde robuuste error handling. Bouwde test framework voor CAD script betrouwbaarheid.'
     } as LocalizedContent,
-    technologies: ['Python', 'C#', 'Revit API', 'Dynamo', '.NET Framework', 'CAD Integration', 'Automated Testing'],
+    technologies: [
+      'Python', 
+      'C#', 
+      'Revit API', 
+      'Dynamo', 
+      '.NET Framework', 
+      createTech('CAD Integration', 'CAD Integratie') as string, 
+      createTech('Automated Testing', 'Geautomatiseerd Testen') as string
+    ],
     category: 'automation',
     status: 'completed',
     startDate: new Date('2022-04-01'),
@@ -519,7 +568,14 @@ export const technicalProjects: Project[] = [
       en: 'Built from scratch using Go and Docker, implementing distributed task scheduling, fault tolerance, and automatic load balancing. Designed for horizontal scaling and achieved 10x performance improvement over single-node processing.',
       nl: 'Vanaf nul gebouwd met Go en Docker, implementeerde gedistribueerde taak scheduling, fault tolerance, en automatische load balancing. Ontworpen voor horizontale schaling en behaalde 10x prestatie verbetering over single-node verwerking.'
     } as LocalizedContent,
-    technologies: ['Go', 'Docker', 'Kubernetes', 'Distributed Systems', 'Message Queues', 'Load Balancing'],
+    technologies: [
+      'Go', 
+      'Docker', 
+      'Kubernetes', 
+      createTech('Distributed Systems', 'Gedistribueerde Systemen') as string, 
+      createTech('Message Queues', 'Berichtenrijen') as string, 
+      createTech('Load Balancing', 'Load Balancing') as string
+    ],
     category: 'automation',
     status: 'completed',
     startDate: new Date('2024-01-01'),

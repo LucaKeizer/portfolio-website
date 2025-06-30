@@ -129,6 +129,6 @@ export const skills = {
     { name: 'GitHub Actions', level: 'intermediate', years: 1 },
     { name: 'Testing (Jest, pytest)', level: 'intermediate', years: 1 },
     { name: 'VS Code', level: 'expert', years: 4 },
-    { name: 'Linux', level: 'intermediate', years: 2 }
+    { name: 'Kubernetes', level: 'intermediate', years: 2 }
   ]
 }

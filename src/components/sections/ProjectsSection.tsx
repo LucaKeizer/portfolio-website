@@ -42,6 +42,11 @@ const modeContentVariants = {
   }
 }
 
+const getTechName = (tech: string | { en: string; nl: string }, language: 'en' | 'nl'): string => {
+  if (typeof tech === 'string') return tech
+  return tech[language]
+}
+
 function ProjectsList({ projects, language, viewMode }: { 
   projects: Project[], 
   language: 'en' | 'nl', 
@@ -179,7 +184,7 @@ function ProjectsList({ projects, language, viewMode }: {
                     key={techIndex}
                     className="tech-tag"
                   >
-                    {tech}
+                    {getTechName(tech, language)}
                   </span>
                 ))}
               </div>

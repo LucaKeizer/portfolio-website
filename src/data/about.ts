@@ -129,30 +129,135 @@ export const professionalAbout = {
 
   technicalSkills: [
     {
-      category: 'Backend & Data',
+      category: {
+        en: 'Backend & Data',
+        nl: 'Backend & Data'
+      } as LocalizedContent,
       skills: [
-        { name: 'Python', level: 'expert', years: 3, description: 'Main language for automation, data analysis, and backend development' },
-        { name: 'Go', level: 'intermediate', years: 1, description: 'Used for high-performance distributed systems' },
-        { name: 'Machine Learning', level: 'intermediate', years: 1, description: 'scikit-learn, pandas, data pipeline development' },
-        { name: 'SQL', level: 'advanced', years: 2, description: 'PostgreSQL, MySQL, complex query optimization' }
+        { 
+          name: 'Python', 
+          level: 'expert', 
+          years: 3, 
+          description: {
+            en: 'Main language for automation, data analysis, and backend development',
+            nl: 'Hoofdtaal voor automatisering, data-analyse en backend ontwikkeling'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Go', 
+          level: 'intermediate', 
+          years: 1, 
+          description: {
+            en: 'Used for high-performance distributed systems',
+            nl: 'Gebruikt voor high-performance gedistribueerde systemen'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Machine Learning', 
+          level: 'intermediate', 
+          years: 1, 
+          description: {
+            en: 'scikit-learn, pandas, data pipeline development',
+            nl: 'scikit-learn, pandas, data pipeline ontwikkeling'
+          } as LocalizedContent
+        },
+        { 
+          name: 'SQL', 
+          level: 'advanced', 
+          years: 2, 
+          description: {
+            en: 'PostgreSQL, MySQL, complex query optimization',
+            nl: 'PostgreSQL, MySQL, complexe query optimalisatie'
+          } as LocalizedContent
+        }
       ]
     },
     {
-      category: 'Frontend & Web',
+      category: {
+        en: 'Frontend & Web',
+        nl: 'Frontend & Web'
+      } as LocalizedContent,
       skills: [
-        { name: 'TypeScript', level: 'advanced', years: 2, description: 'Type-safe application development' },
-        { name: 'React/Next.js', level: 'advanced', years: 2, description: 'Modern web application development' },
-        { name: 'Node.js', level: 'intermediate', years: 2, description: 'Backend development and API creation' },
-        { name: 'CSS/Tailwind', level: 'advanced', years: 2, description: 'Responsive design and component styling' }
+        { 
+          name: 'TypeScript', 
+          level: 'advanced', 
+          years: 2, 
+          description: {
+            en: 'Type-safe application development',
+            nl: 'Type-veilige applicatie ontwikkeling'
+          } as LocalizedContent
+        },
+        { 
+          name: 'React/Next.js', 
+          level: 'advanced', 
+          years: 2, 
+          description: {
+            en: 'Modern web application development',
+            nl: 'Moderne webapplicatie ontwikkeling'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Node.js', 
+          level: 'intermediate', 
+          years: 2, 
+          description: {
+            en: 'Backend development and API creation',
+            nl: 'Backend ontwikkeling en API creatie'
+          } as LocalizedContent
+        },
+        { 
+          name: 'CSS/Tailwind', 
+          level: 'advanced', 
+          years: 2, 
+          description: {
+            en: 'Responsive design and component styling',
+            nl: 'Responsief ontwerp en component styling'
+          } as LocalizedContent
+        }
       ]
     },
     {
-      category: 'Cloud & DevOps',
+      category: {
+        en: 'Cloud & DevOps',
+        nl: 'Cloud & DevOps'
+      } as LocalizedContent,
       skills: [
-        { name: 'Azure', level: 'intermediate', years: 1, description: 'Functions, storage, deployment pipelines' },
-        { name: 'Docker', level: 'intermediate', years: 1, description: 'Containerization and deployment' },
-        { name: 'Git/GitHub Actions', level: 'advanced', years: 3, description: 'Version control and CI/CD automation' },
-        { name: 'Linux', level: 'intermediate', years: 2, description: 'Server management and shell scripting' }
+        { 
+          name: 'Azure', 
+          level: 'intermediate', 
+          years: 1, 
+          description: {
+            en: 'Functions, storage, deployment pipelines',
+            nl: 'Functions, storage, deployment pipelines'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Docker', 
+          level: 'intermediate', 
+          years: 1, 
+          description: {
+            en: 'Containerization and deployment',
+            nl: 'Containerisatie en deployment'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Git/GitHub Actions', 
+          level: 'advanced', 
+          years: 3, 
+          description: {
+            en: 'Version control and CI/CD automation',
+            nl: 'Version control en CI/CD automatisering'
+          } as LocalizedContent
+        },
+        { 
+          name: 'Linux', 
+          level: 'intermediate', 
+          years: 2, 
+          description: {
+            en: 'Server management and shell scripting',
+            nl: 'Server beheer en shell scripting'
+          } as LocalizedContent
+        }
       ]
     }
   ],
