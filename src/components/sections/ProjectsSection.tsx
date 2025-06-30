@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2 } from 'lucide-react'
+import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2, Linkedin } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, LocalizedContent } from '@/types'
@@ -365,11 +365,24 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
                 </Button>
               </div>
             ) : (
-              <Button variant="gradient" size="lg" asChild>
-                <a href="#contact">
-                  {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
-                </a>
-              </Button>
+              <div className="space-y-4">
+                <Button variant="gradient" size="lg" asChild>
+                  <a href="#contact">
+                    {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                  </a>
+                </Button>
+                
+                <div className="text-muted-foreground text-sm">
+                  {language === 'en' ? 'or connect via' : 'of verbind via'}
+                </div>
+                
+                <Button variant="outline" size="lg" asChild>
+                  <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="h-4 w-4 mr-2" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </div>
             )}
           </motion.div>
         </motion.div>

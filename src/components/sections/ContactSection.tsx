@@ -14,7 +14,8 @@ import {
   CheckCircle,
   AlertCircle,
   Clock,
-  Loader2
+  Loader2,
+  Linkedin
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, ContactFormData } from '@/types'
@@ -190,6 +191,24 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                   </div>
                 </a>
 
+                {/* LinkedIn Link - Only in Professional Mode */}
+                {!isFreelance && (
+                  <a 
+                    href="https://www.linkedin.com/in/lucakeizer/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border hover:border-primary transition-colors card-hover"
+                  >
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <Linkedin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-medium">LinkedIn</div>
+                      <div className="text-muted-foreground">@lucakeizer</div>
+                    </div>
+                  </a>
+                )}
+
                 <div className="flex items-center space-x-4 p-4 bg-card rounded-xl border border-border">
                   <div className="p-3 bg-primary/10 rounded-lg">
                     <MapPin className="h-5 w-5 text-primary" />
@@ -234,6 +253,27 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                   </div>
                 </div>
               </div>
+
+              {/* Professional Mode CTA */}
+              {!isFreelance && (
+                <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20">
+                  <h4 className="font-semibold mb-3 text-primary">
+                    {language === 'en' ? 'Let\'s Connect!' : 'Laten We Verbinden!'}
+                  </h4>
+                  <p className="text-muted-foreground text-sm mb-4">
+                    {language === 'en' 
+                      ? 'The fastest way to connect with me professionally is through LinkedIn.'
+                      : 'De snelste manier om professioneel contact met me op te nemen is via LinkedIn.'
+                    }
+                  </p>
+                  <Button variant="outline" size="sm" asChild>
+                    <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4 mr-2" />
+                      {language === 'en' ? 'Connect on LinkedIn' : 'Verbind op LinkedIn'}
+                    </a>
+                  </Button>
+                </div>
+              )}
             </motion.div>
 
             {/* Contact Form */}

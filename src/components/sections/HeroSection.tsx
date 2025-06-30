@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe } from 'lucide-react'
+import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
@@ -163,13 +163,14 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             ) : (
               <>
                 <Button size="xl" variant="gradient" asChild>
-                  <a href="#contact">
-                    {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                  <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center">
+                    <Linkedin className="h-5 w-5 mr-2" />
+                    {language === 'en' ? 'Connect on LinkedIn' : 'Verbind op LinkedIn'}
                   </a>
                 </Button>
                 <Button size="xl" variant="outline" asChild>
-                  <a href="#projects">
-                    {language === 'en' ? 'View Projects' : 'Bekijk Projecten'}
+                  <a href="#contact">
+                    {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
                   </a>
                 </Button>
               </>
@@ -190,6 +191,11 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             {isFreelance && (
               <p className="text-sm mt-1">
                 ✅ {language === 'en' ? 'Available for new projects' : 'Beschikbaar voor nieuwe projecten'}
+              </p>
+            )}
+            {isProfessional && (
+              <p className="text-sm mt-1">
+                💼 {language === 'en' ? 'Open to new opportunities' : 'Open voor nieuwe kansen'}
               </p>
             )}
           </motion.div>
