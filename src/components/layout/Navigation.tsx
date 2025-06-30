@@ -90,7 +90,7 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+                className="text-muted-foreground hover:text-foreground transition-all duration-200 font-medium link-hover"
               >
                 {item.label[language]}
               </Link>
@@ -132,7 +132,7 @@ export default function Navigation() {
             {/* Language Toggle */}
             <button
               onClick={() => setLanguage(language === 'en' ? 'nl' : 'en')}
-              className="flex items-center space-x-1 text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center space-x-1 text-muted-foreground hover:text-foreground transition-all duration-200 icon-hover"
             >
               <Globe className="h-4 w-4" />
               <span className="text-sm font-medium uppercase">{language}</span>

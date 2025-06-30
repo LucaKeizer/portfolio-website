@@ -84,6 +84,13 @@
 @layer components {
   .gradient-text {
     @apply bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   .section-padding {
@@ -95,23 +102,100 @@
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    transform-origin: center;
+  }
+
+  .card-hover:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 
+                0 0 0 1px rgba(59, 130, 246, 0.1);
+    transform: translateY(-8px) scale(1.01);
   }
 
   .btn-primary {
-    @apply bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply bg-brand-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    transform: translateY(0);
+  }
+
+  .btn-primary:hover {
+    @apply bg-brand-700;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .btn-secondary {
-    @apply bg-white text-brand-600 border border-brand-600 px-6 py-3 rounded-lg font-medium hover:bg-brand-50 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    @apply bg-white text-brand-600 border border-brand-600 px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    transform: translateY(0);
+  }
+
+  .btn-secondary:hover {
+    @apply bg-brand-50;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .tech-tag {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-tech-100 text-tech-700 border 
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-tech-100 text-tech-700 border transition-all duration-200;
+  }
+
+  .tech-tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .mode-transition {
     @apply transition-all duration-500 ease-in-out;
+  }
+
+  /* Icon hover effects */
+  .icon-hover {
+    @apply transition-all duration-300;
+  }
+
+  .icon-hover:hover {
+    transform: scale(1.1) rotate(5deg);
+    color: var(--primary);
+  }
+
+  /* Smooth link hover effects */
+  .link-hover {
+    @apply transition-all duration-200 relative;
+  }
+
+  .link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+
+  .link-hover:hover::after {
+    width: 100%;
+  }
+
+  /* Form input focus effects */
+  .input-focus {
+    @apply transition-all duration-200;
+  }
+
+  .input-focus:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(59, 130, 246, 0.1);
   }
 
   /* Professional mode styling */
@@ -125,6 +209,24 @@
     --primary: 210 100% 50%;
     --primary-foreground: 210 40% 98%;
   }
+
+  /* Scroll reveal animation */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered animation delays */
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
 }
 
 @layer utilities {

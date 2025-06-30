@@ -274,7 +274,7 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
+                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 bg-background input-focus"
                         placeholder={language === 'en' ? 'Your name' : 'Je naam'}
                         required
                         disabled={isSubmitting}
@@ -294,7 +294,7 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-colors bg-background"
+                        className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all duration-200 bg-background input-focus"
                         placeholder="your@email.com"
                         required
                         disabled={isSubmitting}
