@@ -3,18 +3,18 @@ import type { LocalizedContent } from '@/types'
 // FREELANCE ABOUT - For potential clients (barbers, restaurants, small businesses)
 export const freelanceAbout = {
   title: {
-    en: 'Your Web Development Partner in North Holland',
-    nl: 'Jouw Webontwikkelingspartner in Noord-Holland'
+    en: 'Your Custom Web Development Partner in North Holland',
+    nl: 'Jouw Custom Webontwikkelingspartner in Noord-Holland'
   } as LocalizedContent,
   
   bio: {
-    en: 'I help local businesses in North Holland establish a strong online presence and streamline their operations. With a background in professional software engineering, I bring enterprise-level quality to small business solutions.',
-    nl: 'Ik help lokale bedrijven in Noord-Holland een sterke online aanwezigheid op te bouwen en hun bedrijfsvoering te stroomlijnen. Met een achtergrond in professionele software engineering breng ik enterprise-level kwaliteit naar kleine bedrijfsoplossingen.'
+    en: 'I help local businesses in North Holland establish a strong online presence with professional custom-coded websites. With a background in professional software engineering, I bring enterprise-level quality to small business solutions.',
+    nl: 'Ik help lokale bedrijven in Noord-Holland een sterke online aanwezigheid op te bouwen met professionele custom-gecodeerde websites. Met een achtergrond in professionele software engineering breng ik enterprise-level kwaliteit naar kleine bedrijfsoplossingen.'
   } as LocalizedContent,
 
   secondParagraph: {
-    en: 'Every business is unique, which is why I take the time to understand your specific needs and goals. Whether you need a professional website, online booking system, or business automation, I create solutions that actually work for your customers and save you time.',
-    nl: 'Elk bedrijf is uniek, daarom neem ik de tijd om je specifieke behoeften en doelen te begrijpen. Of je nu een professionele website, online boekingssysteem of bedrijfsautomatisering nodig hebt, ik creëer oplossingen die echt werken voor je klanten en je tijd besparen.'
+    en: 'Every business is unique, which is why I build every website from scratch using modern programming languages like React and TypeScript - the same technologies used by companies like Netflix and Facebook. No templates, just fast, secure, custom-coded websites.',
+    nl: 'Elk bedrijf is uniek, daarom bouw ik elke website vanaf nul met moderne programmeertalen zoals React en TypeScript - dezelfde technologieën gebruikt door bedrijven zoals Netflix en Facebook. Geen templates, alleen snelle, veilige, custom-gecodeerde websites.'
   } as LocalizedContent,
 
   businessFacts: [
@@ -24,14 +24,14 @@ export const freelanceAbout = {
       icon: 'MapPin'
     },
     {
-      label: { en: 'Experience', nl: 'Ervaring' } as LocalizedContent,
-      value: { en: '2+ years professional development', nl: '2+ jaar professionele ontwikkeling' } as LocalizedContent,
-      icon: 'Calendar'
+      label: { en: 'Development Method', nl: 'Ontwikkelmethode' } as LocalizedContent,
+      value: { en: 'Custom-coded from scratch', nl: 'Custom-gecodeerd vanaf nul' } as LocalizedContent,
+      icon: 'Building'
     },
     {
-      label: { en: 'Focus Area', nl: 'Focus Gebied' } as LocalizedContent,
-      value: { en: 'North Holland businesses', nl: 'Noord-Holland bedrijven' } as LocalizedContent,
-      icon: 'Building'
+      label: { en: 'Experience', nl: 'Ervaring' } as LocalizedContent,
+      value: { en: '2+ years professional software engineering', nl: '2+ jaar professionele software engineering' } as LocalizedContent,
+      icon: 'Calendar'
     },
     {
       label: { en: 'Response Time', nl: 'Reactietijd' } as LocalizedContent,
@@ -43,26 +43,50 @@ export const freelanceAbout = {
   businessSkills: [
     {
       category: {
-        en: 'Websites I Build',
-        nl: 'Websites Die Ik Bouw'
+        en: 'Custom Websites I Build',
+        nl: 'Custom Websites Die Ik Bouw'
       } as LocalizedContent,
       skills: [
-        { name: { en: 'Business Websites', nl: 'Bedrijfswebsites' } as LocalizedContent, description: { en: 'Professional sites that represent your brand', nl: 'Professionele sites die je merk vertegenwoordigen' } as LocalizedContent },
-        { name: { en: 'Online Booking Systems', nl: 'Online Boekingssystemen' } as LocalizedContent, description: { en: 'Let customers book appointments 24/7', nl: 'Laat klanten 24/7 afspraken boeken' } as LocalizedContent },
-        { name: { en: 'E-commerce Stores', nl: 'E-commerce Winkels' } as LocalizedContent, description: { en: 'Sell your products online', nl: 'Verkoop je producten online' } as LocalizedContent },
-        { name: { en: 'Restaurant Menus', nl: 'Restaurant Menu\'s' } as LocalizedContent, description: { en: 'Digital menus with online ordering', nl: 'Digitale menu\'s met online bestellen' } as LocalizedContent }
+        { 
+          name: { en: 'Hand-Coded Business Websites', nl: 'Handgecodeerde Bedrijfswebsites' } as LocalizedContent, 
+          description: { en: 'Professional sites built from scratch with modern technologies', nl: 'Professionele sites vanaf nul gebouwd met moderne technologieën' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Custom Booking Systems', nl: 'Custom Boekingssystemen' } as LocalizedContent, 
+          description: { en: 'Let customers book appointments 24/7 with custom-built systems', nl: 'Laat klanten 24/7 afspraken boeken met custom-gebouwde systemen' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Custom E-commerce Solutions', nl: 'Custom E-commerce Oplossingen' } as LocalizedContent, 
+          description: { en: 'Sell products online with fast, secure custom stores', nl: 'Verkoop producten online met snelle, veilige custom winkels' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Restaurant Ordering Systems', nl: 'Restaurant Bestelsystemen' } as LocalizedContent, 
+          description: { en: 'Custom-coded digital menus with online ordering capabilities', nl: 'Custom-gecodeerde digitale menu\'s met online bestelmogelijkheden' } as LocalizedContent 
+        }
       ]
     },
     {
       category: {
-        en: 'Business Solutions',
-        nl: 'Bedrijfsoplossingen'
+        en: 'Why Custom Development',
+        nl: 'Waarom Custom Ontwikkeling'
       } as LocalizedContent,
       skills: [
-        { name: { en: 'Process Automation', nl: 'Procesautomatisering' } as LocalizedContent, description: { en: 'Automate repetitive tasks to save time', nl: 'Automatiseer repetitieve taken om tijd te besparen' } as LocalizedContent },
-        { name: { en: 'Customer Management', nl: 'Klantbeheer' } as LocalizedContent, description: { en: 'Keep track of your customers easily', nl: 'Houd je klanten eenvoudig bij' } as LocalizedContent },
-        { name: { en: 'Email Marketing', nl: 'E-mail Marketing' } as LocalizedContent, description: { en: 'Automated follow-ups and newsletters', nl: 'Geautomatiseerde follow-ups en nieuwsbrieven' } as LocalizedContent },
-        { name: { en: 'Analytics & Reports', nl: 'Analytics & Rapporten' } as LocalizedContent, description: { en: 'Understand your business performance', nl: 'Begrijp je bedrijfsprestaties' } as LocalizedContent }
+        { 
+          name: { en: 'Lightning Fast Speed', nl: 'Bliksem Snelle Snelheid' } as LocalizedContent, 
+          description: { en: 'Custom code loads much faster than template-based solutions', nl: 'Custom code laadt veel sneller dan template-gebaseerde oplossingen' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Maximum Security', nl: 'Maximale Veiligheid' } as LocalizedContent, 
+          description: { en: 'Custom-built sites are much more secure than popular platforms', nl: 'Custom-gebouwde sites zijn veel veiliger dan populaire platforms' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Perfect for Your Business', nl: 'Perfect Voor Je Bedrijf' } as LocalizedContent, 
+          description: { en: 'Built exactly for your needs, not forced into a template', nl: 'Gebouwd precies voor jouw behoeften, niet gedwongen in een template' } as LocalizedContent 
+        },
+        { 
+          name: { en: 'Future-Proof Technology', nl: 'Toekomstbestendige Technologie' } as LocalizedContent, 
+          description: { en: 'Built with React/TypeScript - same tech as Netflix, Facebook, Airbnb', nl: 'Gebouwd met React/TypeScript - dezelfde tech als Netflix, Facebook, Airbnb' } as LocalizedContent 
+        }
       ]
     }
   ],
@@ -73,16 +97,16 @@ export const freelanceAbout = {
       description: { en: 'Based in Volendam, I understand North Holland businesses and provide ongoing support.', nl: 'Gevestigd in Volendam, ik begrijp Noord-Holland bedrijven en bied doorlopende ondersteuning.' } as LocalizedContent
     },
     {
-      title: { en: 'Professional Quality', nl: 'Professionele Kwaliteit' } as LocalizedContent,
-      description: { en: 'Enterprise-level development experience ensures your website is built to last.', nl: 'Enterprise-level ontwikkelingservaring zorgt ervoor dat je website gebouwd is om te blijven.' } as LocalizedContent
+      title: { en: 'Real Developer Quality', nl: 'Echte Developer Kwaliteit' } as LocalizedContent,
+      description: { en: 'Professional software engineer with 2+ years experience building enterprise-level applications.', nl: 'Professionele software engineer met 2+ jaar ervaring in het bouwen van enterprise-level applicaties.' } as LocalizedContent
     },
     {
-      title: { en: 'Results-Focused', nl: 'Resultaatgericht' } as LocalizedContent,
-      description: { en: 'Every solution is designed to help your business grow and save you time.', nl: 'Elke oplossing is ontworpen om je bedrijf te laten groeien en je tijd te besparen.' } as LocalizedContent
+      title: { en: 'Custom-Built Solutions', nl: 'Custom-Gebouwde Oplossingen' } as LocalizedContent,
+      description: { en: 'Hand-coded from scratch means your website does exactly what you need, fast and secure.', nl: 'Handgecodeerd vanaf nul betekent dat je website precies doet wat je nodig hebt, snel en veilig.' } as LocalizedContent
     },
     {
-      title: { en: 'Fair Pricing', nl: 'Eerlijke Prijzen' } as LocalizedContent,
-      description: { en: 'Transparent pricing with no hidden costs. Perfect for small to medium businesses.', nl: 'Transparante prijzen zonder verborgen kosten. Perfect voor kleine tot middelgrote bedrijven.' } as LocalizedContent
+      title: { en: 'Unbeatable Portfolio Prices', nl: 'Onverslaanbare Portfolio Prijzen' } as LocalizedContent,
+      description: { en: 'Professional quality at incredible prices while I build my freelance portfolio.', nl: 'Professionele kwaliteit tegen ongelooflijke prijzen terwijl ik mijn freelance portfolio opbouw.' } as LocalizedContent
     }
   ]
 }

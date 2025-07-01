@@ -46,12 +46,12 @@ export const DISCOUNT_CONFIGS: Record<DiscountLevel, DiscountConfig> = {
         nl: 'Beperkte Tijd Aanbieding - 25% KORTING!'
       },
       subtitle: {
-        en: 'Professional websites at a great price',
-        nl: 'Professionele websites tegen een geweldige prijs'
+        en: 'Professional custom-coded websites at a great price',
+        nl: 'Professionele custom-gecodeerde websites tegen een geweldige prijs'
       },
       description: {
-        en: 'Take advantage of our seasonal discount and get your business online with a professional website.',
-        nl: 'Profiteer van onze seizoenskorting en breng je bedrijf online met een professionele website.'
+        en: 'Take advantage of our seasonal discount and get your business online with a professional custom-coded website.',
+        nl: 'Profiteer van onze seizoenskorting en breng je bedrijf online met een professionele custom-gecodeerde website.'
       },
       limitations: {
         en: 'Valid until the end of this month!',
@@ -59,20 +59,20 @@ export const DISCOUNT_CONFIGS: Record<DiscountLevel, DiscountConfig> = {
       },
       features: [
         {
-          en: 'Same professional quality',
-          nl: 'Dezelfde professionele kwaliteit'
+          en: 'Hand-coded from scratch',
+          nl: 'Handgecodeerd vanaf nul'
         },
         {
-          en: 'All features included',
-          nl: 'Alle functies inbegrepen'
+          en: 'Modern tech stack',
+          nl: 'Moderne tech stack'
         },
         {
-          en: 'Full support included',
-          nl: 'Volledige ondersteuning inbegrepen'
+          en: 'Lightning fast performance',
+          nl: 'Bliksem snelle prestaties'
         },
         {
-          en: 'Money-back guarantee',
-          nl: 'Geld-terug garantie'
+          en: 'Professional development quality',
+          nl: 'Professionele ontwikkelingskwaliteit'
         }
       ],
       showBanner: true,
@@ -84,16 +84,16 @@ export const DISCOUNT_CONFIGS: Record<DiscountLevel, DiscountConfig> = {
     percentage: 50,
     bannerInfo: {
       title: {
-        en: 'Early Bird Special - 50% OFF!',
-        nl: 'Early Bird Aanbieding - 50% KORTING!'
+        en: 'Early Bird Special - 50% OFF Custom Websites!',
+        nl: 'Early Bird Aanbieding - 50% KORTING Custom Websites!'
       },
       subtitle: {
-        en: 'For the next 5 customers only',
-        nl: 'Alleen voor de volgende 5 klanten'
+        en: 'Professional hand-coded websites for the next 5 customers',
+        nl: 'Professionele handgecodeerde websites voor de volgende 5 klanten'
       },
       description: {
-        en: 'Join my growing client base and get an incredible discount on your professional website. Perfect for businesses ready to establish their online presence.',
-        nl: 'Sluit je aan bij mijn groeiende klantenbestand en krijg een ongelooflijke korting op je professionele website. Perfect voor bedrijven die klaar zijn om hun online aanwezigheid te vestigen.'
+        en: 'Join my growing client base and get an incredible discount on your professional custom-coded website. Built from scratch with modern technologies.',
+        nl: 'Sluit je aan bij mijn groeiende klantenbestand en krijg een ongelooflijke korting op je professionele custom-gecodeerde website. Vanaf nul gebouwd met moderne technologieën.'
       },
       limitations: {
         en: 'Only 5 spots available - 2 already taken!',
@@ -101,20 +101,20 @@ export const DISCOUNT_CONFIGS: Record<DiscountLevel, DiscountConfig> = {
       },
       features: [
         {
-          en: 'Professional development experience',
-          nl: 'Professionele ontwikkelingservaring'
+          en: 'Hand-coded from scratch',
+          nl: 'Handgecodeerd vanaf nul'
         },
         {
-          en: 'Extra attention to detail',
-          nl: 'Extra aandacht voor detail'
+          en: 'Professional software engineer quality',
+          nl: 'Professionele software engineer kwaliteit'
         },
         {
-          en: 'Priority support',
-          nl: 'Prioriteitsondersteuning'
+          en: 'Modern React/TypeScript technology',
+          nl: 'Moderne React/TypeScript technologie'
         },
         {
-          en: 'Free consultation included',
-          nl: 'Gratis consultatie inbegrepen'
+          en: 'Lightning fast performance guaranteed',
+          nl: 'Bliksem snelle prestaties gegarandeerd'
         }
       ],
       showBanner: true,
@@ -126,37 +126,37 @@ export const DISCOUNT_CONFIGS: Record<DiscountLevel, DiscountConfig> = {
     percentage: 80,
     bannerInfo: {
       title: {
-        en: 'Portfolio Building Special - 80% OFF!',
-        nl: 'Portfolio Opbouw Aanbieding - 80% KORTING!'
+        en: 'Portfolio Building Special - 80% OFF Custom Websites!',
+        nl: 'Portfolio Opbouw Aanbieding - 80% KORTING Custom Websites!'
       },
       subtitle: {
-        en: 'First 5 clients get incredible discounts',
-        nl: 'Eerste 5 klanten krijgen ongelooflijke kortingen'
+        en: 'Professional custom-coded websites at unbeatable prices',
+        nl: 'Professionele custom-gecodeerde websites tegen onverslaanbare prijzen'
       },
       description: {
-        en: 'I\'m building my freelance portfolio and offering amazing deals for my first clients. You get a professional website for less than the cost of a weekend trip!',
-        nl: 'Ik bouw mijn freelance portfolio op en bied geweldige deals voor mijn eerste klanten. Je krijgt een professionele website voor minder dan de kosten van een weekendje weg!'
+        en: 'I\'m building my freelance portfolio and offering amazing deals for my first clients. Get a professional hand-coded website for less than the cost of a weekend trip. This is real custom development at portfolio prices.',
+        nl: 'Ik bouw mijn freelance portfolio op en bied geweldige deals voor mijn eerste klanten. Krijg een professionele handgecodeerde website voor minder dan de kosten van een weekendje weg. Dit is echte custom ontwikkeling tegen portfolio prijzen.'
       },
       limitations: {
-        en: 'Only 5 spots available - 2 already taken!',
-        nl: 'Slechts 5 plekken beschikbaar - 2 al ingenomen!'
+        en: 'Only 5 spots available - 2 already taken! Custom-coded quality guaranteed.',
+        nl: 'Slechts 5 plekken beschikbaar - 2 al ingenomen! Custom-gecodeerde kwaliteit gegarandeerd.'
       },
       features: [
         {
-          en: 'Same quality as full-price websites',
-          nl: 'Dezelfde kwaliteit als full-price websites'
+          en: 'Built from scratch (no templates)',
+          nl: 'Vanaf nul gebouwd (geen templates)'
         },
         {
-          en: '2+ years professional development experience',
-          nl: '2+ jaar professionele ontwikkelingservaring'
+          en: '2+ years professional software engineering',
+          nl: '2+ jaar professionele software engineering'
         },
         {
-          en: 'Extra care for portfolio projects',
-          nl: 'Extra zorg voor portfolio projecten'
+          en: 'Same tech as major companies',
+          nl: 'Dezelfde tech als grote bedrijven'
         },
         {
-          en: 'Free updates included',
-          nl: 'Gratis updates inbegrepen'
+          en: 'Portfolio project = extra attention to detail',
+          nl: 'Portfolio project = extra aandacht voor detail'
         }
       ],
       showBanner: true,
@@ -195,7 +195,7 @@ const ORIGINAL_PRICES = {
 }
 
 // ==========================================
-// Services with Dynamic Pricing
+// Services with Dynamic Pricing and Quality Emphasis
 // ==========================================
 export const services: Service[] = [
   {
@@ -205,29 +205,31 @@ export const services: Service[] = [
       nl: 'Eenvoudige Bedrijfswebsite'
     } as LocalizedContent,
     description: {
-      en: 'Perfect for small businesses wanting a professional online presence',
-      nl: 'Perfect voor kleine bedrijven die een professionele online aanwezigheid willen'
+      en: 'Professional hand-coded website for small businesses. Built from scratch with modern technologies.',
+      nl: 'Professionele handgecodeerde website voor kleine bedrijven. Vanaf nul gebouwd met moderne technologieën.'
     } as LocalizedContent,
     features: {
       en: [
         'Up to 5 pages (Home, About, Services, Contact)',
         'Mobile-responsive design',
-        'Contact form',
+        'Lightning fast loading speeds',
+        'Contact form with email integration',
         'Google Maps integration',
         'Social media links',
-        'Basic SEO setup',
-        'Professional hosting included',
-        '1 month of free minor updates'
+        'Professional SEO setup',
+        'Secure hosting included',
+        '1 month of free updates'
       ],
       nl: [
         'Tot 5 pagina\'s (Home, Over, Diensten, Contact)',
         'Mobiel-responsief ontwerp',
-        'Contactformulier',
+        'Bliksem snelle laadsnelheden',
+        'Contactformulier met e-mail integratie',
         'Google Maps integratie',
         'Social media links',
-        'Basis SEO setup',
-        'Professionele hosting inbegrepen',
-        '1 maand gratis kleine updates'
+        'Professionele SEO setup',
+        'Veilige hosting inbegrepen',
+        '1 maand gratis updates'
       ]
     },
     price: {
@@ -255,30 +257,34 @@ export const services: Service[] = [
       nl: 'Professionele Bedrijfswebsite'
     } as LocalizedContent,
     description: {
-      en: 'Complete website solution with booking system for service businesses',
-      nl: 'Volledige websiteoplossing met reserveringssysteem voor dienstverleners'
+      en: 'Complete custom-coded website with booking system. Professional quality with modern technologies.',
+      nl: 'Volledige custom-gecodeerde website met boekingssysteem. Professionele kwaliteit met moderne technologieën.'
     } as LocalizedContent,
     features: {
       en: [
-        'Everything in Simple Website',
+        'Everything in Simple Website +',
         'Up to 8 custom pages',
         'Online appointment booking calendar',
         'Automated email confirmations',
+        'Customer management system',
         'Image gallery/portfolio section',
         'Customer testimonials section',
         'Google Analytics integration',
-        'Professional email setup',
+        'Professional email setup (@yourdomain.com)',
+        'Advanced security features',
         '2 months of free updates'
       ],
       nl: [
-        'Alles van Eenvoudige Website',
+        'Alles van Eenvoudige Website +',
         'Tot 8 aangepaste pagina\'s',
         'Online afspraak boekingskalender',
         'Geautomatiseerde e-mailbevestigingen',
+        'Klantmanagementsysteem',
         'Afbeeldingsgalerij/portfolio sectie',
         'Klantgetuigenissen sectie',
         'Google Analytics integratie',
-        'Professionele e-mail setup',
+        'Professionele e-mail setup (@jouwdomein.nl)',
+        'Geavanceerde beveiligingsfeatures',
         '2 maanden gratis updates'
       ]
     },
@@ -303,34 +309,40 @@ export const services: Service[] = [
   {
     id: 'custom-website',
     title: {
-      en: 'Custom Website Solution',
-      nl: 'Aangepaste Website Oplossing'
+      en: 'Enterprise Custom Solution',
+      nl: 'Enterprise Custom Oplossing'
     } as LocalizedContent,
     description: {
-      en: 'Tailored website with special features for your unique business needs',
-      nl: 'Op maat gemaakte website met speciale functies voor jouw unieke bedrijfsbehoeften'
+      en: 'Fully tailored custom-coded website with advanced features. Enterprise-level quality built from scratch.',
+      nl: 'Volledig op maat gemaakte custom-gecodeerde website met geavanceerde functies. Enterprise-level kwaliteit vanaf nul gebouwd.'
     } as LocalizedContent,
     features: {
       en: [
-        'Everything in Professional Website',
-        'Custom functionality based on your needs',
+        'Everything in Business Website +',
+        'Unlimited custom pages',
+        'Advanced custom functionality',
         'E-commerce capabilities (if needed)',
-        'Advanced forms and integrations',
+        'Complex forms and integrations',
         'Custom design matching your brand',
+        'Database integration',
         'Performance optimization',
-        'Advanced SEO setup',
-        'Training on how to manage your site',
+        'Advanced SEO and marketing tools',
+        'Training on content management',
+        'Priority support',
         '3 months of free updates'
       ],
       nl: [
-        'Alles van Professionele Website',
-        'Maatwerkfunctie op jouw wensen afgestemd',
+        'Alles van Bedrijfswebsite +',
+        'Onbeperkt aantal aangepaste pagina\'s',
+        'Geavanceerde maatwerkfunctionaliteit',
         'E-commerce mogelijkheden (indien nodig)',
-        'Geavanceerde formulieren en integraties',
+        'Complexe formulieren en integraties',
         'Aangepast ontwerp passend bij jouw merk',
+        'Database integratie',
         'Prestatie optimalisatie',
-        'Geavanceerde SEO setup',
-        'Training over hoe je site te beheren',
+        'Geavanceerde SEO en marketing tools',
+        'Training over contentbeheer',
+        'Prioriteitsondersteuning',
         '3 maanden gratis updates'
       ]
     },
@@ -362,8 +374,8 @@ export const processSteps = [
       nl: 'Ontdekking & Planning'
     },
     description: {
-      en: 'We discuss your business, goals, and plan your perfect website together',
-      nl: 'We bespreken je bedrijf, doelen en plannen samen je perfecte website'
+      en: 'We discuss your business, goals, and plan your perfect custom website together',
+      nl: 'We bespreken je bedrijf, doelen en plannen samen je perfecte custom website'
     },
     duration: {
       en: '1-2 days',
@@ -373,12 +385,12 @@ export const processSteps = [
   {
     step: 2,
     title: {
-      en: 'Design & Content',
-      nl: 'Ontwerp & Inhoud'
+      en: 'Custom Design & Content',
+      nl: 'Custom Ontwerp & Inhoud'
     },
     description: {
-      en: 'Create the visual design and prepare all content for your website',
-      nl: 'Maak het visuele ontwerp en bereid alle inhoud voor je website voor'
+      en: 'Create unique visual design and prepare content specifically for your business',
+      nl: 'Maak uniek visueel ontwerp en bereid inhoud specifiek voor je bedrijf voor'
     },
     duration: {
       en: '2-4 days',
@@ -392,12 +404,12 @@ export const processSteps = [
       nl: 'Ontwikkeling'
     },
     description: {
-      en: 'Build your website with regular updates on progress',
-      nl: 'Bouw je website met regelmatige updates over de voortgang'
+      en: 'Build your website from scratch with modern code and regular progress updates',
+      nl: 'Bouw je website vanaf nul met moderne code en regelmatige voortgangsupdates'
     },
     duration: {
-      en: '1-6 weeks',
-      nl: '1-6 weken'
+      en: '1-3 weeks',
+      nl: '1-3 weken'
     } as LocalizedContent
   },
   {
@@ -407,8 +419,8 @@ export const processSteps = [
       nl: 'Lancering & Training'
     },
     description: {
-      en: 'Launch your website and learn how to manage it yourself',
-      nl: 'Lanceer je website en leer hoe je deze zelf kunt beheren'
+      en: 'Launch your custom website and learn how to manage content easily',
+      nl: 'Lanceer je custom website en leer hoe je content eenvoudig kunt beheren'
     },
     duration: {
       en: '1-2 days',

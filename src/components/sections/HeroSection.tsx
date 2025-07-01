@@ -1,10 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin } from 'lucide-react'
+import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin, Shield, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
+import { shouldShowDiscountBanner, getCurrentDiscount } from '@/data/services'
 
 const startDate = new Date('2022-04-01') // Your career start date
 const yearsOfExperience = calculateYearsOfExperience(startDate)
@@ -42,9 +43,11 @@ const modeVariants = {
 export default function HeroSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
   const isProfessional = viewMode === 'professional'
+  const showDiscountBanner = shouldShowDiscountBanner()
+  const currentDiscount = getCurrentDiscount()
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
@@ -87,8 +90,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
           >
             {isFreelance ? (
               language === 'en' 
-                ? 'Freelance Web Developer & Software Engineer'
-                : 'Freelance Webontwikkelaar & Software Engineer'
+                ? 'Custom Web Developer & Software Engineer'
+                : 'Custom Webontwikkelaar & Software Engineer'
             ) : (
               language === 'en'
                 ? 'Software Engineer & Full-Stack Developer'
@@ -102,18 +105,45 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-12 max-w-3xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-3xl mx-auto"
           >
             {isFreelance ? (
               language === 'en' 
-                ? `Helping businesses in North Holland build modern, scalable websites and web applications. ${yearsOfExperience}+ years of professional software engineering experience.`
-                : `Help bedrijven in Noord-Holland bij het bouwen van moderne, schaalbare websites en webapplicaties. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
+                ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
+                : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
             ) : (
               language === 'en'
                 ? `Passionate about building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of experience in full-stack development and data analysis.`
                 : `Gepassioneerd over het bouwen van schaalbare oplossingen met Python, TypeScript en moderne cloud technologieën. ${yearsOfExperience}+ jaar ervaring in full-stack ontwikkeling en data-analyse.`
             )}
           </motion.p>
+
+          {/* Quality Badges - Only in Freelance Mode */}
+          {isFreelance && (
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm"
+            >
+              <div className="flex items-center space-x-2 text-muted-foreground">
+                <Code2 className="h-4 w-4 text-green-600" />
+                <span className="font-medium">
+                  {language === 'en' ? 'Custom Coded' : 'Custom Gecodeerd'}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2 text-muted-foreground">
+                <Zap className="h-4 w-4 text-purple-600" />
+                <span className="font-medium">
+                  {language === 'en' ? 'Lightning Fast' : 'Bliksem Snel'}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2 text-muted-foreground">
+                <Shield className="h-4 w-4 text-blue-600" />
+                <span className="font-medium">
+                  {language === 'en' ? 'Professional Quality' : 'Professionele Kwaliteit'}
+                </span>
+              </div>
+            </motion.div>
+          )}
 
           {/* Tech Stack Icons */}
           <motion.div 
@@ -137,6 +167,27 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
               <span className="text-sm font-medium">Azure</span>
             </div>
           </motion.div>
+
+          {/* Discount Banner - Only in Freelance Mode when active */}
+          {isFreelance && showDiscountBanner && (
+            <motion.div 
+              variants={itemVariants}
+              className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-300 dark:border-orange-700 rounded-xl p-4 mb-12 max-w-2xl mx-auto"
+            >
+              <div className="flex items-center justify-center space-x-2 mb-2">
+                <Zap className="h-4 w-4 text-orange-600" />
+                <span className="font-bold text-orange-800 dark:text-orange-200 text-sm">
+                  {language === 'en' ? currentDiscount.bannerInfo.title.en : currentDiscount.bannerInfo.title.nl}
+                </span>
+              </div>
+              <p className="text-orange-700 dark:text-orange-300 text-sm">
+                {language === 'en' 
+                  ? 'Professional custom-coded websites at unbeatable prices. Real development quality!'
+                  : 'Professionele custom-gecodeerde websites tegen onverslaanbare prijzen. Echte ontwikkelingskwaliteit!'
+                }
+              </p>
+            </motion.div>
+          )}
 
           {/* CTA Buttons - Animated based on mode */}
           <motion.div 

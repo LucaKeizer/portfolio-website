@@ -14,7 +14,10 @@ import {
   Code2,
   Database,
   Cloud,
-  Globe
+  Globe,
+  Shield,
+  Zap,
+  Award
 } from 'lucide-react'
 import type { SectionProps } from '@/types'
 import { personalInfo } from '@/data/personal'
@@ -92,6 +95,57 @@ function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
           </p>
         </div>
 
+        {/* Development Quality - Prominent Feature */}
+        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 p-6 rounded-xl border-2 border-blue-200 dark:border-blue-800">
+          <h3 className="text-xl font-semibold mb-4 text-blue-800 dark:text-blue-200">
+            {language === 'en' ? 'Professional Development Quality' : 'Professionele Ontwikkelingskwaliteit'}
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-start space-x-3">
+              <Code2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-blue-800 dark:text-blue-200">
+                  {language === 'en' ? 'Hand-Coded from Scratch' : 'Handgecodeerd vanaf Nul'}
+                </div>
+                <div className="text-sm text-blue-700 dark:text-blue-300">
+                  {language === 'en' 
+                    ? 'Every line of code is written specifically for your business needs'
+                    : 'Elke regel code wordt specifiek geschreven voor jouw bedrijfsbehoeften'
+                  }
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start space-x-3">
+              <Zap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-blue-800 dark:text-blue-200">
+                  {language === 'en' ? 'Lightning Fast Performance' : 'Bliksem Snelle Prestaties'}
+                </div>
+                <div className="text-sm text-blue-700 dark:text-blue-300">
+                  {language === 'en' 
+                    ? 'Clean, optimized code means faster loading times for your customers'
+                    : 'Schone, geoptimaliseerde code betekent snellere laadtijden voor je klanten'
+                  }
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start space-x-3">
+              <Shield className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="font-medium text-blue-800 dark:text-blue-200">
+                  {language === 'en' ? 'Maximum Security' : 'Maximale Veiligheid'}
+                </div>
+                <div className="text-sm text-blue-700 dark:text-blue-300">
+                  {language === 'en' 
+                    ? 'No WordPress vulnerabilities - custom code is much more secure'
+                    : 'Geen WordPress kwetsbaarheden - custom code is veel veiliger'
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Business Facts */}
         <div className="bg-card p-6 rounded-xl border border-border">
           <h3 className="text-xl font-semibold mb-4">
@@ -118,8 +172,8 @@ function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
           </div>
           <p className="text-green-700 dark:text-green-300 text-sm mt-2">
             {language === 'en' 
-              ? 'Ready to start new projects in North Holland'
-              : 'Klaar om nieuwe projecten te starten in Noord-Holland'
+              ? 'Ready to start new custom projects in North Holland'
+              : 'Klaar om nieuwe custom projecten te starten in Noord-Holland'
             }
           </p>
         </div>
@@ -353,8 +407,8 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
             >
               {isFreelance 
                 ? (language === 'en' 
-                    ? 'Your trusted partner for digital solutions that grow your business'
-                    : 'Jouw vertrouwde partner voor digitale oplossingen die je bedrijf laten groeien'
+                    ? 'Your trusted partner for custom-coded digital solutions that grow your business'
+                    : 'Jouw vertrouwde partner voor custom-gecodeerde digitale oplossingen die je bedrijf laten groeien'
                   )
                 : (language === 'en'
                     ? 'Building innovative software solutions with modern technologies and engineering excellence'
