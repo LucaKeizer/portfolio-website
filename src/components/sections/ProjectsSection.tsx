@@ -1,26 +1,40 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2, Linkedin } from 'lucide-react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import type { SectionProps, LocalizedContent } from '@/types'
-import { getFeaturedProjects } from '@/data/projects'
-import type { Project } from '@/types'
-import { formatDate } from '@/lib/utils'
+import { 
+  MapPin, 
+  Calendar, 
+  Building, 
+  Clock, 
+  Languages,
+  Briefcase,
+  GraduationCap,
+  CheckCircle,
+  Star,
+  Code2,
+  Database,
+  Cloud,
+  Globe
+} from 'lucide-react'
+import type { SectionProps } from '@/types'
+import { personalInfo } from '@/data/personal'
+import { freelanceAbout, professionalAbout } from '@/data/about'
+import { calculateYearsOfExperience } from '@/lib/utils'
+import type { LocalizedContent } from '@/types'
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.1
     }
   }
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
@@ -42,26 +56,152 @@ const modeContentVariants = {
   }
 }
 
-const getTechName = (tech: string | { en: string; nl: string }, language: 'en' | 'nl'): string => {
-  if (typeof tech === 'string') return tech
-  return tech[language]
+const iconMap: Record<string, React.ReactNode> = {
+  MapPin: <MapPin className="h-4 w-4" />,
+  Calendar: <Calendar className="h-4 w-4" />,
+  Building: <Building className="h-4 w-4" />,
+  Clock: <Clock className="h-4 w-4" />,
+  Languages: <Languages className="h-4 w-4" />,
+  Briefcase: <Briefcase className="h-4 w-4" />,
+  GraduationCap: <GraduationCap className="h-4 w-4" />
 }
 
-function ProjectsList({ projects, language, viewMode }: { 
-  projects: Project[], 
-  language: 'en' | 'nl', 
-  viewMode: 'freelance' | 'professional' 
-}) {
-  const isFreelance = viewMode === 'freelance'
+function FreelanceAboutSection({ language }: { language: 'en' | 'nl' }) {
+  return (
+    <motion.div
+      variants={modeContentVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
+    >
+      
+      {/* Bio & Business Info */}
+      <div className="space-y-6">
+        
+        {/* Main Bio */}
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h3 className="text-xl font-semibold mb-4">
+            {freelanceAbout.title[language]}
+          </h3>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            {freelanceAbout.bio[language]}
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            {freelanceAbout.secondParagraph[language]}
+          </p>
+        </div>
+
+        {/* Business Facts */}
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h3 className="text-xl font-semibold mb-4">
+            {language === 'en' ? 'Quick Facts' : 'Korte Feiten'}
+          </h3>
+          <div className="space-y-3">
+            {freelanceAbout.businessFacts.map((fact, index) => (
+              <div key={index} className="flex items-center space-x-3 text-muted-foreground">
+                {iconMap[fact.icon]}
+                <span className="font-medium">{fact.label[language]}:</span>
+                <span>{fact.value[language]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Availability */}
+        <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+          <div className="flex items-center space-x-3 text-green-600 dark:text-green-400">
+            <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+            <span className="font-medium">
+              {personalInfo.availability.freelance[language]}
+            </span>
+          </div>
+          <p className="text-green-700 dark:text-green-300 text-sm mt-2">
+            {language === 'en' 
+              ? 'Ready to start new projects in North Holland'
+              : 'Klaar om nieuwe projecten te starten in Noord-Holland'
+            }
+          </p>
+        </div>
+      </div>
+
+      {/* Business Skills */}
+      <div className="space-y-6">
+        {freelanceAbout.businessSkills.map((category, categoryIndex) => (
+          <div key={categoryIndex} className="bg-card p-6 rounded-xl border border-border">
+            <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Code2 className="h-5 w-5 text-primary" />
+              </div>
+              <span>{category.category[language]}</span>
+            </h3>
+            
+            <div className="space-y-3">
+              {category.skills.map((skill, skillIndex) => (
+                <div key={skillIndex} className="space-y-2">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium">{skill.name[language]}</div>
+                      <div className="text-sm text-muted-foreground">{skill.description[language]}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {/* Why Choose Me */}
+        <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20">
+          <h3 className="text-lg font-semibold mb-4 text-primary">
+            {language === 'en' ? 'Why Choose Me?' : 'Waarom Mij Kiezen?'}
+          </h3>
+          <div className="space-y-4">
+            {freelanceAbout.whyChooseMe.map((reason, index) => (
+              <div key={index} className="flex items-start space-x-3">
+                <Star className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                <div>
+                  <div className="font-medium text-primary">{reason.title[language]}</div>
+                  <div className="text-sm text-muted-foreground">{reason.description[language]}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+function ProfessionalAboutSection({ language }: { language: 'en' | 'nl' }) {
+  const getSkillColor = (level: string) => {
+    switch (level) {
+      case 'expert': return 'bg-green-500'
+      case 'advanced': return 'bg-blue-500'
+      case 'intermediate': return 'bg-yellow-500'
+      default: return 'bg-gray-500'
+    }
+  }
+
+  const getSkillWidth = (level: string) => {
+    switch (level) {
+      case 'expert': return '100%'
+      case 'advanced': return '85%'
+      case 'intermediate': return '70%'
+      default: return '50%'
+    }
+  }
 
   // Helper function to get localized text
   const getText = (content: LocalizedContent): string => {
     return content[language]
   }
 
-  // Helper function to get localized array
-  const getArray = (content: { en: string[]; nl: string[] } | undefined): string[] => {
-    return content ? content[language] : []
+  // Helper function to get localized skill description
+  const getSkillDescription = (description: LocalizedContent | string): string => {
+    if (typeof description === 'string') return description
+    return description[language]
   }
 
   return (
@@ -70,326 +210,168 @@ function ProjectsList({ projects, language, viewMode }: {
       initial="hidden"
       animate="visible"
       exit="hidden"
-      className="space-y-12"
+      className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
     >
-      {projects.map((project, index) => (
-        <motion.div 
-          key={project.id}
-          variants={cardVariants}
-          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${
-            index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-          }`}
-        >
-          
-          {/* Project Image */}
-          <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-            <div className="relative group">
-              {project.images && project.images.length > 0 ? (
-                <div className="h-64 md:h-80 rounded-xl overflow-hidden border border-border card-hover">
-                  <img
-                    src={project.images[0]}
-                    alt={getText(project.title)}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    onError={(e) => {
-                      // Fallback to placeholder if image fails to load
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const placeholder = target.nextElementSibling as HTMLElement;
-                      if (placeholder) placeholder.style.display = 'flex';
-                    }}
-                  />
-                  {/* Fallback placeholder */}
-                  <div className="w-full h-full bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center text-muted-foreground" style={{ display: 'none' }}>
-                    <div className="text-center">
-                      <Code2 className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                      <p className="text-sm">
-                        {language === 'en' ? 'Project Image' : 'Project Afbeelding'}
-                      </p>
-                      <p className="text-xs mt-1">{getText(project.title)}</p>
+      
+      {/* Bio & Professional Info */}
+      <div className="space-y-6">
+        
+        {/* Main Bio */}
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h3 className="text-xl font-semibold mb-4">
+            {getText(professionalAbout.title)}
+          </h3>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            {getText(professionalAbout.bio)}
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            {getText(professionalAbout.secondParagraph)}
+          </p>
+        </div>
+
+        {/* Professional Facts */}
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h3 className="text-xl font-semibold mb-4">
+            {language === 'en' ? 'Professional Details' : 'Professionele Details'}
+          </h3>
+          <div className="space-y-3">
+            {professionalAbout.professionalFacts.map((fact, index) => (
+              <div key={index} className="flex items-center space-x-3 text-muted-foreground">
+                {iconMap[fact.icon]}
+                <span className="font-medium">{getText(fact.label)}:</span>
+                <span>{getText(fact.value)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Career Highlights */}
+        <div className="bg-card p-6 rounded-xl border border-border">
+          <h3 className="text-xl font-semibold mb-4">
+            {language === 'en' ? 'Career Highlights' : 'Carrière Hoogtepunten'}
+          </h3>
+          <div className="space-y-4">
+            {professionalAbout.careerHighlights.map((highlight, index) => (
+              <div key={index} className="flex items-start space-x-3">
+                <div className="p-1 bg-primary/20 rounded-full mt-1">
+                  <div className="h-2 w-2 bg-primary rounded-full"></div>
+                </div>
+                <div>
+                  <div className="font-medium">{getText(highlight.title)}</div>
+                  <div className="text-sm text-muted-foreground">{getText(highlight.description)}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Technical Skills */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-semibold">
+          {language === 'en' ? 'Technical Expertise' : 'Technische Expertise'}
+        </h3>
+        
+        {professionalAbout.technicalSkills.map((category, categoryIndex) => (
+          <div key={categoryIndex} className="bg-card p-6 rounded-xl border border-border">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className={`p-2 rounded-lg ${
+                categoryIndex === 0 ? 'bg-green-100 text-green-600' :
+                categoryIndex === 1 ? 'bg-blue-100 text-blue-600' :
+                'bg-purple-100 text-purple-600'
+              }`}>
+                {categoryIndex === 0 ? <Database className="h-5 w-5" /> :
+                 categoryIndex === 1 ? <Globe className="h-5 w-5" /> :
+                 <Cloud className="h-5 w-5" />}
+              </div>
+              <h4 className="text-lg font-semibold">{getText(category.category)}</h4>
+            </div>
+            
+            <div className="space-y-4">
+              {category.skills.map((skill, skillIndex) => (
+                <div key={skillIndex} className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium">{skill.name}</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-xs text-muted-foreground capitalize">
+                        {language === 'en' ? skill.level : 
+                         skill.level === 'expert' ? 'expert' :
+                         skill.level === 'advanced' ? 'gevorderd' :
+                         skill.level === 'intermediate' ? 'tussenliggende' : skill.level
+                        }
+                      </span>
+                      <span className="text-xs text-muted-foreground">{skill.years}{language === 'en' ? 'y' : 'j'}</span>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="bg-gradient-to-br from-brand-100 to-brand-200 h-64 md:h-80 rounded-xl flex items-center justify-center border border-border card-hover">
-                  <div className="text-center text-muted-foreground">
-                    <Code2 className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-sm">
-                      {language === 'en' ? 'Project Image' : 'Project Afbeelding'}
-                    </p>
-                    <p className="text-xs mt-1">{getText(project.title)}</p>
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-1000 ease-out ${getSkillColor(skill.level)}`}
+                      style={{ width: getSkillWidth(skill.level) }}
+                    />
                   </div>
+                  <p className="text-xs text-muted-foreground">{getSkillDescription(skill.description)}</p>
                 </div>
-              )}
-              
-              {/* Overlay with links */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center space-x-4">
-                {project.liveUrl && (
-                  <Button variant="secondary" size="sm" asChild>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      {language === 'en' ? 'Live Demo' : 'Live Demo'}
-                    </a>
-                  </Button>
-                )}
-                {project.githubUrl && !isFreelance && (
-                  <Button variant="secondary" size="sm" asChild>
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-4 w-4 mr-2" />
-                      {language === 'en' ? 'Code' : 'Code'}
-                    </a>
-                  </Button>
-                )}
-              </div>
+              ))}
             </div>
           </div>
-
-          {/* Project Content */}
-          <div className={`space-y-6 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-            
-            {/* Header */}
-            <div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
-                <Calendar className="h-4 w-4" />
-                <span>
-                  {formatDate(project.startDate, language)}
-                  {project.endDate && ` - ${formatDate(project.endDate, language)}`}
-                </span>
-                {project.client && (
-                  <>
-                    <span>•</span>
-                    <Users className="h-4 w-4" />
-                    <span>{project.client}</span>
-                  </>
-                )}
-              </div>
-              
-              <h3 className="text-2xl font-bold mb-3">{getText(project.title)}</h3>
-              
-              <p className="text-muted-foreground leading-relaxed">
-                {isFreelance 
-                  ? (project.freelanceDescription ? getText(project.freelanceDescription) : getText(project.description))
-                  : (project.professionalDescription ? getText(project.professionalDescription) : getText(project.description))
-                }
-              </p>
-            </div>
-
-            {/* Technologies */}
-            <div>
-              <h4 className="font-semibold mb-3">
-                {language === 'en' ? 'Technologies Used' : 'Gebruikte Technologieën'}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, techIndex) => (
-                  <span 
-                    key={techIndex}
-                    className="tech-tag"
-                  >
-                    {getTechName(tech, language)}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Key Results/Impact */}
-            {isFreelance ? (
-              <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-                <h4 className="font-semibold mb-3 text-green-800 dark:text-green-200 flex items-center space-x-2">
-                  <TrendingUp className="h-4 w-4" />
-                  <span>{language === 'en' ? 'Business Impact' : 'Bedrijfsimpact'}</span>
-                </h4>
-                {project.businessImpact && (
-                  <p className="text-green-700 dark:text-green-300 text-sm">
-                    {getText(project.businessImpact)}
-                  </p>
-                )}
-                {project.results && getArray(project.results).length > 0 && (
-                  <ul className="mt-3 space-y-1">
-                    {getArray(project.results).slice(0, 3).map((result, resultIndex) => (
-                      <li key={resultIndex} className="text-green-700 dark:text-green-300 text-sm flex items-start space-x-2">
-                        <div className="h-1.5 w-1.5 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
-                        <span>{result}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ) : (
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                <h4 className="font-semibold mb-3 text-blue-800 dark:text-blue-200 flex items-center space-x-2">
-                  <Code2 className="h-4 w-4" />
-                  <span>{language === 'en' ? 'Technical Highlights' : 'Technische Hoogtepunten'}</span>
-                </h4>
-                {project.technicalDetails && (
-                  <p className="text-blue-700 dark:text-blue-300 text-sm">
-                    {getText(project.technicalDetails)}
-                  </p>
-                )}
-                {project.challenges && getArray(project.challenges).length > 0 && (
-                  <div className="mt-3">
-                    <p className="text-blue-800 dark:text-blue-200 text-sm font-medium mb-1">
-                      {language === 'en' ? 'Key Challenges Solved:' : 'Belangrijkste Uitdagingen Opgelost:'}
-                    </p>
-                    <ul className="space-y-1">
-                      {getArray(project.challenges).slice(0, 2).map((challenge, challengeIndex) => (
-                        <li key={challengeIndex} className="text-blue-700 dark:text-blue-300 text-sm flex items-start space-x-2">
-                          <div className="h-1.5 w-1.5 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>{challenge}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-3">
-              {project.liveUrl && (
-                <Button variant="gradient" asChild>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'View Live' : 'Bekijk Live'}
-                  </a>
-                </Button>
-              )}
-              {project.githubUrl && !isFreelance && (
-                <Button variant="outline" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'View Code' : 'Bekijk Code'}
-                  </a>
-                </Button>
-              )}
-              {project.caseStudyUrl && (
-                <Button variant="outline" asChild>
-                  <a href={project.caseStudyUrl} target="_blank" rel="noopener noreferrer">
-                    {language === 'en' ? 'Case Study' : 'Case Study'}
-                  </a>
-                </Button>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      ))}
+        ))}
+      </div>
     </motion.div>
   )
 }
 
-export default function ProjectsSection({ language, viewMode }: SectionProps) {
+export default function AboutSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
   
-  // Get projects for current mode
-  let featuredProjects: Project[] = []
-  try {
-    featuredProjects = getFeaturedProjects(viewMode) || []
-  } catch (error) {
-    console.error('Error loading projects:', error)
-    featuredProjects = []
-  }
-
-  // Don't render if no projects available
-  if (!featuredProjects || featuredProjects.length === 0) {
-    return (
-      <section id="projects" className="section-padding bg-muted/30">
-        <div className="container-padding">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Loading projects...</p>
-          </div>
-        </div>
-      </section>
-    )
+  // Don't show loading state for mode switching
+  if (!viewMode || !language) {
+    return null
   }
 
   return (
-    <section id="projects" className="section-padding bg-muted/30">
+    <section id="about" className="section-padding">
       <div className="container-padding">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="max-w-6xl mx-auto"
         >
           
-          {/* Section Header - Always visible */}
-          <motion.div variants={cardVariants} className="text-center mb-16">
+          {/* Section Header - Always visible, but content changes */}
+          <motion.div variants={itemVariants} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'en' ? 'Featured Projects' : 'Uitgelichte Projecten'}
+              {language === 'en' ? 'About Me' : 'Over Mij'}
             </h2>
             <motion.p 
-              key={`projects-header-${viewMode}`}
+              key={`header-${viewMode}`}
               variants={modeContentVariants}
               initial="hidden"
               animate="visible"
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
             >
-              {isFreelance
+              {isFreelance 
                 ? (language === 'en' 
-                    ? 'Real client websites and business solutions that delivered measurable results'
-                    : 'Echte klantwebsites en bedrijfsoplossingen die meetbare resultaten leverden'
+                    ? 'Your trusted partner for digital solutions that grow your business'
+                    : 'Jouw vertrouwde partner voor digitale oplossingen die je bedrijf laten groeien'
                   )
                 : (language === 'en'
-                    ? 'Technical projects demonstrating software engineering skills and system architecture'
-                    : 'Technische projecten die software engineering vaardigheden en systeemarchitectuur tonen'
+                    ? 'Building innovative software solutions with modern technologies and engineering excellence'
+                    : 'Bouw innovatieve software oplossingen met moderne technologieën en engineering excellentie'
                   )
               }
             </motion.p>
           </motion.div>
 
-          {/* Projects List with smooth transitions */}
+          {/* Mode-specific content with smooth transitions */}
           <AnimatePresence mode="wait">
-            <ProjectsList 
-              key={viewMode}
-              projects={featuredProjects}
-              language={language}
-              viewMode={viewMode}
-            />
-          </AnimatePresence>
-
-          {/* CTA */}
-          <motion.div 
-            variants={cardVariants} 
-            className="text-center mt-16"
-          >
             {isFreelance ? (
-              <div className="space-y-4">
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/projects">
-                    {language === 'en' ? 'View All Client Projects' : 'Bekijk Alle Klant Projecten'}
-                  </Link>
-                </Button>
-                
-                <div className="text-muted-foreground text-sm">
-                  {language === 'en' ? 'or' : 'of'}
-                </div>
-                
-                <Button variant="gradient" size="lg" asChild>
-                  <a href="#contact">
-                    {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
-                  </a>
-                </Button>
-              </div>
+              <FreelanceAboutSection key="freelance" language={language} />
             ) : (
-              <div className="space-y-4">
-                <Button variant="gradient" size="lg" asChild>
-                  <a href="#contact">
-                    {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
-                  </a>
-                </Button>
-                
-                <div className="text-muted-foreground text-sm">
-                  {language === 'en' ? 'or connect via' : 'of verbind via'}
-                </div>
-                
-                <Button variant="outline" size="lg" asChild>
-                  <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4 mr-2" />
-                    LinkedIn
-                  </a>
-                </Button>
-              </div>
+              <ProfessionalAboutSection key="professional" language={language} />
             )}
-          </motion.div>
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
