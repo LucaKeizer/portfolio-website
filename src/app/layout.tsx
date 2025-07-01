@@ -4,6 +4,7 @@ import './globals.css'
 import { LanguageProvider } from '@/hooks/useLanguage'
 import { ViewModeProvider } from '@/hooks/useViewMode'
 import { ThemeProvider } from '@/hooks/useTheme'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -95,6 +96,7 @@ export default function RootLayout({
             </ViewModeProvider>
           </LanguageProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
