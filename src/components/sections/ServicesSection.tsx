@@ -18,7 +18,13 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, LocalizedContent } from '@/types'
-import { services, processSteps, discountInfo } from '@/data/services'
+import { 
+  services, 
+  processSteps, 
+  getCurrentDiscount, 
+  shouldShowDiscountBanner,
+  getDiscountPercentage 
+} from '@/data/services'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,6 +71,66 @@ const complexityColors = {
   complex: 'bg-purple-100 text-purple-700 border-purple-300'
 }
 
+// Banner color configurations
+const bannerColors = {
+  orange: {
+    background: 'from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20',
+    border: 'border-orange-200 dark:border-orange-800',
+    text: {
+      title: 'text-orange-800 dark:text-orange-200',
+      subtitle: 'text-orange-700 dark:text-orange-300',
+      description: 'text-orange-600 dark:text-orange-400',
+      features: 'text-orange-700 dark:text-orange-300',
+      limitations: 'text-orange-800 dark:text-orange-200'
+    },
+    background2: 'bg-orange-100 dark:bg-orange-900/30',
+    border2: 'border-orange-300 dark:border-orange-700',
+    icon: 'text-orange-600'
+  },
+  blue: {
+    background: 'from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20',
+    border: 'border-blue-200 dark:border-blue-800',
+    text: {
+      title: 'text-blue-800 dark:text-blue-200',
+      subtitle: 'text-blue-700 dark:text-blue-300',
+      description: 'text-blue-600 dark:text-blue-400',
+      features: 'text-blue-700 dark:text-blue-300',
+      limitations: 'text-blue-800 dark:text-blue-200'
+    },
+    background2: 'bg-blue-100 dark:bg-blue-900/30',
+    border2: 'border-blue-300 dark:border-blue-700',
+    icon: 'text-blue-600'
+  },
+  green: {
+    background: 'from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20',
+    border: 'border-green-200 dark:border-green-800',
+    text: {
+      title: 'text-green-800 dark:text-green-200',
+      subtitle: 'text-green-700 dark:text-green-300',
+      description: 'text-green-600 dark:text-green-400',
+      features: 'text-green-700 dark:text-green-300',
+      limitations: 'text-green-800 dark:text-green-200'
+    },
+    background2: 'bg-green-100 dark:bg-green-900/30',
+    border2: 'border-green-300 dark:border-green-700',
+    icon: 'text-green-600'
+  },
+  purple: {
+    background: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20',
+    border: 'border-purple-200 dark:border-purple-800',
+    text: {
+      title: 'text-purple-800 dark:text-purple-200',
+      subtitle: 'text-purple-700 dark:text-purple-300',
+      description: 'text-purple-600 dark:text-purple-400',
+      features: 'text-purple-700 dark:text-purple-300',
+      limitations: 'text-purple-800 dark:text-purple-200'
+    },
+    background2: 'bg-purple-100 dark:bg-purple-900/30',
+    border2: 'border-purple-300 dark:border-purple-700',
+    icon: 'text-purple-600'
+  }
+}
+
 function formatPrice(amount: number, currency: string) {
   return new Intl.NumberFormat('nl-NL', {
     style: 'currency',
@@ -89,6 +155,14 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
     return content[language]
   }
 
+  // Get current discount configuration
+  const currentDiscount = getCurrentDiscount()
+  const discountPercentage = getDiscountPercentage()
+  const showBanner = shouldShowDiscountBanner()
+  
+  // Get banner styling
+  const bannerStyle = bannerColors[currentDiscount.bannerInfo.bannerColor]
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -96,40 +170,42 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
       animate="visible"
       exit="hidden"
     >
-      {/* Special Discount Banner */}
-      <motion.div 
-        variants={itemVariants}
-        className="mb-12 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 p-6 rounded-xl border-2 border-orange-200 dark:border-orange-800"
-      >
-        <div className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-3">
-            <Zap className="h-5 w-5 text-orange-600" />
-            <span className="text-lg font-bold text-orange-800 dark:text-orange-200">
-              {getText(discountInfo.title)}
-            </span>
-            <Zap className="h-5 w-5 text-orange-600" />
-          </div>
-          <p className="text-orange-700 dark:text-orange-300 font-medium mb-3">
-            {getText(discountInfo.subtitle)}
-          </p>
-          <p className="text-sm text-orange-600 dark:text-orange-400 max-w-2xl mx-auto mb-4">
-            {getText(discountInfo.description)}
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-3xl mx-auto mb-4">
-            {discountInfo.features.map((feature, index) => (
-              <div key={index} className="flex items-center space-x-2 text-sm text-orange-700 dark:text-orange-300">
-                <CheckCircle className="h-4 w-4 text-orange-600 flex-shrink-0" />
-                <span>{getText(feature)}</span>
-              </div>
-            ))}
-          </div>
-          <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg border border-orange-300 dark:border-orange-700">
-            <p className="text-sm font-medium text-orange-800 dark:text-orange-200">
-              {getText(discountInfo.limitations)}
+      {/* Dynamic Discount Banner */}
+      {showBanner && (
+        <motion.div 
+          variants={itemVariants}
+          className={`mb-12 bg-gradient-to-r ${bannerStyle.background} p-6 rounded-xl border-2 ${bannerStyle.border}`}
+        >
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-2 mb-3">
+              <Zap className={`h-5 w-5 ${bannerStyle.icon}`} />
+              <span className={`text-lg font-bold ${bannerStyle.text.title}`}>
+                {getText(currentDiscount.bannerInfo.title)}
+              </span>
+              <Zap className={`h-5 w-5 ${bannerStyle.icon}`} />
+            </div>
+            <p className={`font-medium mb-3 ${bannerStyle.text.subtitle}`}>
+              {getText(currentDiscount.bannerInfo.subtitle)}
             </p>
+            <p className={`text-sm max-w-2xl mx-auto mb-4 ${bannerStyle.text.description}`}>
+              {getText(currentDiscount.bannerInfo.description)}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-3xl mx-auto mb-4">
+              {currentDiscount.bannerInfo.features.map((feature, index) => (
+                <div key={index} className={`flex items-center space-x-2 text-sm ${bannerStyle.text.features}`}>
+                  <CheckCircle className={`h-4 w-4 ${bannerStyle.icon} flex-shrink-0`} />
+                  <span>{getText(feature)}</span>
+                </div>
+              ))}
+            </div>
+            <div className={`${bannerStyle.background2} p-3 rounded-lg border ${bannerStyle.border2}`}>
+              <p className={`text-sm font-medium ${bannerStyle.text.limitations}`}>
+                {getText(currentDiscount.bannerInfo.limitations)}
+              </p>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
 
       {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
@@ -186,12 +262,9 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
                   </div>
                   
                   {/* Discount Percentage */}
-                  {service.originalPrice && (
+                  {service.originalPrice && discountPercentage > 0 && (
                     <div className="text-xs text-green-600 font-medium">
-                      {calculateDiscount(
-                        service.originalPrice.from, 
-                        service.price.from
-                      )}% {language === 'en' ? 'OFF' : 'KORTING'}
+                      {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
                     </div>
                   )}
                   
@@ -312,9 +385,15 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
           </h3>
         </div>
         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-          {language === 'en' 
-            ? 'Join the first 5 businesses to get a professional website at an incredible discount. Limited time offer!'
-            : 'Sluit je aan bij de eerste 5 bedrijven om een professionele website te krijgen met een ongelooflijke korting. Beperkte tijd aanbieding!'
+          {discountPercentage > 0 
+            ? (language === 'en' 
+                ? `Take advantage of our ${discountPercentage}% discount and get your professional website today!`
+                : `Profiteer van onze ${discountPercentage}% korting en krijg vandaag nog je professionele website!`
+              )
+            : (language === 'en' 
+                ? 'Get your professional website built by an experienced developer with modern technologies.'
+                : 'Laat je professionele website bouwen door een ervaren ontwikkelaar met moderne technologieën.'
+              )
           }
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
