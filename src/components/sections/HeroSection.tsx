@@ -47,7 +47,7 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
   const currentDiscount = getCurrentDiscount()
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-24">
+    <section className="min-h-screen lg:min-h-screen md:min-h-[90vh] sm:min-h-[80vh] flex items-center justify-center relative overflow-hidden pt-24">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
@@ -64,29 +64,29 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
         {/* Main Content */}
         <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
           
-          {/* Greeting */}
+          {/* Greeting - More compact on mobile */}
           <motion.p 
             variants={itemVariants}
-            className="text-lg text-muted-foreground mb-4"
+            className="text-base md:text-lg text-muted-foreground mb-3 md:mb-4"
           >
             {language === 'en' ? 'Hello, I\'m' : 'Hallo, ik ben'}
           </motion.p>
 
-          {/* Name */}
+          {/* Name - Smaller on mobile */}
           <motion.h1 
             variants={itemVariants}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6"
           >
             <span className="gradient-text">Luca Keizer</span>
           </motion.h1>
 
-          {/* Title/Role - Animated based on mode */}
+          {/* Title/Role - More compact on mobile */}
           <motion.h2 
             key={`title-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-8"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-4 md:mb-8"
           >
             {isFreelance ? (
               language === 'en' 
@@ -99,45 +99,61 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             )}
           </motion.h2>
 
-          {/* Description - Animated based on mode */}
-          <motion.p 
+          {/* Description - Shorter on mobile */}
+          <motion.div 
             key={`description-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-3xl mx-auto"
+            className="mb-6 md:mb-8 max-w-3xl mx-auto"
           >
-            {isFreelance ? (
-              language === 'en' 
-                ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
-                : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
-            ) : (
-              language === 'en'
-                ? `Passionate about building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of experience in full-stack development and data analysis.`
-                : `Gepassioneerd over het bouwen van schaalbare oplossingen met Python, TypeScript en moderne cloud technologieën. ${yearsOfExperience}+ jaar ervaring in full-stack ontwikkeling en data-analyse.`
-            )}
-          </motion.p>
+            {/* Mobile version - shorter */}
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed block md:hidden">
+              {isFreelance ? (
+                language === 'en' 
+                  ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast custom solutions.`
+                  : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle custom oplossingen.`
+              ) : (
+                language === 'en'
+                  ? `Building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of full-stack development experience.`
+                  : `Bouw schaalbare oplossingen met Python, TypeScript en moderne cloud technologieën. ${yearsOfExperience}+ jaar full-stack ontwikkeling ervaring.`
+              )}
+            </p>
+            
+            {/* Desktop version - full text */}
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed hidden md:block">
+              {isFreelance ? (
+                language === 'en' 
+                  ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
+                  : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
+              ) : (
+                language === 'en'
+                  ? `Passionate about building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of experience in full-stack development and data analysis.`
+                  : `Gepassioneerd over het bouwen van schaalbare oplossingen met Python, TypeScript en moderne cloud technologieën. ${yearsOfExperience}+ jaar ervaring in full-stack ontwikkeling en data-analyse.`
+              )}
+            </p>
+          </motion.div>
 
-          {/* Quality Badges - Only in Freelance Mode */}
+          {/* Quality Badges - Only in Freelance Mode, more compact on mobile */}
           {isFreelance && (
             <motion.div 
               variants={itemVariants}
-              className="flex flex-wrap items-center justify-center gap-6 mb-8 text-sm"
+              className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mb-6 md:mb-8 text-xs md:text-sm"
             >
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <Code2 className="h-4 w-4 text-green-600" />
+              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
+                <Code2 className="h-3 w-3 md:h-4 md:w-4 text-green-600" />
                 <span className="font-medium">
                   {language === 'en' ? 'Custom Coded' : 'Custom Gecodeerd'}
                 </span>
               </div>
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <Zap className="h-4 w-4 text-purple-600" />
+              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
+                <Zap className="h-3 w-3 md:h-4 md:w-4 text-purple-600" />
                 <span className="font-medium">
                   {language === 'en' ? 'Lightning Fast' : 'Bliksem Snel'}
                 </span>
               </div>
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <Shield className="h-4 w-4 text-blue-600" />
+              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
+                <Shield className="h-3 w-3 md:h-4 md:w-4 text-blue-600" />
                 <span className="font-medium">
                   {language === 'en' ? 'Professional Quality' : 'Professionele Kwaliteit'}
                 </span>
@@ -145,42 +161,42 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             </motion.div>
           )}
 
-          {/* Tech Stack Icons */}
+          {/* Tech Stack Icons - Smaller on mobile */}
           <motion.div 
             variants={itemVariants}
-            className="flex items-center justify-center space-x-6 mb-12"
+            className="flex items-center justify-center space-x-4 md:space-x-6 mb-8 md:mb-12"
           >
             <div className="flex items-center space-x-1 text-muted-foreground">
-              <Code2 className="h-5 w-5" />
-              <span className="text-sm font-medium">Python</span>
+              <Code2 className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="text-xs md:text-sm font-medium">Python</span>
             </div>
             <div className="flex items-center space-x-1 text-muted-foreground">
-              <Globe className="h-5 w-5" />
-              <span className="text-sm font-medium">TypeScript</span>
+              <Globe className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="text-xs md:text-sm font-medium">TypeScript</span>
             </div>
             <div className="flex items-center space-x-1 text-muted-foreground">
-              <Database className="h-5 w-5" />
-              <span className="text-sm font-medium">React</span>
+              <Database className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="text-xs md:text-sm font-medium">React</span>
             </div>
             <div className="flex items-center space-x-1 text-muted-foreground">
-              <Cloud className="h-5 w-5" />
-              <span className="text-sm font-medium">Azure</span>
+              <Cloud className="h-4 w-4 md:h-5 md:w-5" />
+              <span className="text-xs md:text-sm font-medium">Azure</span>
             </div>
           </motion.div>
 
-          {/* Discount Banner - Only in Freelance Mode when active */}
+          {/* Discount Banner - More compact on mobile */}
           {isFreelance && showDiscountBanner && (
             <motion.div 
               variants={itemVariants}
-              className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-300 dark:border-orange-700 rounded-xl p-4 mb-12 max-w-2xl mx-auto"
+              className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-300 dark:border-orange-700 rounded-xl p-3 md:p-4 mb-8 md:mb-12 max-w-2xl mx-auto"
             >
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Zap className="h-4 w-4 text-orange-600" />
-                <span className="font-bold text-orange-800 dark:text-orange-200 text-sm">
+              <div className="flex items-center justify-center space-x-2 mb-1 md:mb-2">
+                <Zap className="h-3 w-3 md:h-4 md:w-4 text-orange-600" />
+                <span className="font-bold text-orange-800 dark:text-orange-200 text-xs md:text-sm">
                   {language === 'en' ? currentDiscount.bannerInfo.title.en : currentDiscount.bannerInfo.title.nl}
                 </span>
               </div>
-              <p className="text-orange-700 dark:text-orange-300 text-sm">
+              <p className="text-orange-700 dark:text-orange-300 text-xs md:text-sm">
                 {language === 'en' 
                   ? 'Professional custom-coded websites at unbeatable prices. Real development quality!'
                   : 'Professionele custom-gecodeerde websites tegen onverslaanbare prijzen. Echte ontwikkelingskwaliteit!'
@@ -189,23 +205,23 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             </motion.div>
           )}
 
-          {/* CTA Buttons - Animated based on mode */}
+          {/* CTA Buttons - Better mobile layout */}
           <motion.div 
             key={`cta-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            className="flex flex-col gap-3 md:gap-4 md:flex-row justify-center items-center mb-8 md:mb-16"
           >
             {isFreelance ? (
               <>
-                <Button size="xl" variant="gradient" asChild>
+                <Button size="default" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto" variant="gradient" asChild>
                   <a href="#contact">
-                    <Briefcase className="h-5 w-5 mr-2" />
+                    <Briefcase className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                     {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
                   </a>
                 </Button>
-                <Button size="xl" variant="outline" asChild>
+                <Button size="default" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto" variant="outline" asChild>
                   <a href="#projects">
                     {language === 'en' ? 'View My Work' : 'Bekijk Mijn Werk'}
                   </a>
@@ -213,13 +229,13 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
               </>
             ) : (
               <>
-                <Button size="xl" variant="gradient" asChild>
+                <Button size="default" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto" variant="gradient" asChild>
                   <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center">
-                    <Linkedin className="h-5 w-5 mr-2" />
+                    <Linkedin className="h-4 w-4 md:h-5 md:w-5 mr-2" />
                     {language === 'en' ? 'Connect on LinkedIn' : 'Verbind op LinkedIn'}
                   </a>
                 </Button>
-                <Button size="xl" variant="outline" asChild>
+                <Button size="default" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto" variant="outline" asChild>
                   <a href="#contact">
                     {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
                   </a>
@@ -228,7 +244,7 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             )}
           </motion.div>
 
-          {/* Location & Availability - Animated based on mode */}
+          {/* Location & Availability - More compact on mobile */}
           <motion.div 
             key={`location-${viewMode}`}
             variants={modeVariants}
@@ -236,25 +252,25 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             animate="visible"
             className="text-center text-muted-foreground"
           >
-            <p className="text-sm">
+            <p className="text-xs md:text-sm">
               📍 {language === 'en' ? 'Based in Volendam, Netherlands' : 'Gevestigd in Volendam, Nederland'}
             </p>
             {isFreelance && (
-              <p className="text-sm mt-1">
+              <p className="text-xs md:text-sm mt-1">
                 ✅ {language === 'en' ? 'Available for new projects' : 'Beschikbaar voor nieuwe projecten'}
               </p>
             )}
             {isProfessional && (
-              <p className="text-sm mt-1">
+              <p className="text-xs md:text-sm mt-1">
                 💼 {language === 'en' ? 'Open to new opportunities' : 'Open voor nieuwe kansen'}
               </p>
             )}
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Hidden on mobile to save space */}
         <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.6 }}
