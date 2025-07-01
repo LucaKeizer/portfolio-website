@@ -43,6 +43,12 @@ function ProjectCard({ project, language, viewMode }: {
     return content[language]
   }
 
+  // Helper function to get localized technology name
+  const getTechName = (tech: string | { en: string; nl: string }): string => {
+    if (typeof tech === 'string') return tech
+    return tech[language]
+  }
+
   const handleImageError = () => {
     setImageError(true)
   }
@@ -131,7 +137,7 @@ function ProjectCard({ project, language, viewMode }: {
         <div className="flex flex-wrap gap-1 mb-4">
           {project.technologies.slice(0, 3).map((tech, index) => (
             <span key={index} className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
-              {tech}
+              {getTechName(tech)}
             </span>
           ))}
           {project.technologies.length > 3 && (
