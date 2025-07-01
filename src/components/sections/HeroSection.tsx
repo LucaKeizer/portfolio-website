@@ -111,8 +111,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed block md:hidden">
               {isFreelance ? (
                 language === 'en' 
-                  ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast custom solutions.`
-                  : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle custom oplossingen.`
+                  ? `Professional hand-coded websites for local businesses in North Holland. Built from scratch with modern technologies - no templates, just fast custom solutions.`
+                  : `Professionele handgecodeerde websites voor lokale bedrijven in Noord-Holland. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle custom oplossingen.`
               ) : (
                 language === 'en'
                   ? `Building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of full-stack development experience.`
@@ -124,8 +124,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed hidden md:block">
               {isFreelance ? (
                 language === 'en' 
-                  ? `Professional hand-coded websites for North Holland businesses. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
-                  : `Professionele handgecodeerde websites voor Noord-Holland bedrijven. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
+                  ? `Professional hand-coded websites for local businesses in North Holland. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
+                  : `Professionele handgecodeerde websites voor lokale bedrijven in Noord-Holland. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
               ) : (
                 language === 'en'
                   ? `Passionate about building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of experience in full-stack development and data analysis.`
