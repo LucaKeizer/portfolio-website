@@ -99,93 +99,93 @@ export const clientProjects: Project[] = [
     } as LocalizedContent
   },
   {
-    id: 'restaurant-website',
-    title: {
-      en: 'Local Restaurant - Menu & Ordering System',
-      nl: 'Lokaal Restaurant - Menu & Bestelsysteem'
-    } as LocalizedContent,
-    description: {
-      en: 'Modern restaurant website with online menu and ordering capabilities',
-      nl: 'Moderne restaurantwebsite met online menu en bestelmogelijkheden'
-    } as LocalizedContent,
-    longDescription: {
-      en: 'Professional website for a local restaurant featuring digital menu, online ordering, and table reservation system.',
-      nl: 'Professionele website voor een lokaal restaurant met digitaal menu, online bestellen en tafelreserveringssysteem.'
-    } as LocalizedContent,
-    freelanceDescription: {
-      en: 'Built a modern website for a family restaurant in North Holland. Features include interactive digital menu, online ordering system, table reservations, and customer reviews. The solution increased online orders by 80% and improved customer experience significantly.',
-      nl: 'Bouwde een moderne website voor een familierestaurant in Noord-Holland. Functies omvatten interactief digitaal menu, online bestelsysteem, tafelreserveringen en klantbeoordelingen. De oplossing verhoogde online bestellingen met 80% en verbeterde de klantervaring aanzienlijk.'
-    } as LocalizedContent,
-    professionalDescription: {
-      en: 'React-based web application with Stripe payment integration, real-time order management, and responsive design optimized for mobile ordering.',
-      nl: 'React-gebaseerde webapplicatie met Stripe betalingsintegratie, real-time orderbeheer, en responsief ontwerp geoptimaliseerd voor mobiel bestellen.'
-    } as LocalizedContent,
-    technologies: [
-      'React', 
-      'Node.js', 
-      createTech('Stripe', 'Betalingssysteem') as string, 
-      createTech('MongoDB', 'Database') as string, 
-      'Express', 
-      createTech('Socket.io', 'Real-time Communicatie') as string
+  id: 'empathys-website',
+  title: {
+    en: 'Empathys - Therapeutic Children\'s Services',
+    nl: 'Empathys - Therapeutische Kinderdiensten'
+  } as LocalizedContent,
+  description: {
+    en: 'Professional website for child therapy practice with e-commerce capabilities',
+    nl: 'Professionele website voor kindertherapiepraktijk met e-commerce mogelijkheden'
+  } as LocalizedContent,
+  longDescription: {
+    en: 'Comprehensive website for Empathys, featuring therapeutic services, online book sales, and course management system.',
+    nl: 'Uitgebreide website voor Empathys, met therapeutische diensten, online boekenverkoop en cursusbeheersysteem.'
+  } as LocalizedContent,
+  freelanceDescription: {
+    en: 'Built a comprehensive website for Empathys, a child therapy practice in Volendam. Features include therapeutic book sales, course registration, appointment booking, and educational content. The solution increased book sales by 150% and streamlined client intake processes.',
+    nl: 'Bouwde een uitgebreide website voor Empathys, een kindertherapiepraktijk in Volendam. Functies omvatten therapeutische boekenverkoop, cursusregistratie, afspraak boeken en educatieve content. De oplossing verhoogde boekenverkoop met 150% en stroomlijnde cliënt intake processen.'
+  } as LocalizedContent,
+  professionalDescription: {
+    en: 'Next.js application with Stripe integration, shopping cart functionality, and responsive design optimized for therapeutic content and e-commerce.',
+    nl: 'Next.js applicatie met Stripe integratie, winkelwagen functionaliteit, en responsief ontwerp geoptimaliseerd voor therapeutische content en e-commerce.'
+  } as LocalizedContent,
+  technologies: [
+    'Next.js', 
+    'TypeScript', 
+    createTech('Stripe', 'Betalingssysteem') as string, 
+    createTech('Tailwind CSS', 'Styling Framework') as string, 
+    'React', 
+    createTech('Resend', 'E-mail Service') as string
+  ],
+  category: 'web',
+  status: 'completed',
+  startDate: new Date('2024-09-01'),
+  endDate: new Date('2024-11-15'),
+  liveUrl: 'https://empathys.nl',
+  images: ['/projects/empathys/hero.jpg'],
+  client: 'Empathys Child Therapy Practice',
+  role: 'Full-Stack Developer',
+  challenges: {
+    en: [
+      'Create professional therapy practice website',
+      'Implement e-commerce for therapeutic books',
+      'Build course registration system',
+      'Integrate appointment scheduling'
     ],
-    category: 'web',
-    status: 'completed',
-    startDate: new Date('2024-07-01'),
-    endDate: new Date('2024-08-30'),
-    liveUrl: 'https://restaurant-demo.vercel.app',
-    images: ['/projects/restaurant/hero.jpg', '/projects/restaurant/menu.jpg'],
-    client: 'Local Family Restaurant',
-    role: 'Web Developer',
-    challenges: {
-      en: [
-        'Replace outdated website',
-        'Enable online ordering',
-        'Mobile-friendly menu browsing',
-        'Payment processing integration'
-      ],
-      nl: [
-        'Vervang verouderde website',
-        'Online bestellen mogelijk maken',
-        'Mobiel-vriendelijk menu browsen',
-        'Betalingsverwerking integratie'
-      ]
-    },
-    solutions: {
-      en: [
-        'Modern responsive website design',
-        'Stripe payment integration',
-        'Real-time order tracking',
-        'Mobile-optimized user experience'
-      ],
-      nl: [
-        'Modern responsief website ontwerp',
-        'Stripe betalingsintegratie',
-        'Real-time order tracking',
-        'Mobiel-geoptimaliseerde gebruikerservaring'
-      ]
-    },
-    results: {
-      en: [
-        '80% increase in online orders',
-        '50% reduction in phone orders',
-        '90% mobile user satisfaction',
-        'Average order value increased by 25%'
-      ],
-      nl: [
-        '80% toename in online bestellingen',
-        '50% vermindering in telefoonbestellingen',
-        '90% mobiele gebruikerstevredenheid',
-        'Gemiddelde bestelwaarde steeg met 25%'
-      ]
-    },
-    businessImpact: {
-      en: 'Modernized restaurant\'s digital presence and enabled contactless ordering, crucial during post-pandemic recovery.',
-      nl: 'Moderniseerde digitale aanwezigheid van restaurant en maakte contactloos bestellen mogelijk, cruciaal tijdens post-pandemie herstel.'
-    } as LocalizedContent,
-    technicalDetails: {
-      en: 'Implemented real-time order processing, secure payment handling, and optimized performance for mobile devices.',
-      nl: 'Implementeerde real-time orderverwerking, veilige betalingsafhandeling, en geoptimaliseerde prestaties voor mobiele apparaten.'
-    } as LocalizedContent
+    nl: [
+      'Professionele therapiepraktijk website creëren',
+      'E-commerce implementeren voor therapeutische boeken',
+      'Cursusregistratiesysteem bouwen',
+      'Afspraakplanning integreren'
+    ]
+  },
+  solutions: {
+    en: [
+      'Modern, trustworthy design reflecting therapeutic values',
+      'Integrated Stripe payment system',
+      'Dynamic course content management',
+      'Location-based shipping (free delivery in Volendam)'
+    ],
+    nl: [
+      'Modern, betrouwbaar ontwerp dat therapeutische waarden weergeeft',
+      'Geïntegreerd Stripe betalingssysteem',
+      'Dynamisch cursuscontentbeheer',
+      'Locatie-gebaseerde verzending (gratis bezorging in Volendam)'
+    ]
+  },
+  results: {
+    en: [
+      '150% increase in therapeutic book sales',
+      '75% of course registrations now online',
+      '95% mobile user engagement',
+      '60% reduction in administrative phone calls'
+    ],
+    nl: [
+      '150% toename in therapeutische boekenverkoop',
+      '75% van cursusregistraties nu online',
+      '95% mobiele gebruikersbetrokkenheid',
+      '60% vermindering in administratieve telefoontjes'
+    ]
+  },
+  businessImpact: {
+    en: 'Transformed traditional therapy practice into modern digital presence, enabling scalable service delivery and expanding reach beyond local area.',
+    nl: 'Transformeerde traditionele therapiepraktijk naar moderne digitale aanwezigheid, waardoor schaalbare dienstverlening mogelijk werd en bereik uitbreidde buiten lokale gebied.'
+  } as LocalizedContent,
+  technicalDetails: {
+    en: 'Implemented secure payment processing, cart persistence, email automation, and mobile-first responsive design with accessibility considerations.',
+    nl: 'Implementeerde veilige betalingsverwerking, winkelwagen persistentie, e-mail automatisering, en mobile-first responsief ontwerp met toegankelijkheidsoverwegingen.'
+  } as LocalizedContent
   },
   {
     id: 'business-automation',
@@ -403,7 +403,7 @@ export const technicalProjects: Project[] = [
     startDate: new Date('2024-01-01'),
     endDate: new Date('2024-02-15'),
     githubUrl: 'https://github.com/lucakeizer/taskflow',
-    images: ['/projects/taskflow/architecture.jpg', '/projects/taskflow/dashboard.jpg'],
+    images: ['/projects/taskflow/architecture.jpg'],
     client: 'Personal Project',
     role: 'Backend Engineer',
     challenges: {
@@ -495,7 +495,7 @@ export const technicalProjects: Project[] = [
     startDate: new Date('2025-01-01'),
     endDate: new Date('2025-01-31'),
     githubUrl: 'https://github.com/LucaKeizer/nutriparse',
-    images: ['/projects/nutriparse/parser.jpg', '/projects/nutriparse/nutrition-chart.jpg'],
+    images: ['/projects/nutriparse/parser.jpg'],
     client: 'Personal Project',
     role: 'Full-Stack Developer',
     challenges: {
