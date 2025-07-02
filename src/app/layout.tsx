@@ -6,14 +6,19 @@ import { ViewModeProvider } from '@/hooks/useViewMode'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { Analytics } from '@vercel/analytics/react'
 
+// Optimize font loading with display swap and preload
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap', // Prevents invisible text during font load
+  preload: true,
 })
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ['latin'],
   variable: '--font-mono',
+  display: 'swap',
+  preload: false, // Only preload main font
 })
 
 export const metadata: Metadata = {
@@ -86,6 +91,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
+      <head>
+        {/* Preload critical fonts */}
+        <link
+          rel="preload"
+          href="/_next/static/css/app/layout.css"
+          as="style"
+        />
+        {/* Optimize font loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>

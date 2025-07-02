@@ -17,22 +17,29 @@ export default function WelcomeModal({ onComplete }: WelcomeModalProps) {
   const [step, setStep] = useState<'language' | 'mode'>('language')
   const [selectedLanguage, setSelectedLanguage] = useState<Language>('en')
   const [selectedMode, setSelectedMode] = useState<ViewMode>('freelance')
+  const [isReady, setIsReady] = useState(false)
   
   const { setLanguage } = useLanguage()
   const { setViewMode } = useViewMode()
 
   useEffect(() => {
-    // Check if user has visited before
-    const hasVisited = localStorage.getItem('luca-portfolio-visited')
-    if (!hasVisited) {
-      setIsOpen(true)
-      
-      // Try to detect language from browser
-      const browserLang = navigator.language.toLowerCase()
-      if (browserLang.startsWith('nl')) {
-        setSelectedLanguage('nl')
+    // Delay modal to improve LCP - only show after main content loads
+    const timer = setTimeout(() => {
+      // Check if user has visited before
+      const hasVisited = localStorage.getItem('luca-portfolio-visited')
+      if (!hasVisited) {
+        setIsOpen(true)
+        
+        // Try to detect language from browser
+        const browserLang = navigator.language.toLowerCase()
+        if (browserLang.startsWith('nl')) {
+          setSelectedLanguage('nl')
+        }
       }
-    }
+      setIsReady(true)
+    }, 500) // 500ms delay to let hero content load first
+
+    return () => clearTimeout(timer)
   }, [])
 
   const handleLanguageSelect = (lang: Language) => {
@@ -61,7 +68,8 @@ export default function WelcomeModal({ onComplete }: WelcomeModalProps) {
     onComplete()
   }
 
-  if (!isOpen) return null
+  // Don't render anything until ready
+  if (!isReady || !isOpen) return null
 
   return (
     <AnimatePresence>
