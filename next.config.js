@@ -3,16 +3,6 @@ const nextConfig = {
   images: {
     domains: ['images.unsplash.com', 'github.com', 'raw.githubusercontent.com'],
   },
-  
-  // Performance optimizations
-  compress: true,
-  poweredByHeader: false,
-  
-  // Enable experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
-  
   // Only add headers if not doing static export
   ...(process.env.NODE_ENV === 'development' && {
     async headers() {
@@ -33,7 +23,6 @@ const nextConfig = {
       ]
     },
   }),
-  
   // Remove static export for now - we'll add it back when needed for deployment
   // output: 'export',
   trailingSlash: true,
