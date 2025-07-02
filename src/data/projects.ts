@@ -367,272 +367,186 @@ export const technicalProjects: Project[] = [
     } as LocalizedContent
   },
   {
-    id: 'ml-data-pipeline',
+    id: 'taskflow-distributed-queue',
     title: {
-      en: 'Machine Learning Data Analysis Pipeline',
-      nl: 'Machine Learning Data Analyse Pipeline'
+      en: 'TaskFlow - Distributed Task Queue System',
+      nl: 'TaskFlow - Gedistribueerd Taak Queue Systeem'
     } as LocalizedContent,
     description: {
-      en: 'Automated data processing pipeline with ML predictions and real-time analytics',
-      nl: 'Geautomatiseerde gegevensverwerkingspipeline met ML voorspellingen en real-time analytics'
+      en: 'High-performance distributed task processing system with Redis queuing and PostgreSQL persistence',
+      nl: 'Hoogperformante gedistribueerde taakverwerking systeem met Redis queuing en PostgreSQL persistentie'
     } as LocalizedContent,
     longDescription: {
-      en: 'End-to-end machine learning pipeline for processing industrial sensor data, generating predictions, and providing real-time business insights.',
-      nl: 'End-to-end machine learning pipeline voor het verwerken van industriële sensorgegevens, het genereren van voorspellingen, en het verstrekken van real-time bedrijfsinzichten.'
+      en: 'Production-ready distributed task queue system built with Go, featuring horizontal scaling, automatic retries, real-time monitoring, and comprehensive observability.',
+      nl: 'Productie-klare gedistribueerde taak queue systeem gebouwd met Go, met horizontale schaalbaarheid, automatische retries, real-time monitoring, en uitgebreide observability.'
     } as LocalizedContent,
     freelanceDescription: {
-      en: 'Business intelligence solution providing automated reports and insights, reducing manual analysis time by 70%.',
-      nl: 'Business intelligence oplossing die geautomatiseerde rapporten en inzichten biedt, verminderde handmatige analysetijd met 70%.'
+      en: 'Scalable background job processing solution enabling asynchronous task execution with 99.5% reliability and sub-100ms latency.',
+      nl: 'Schaalbare achtergrond job verwerking oplossing die asynchrone taak uitvoering mogelijk maakt met 99.5% betrouwbaarheid en sub-100ms latentie.'
     } as LocalizedContent,
     professionalDescription: {
-      en: 'Built scalable ML pipeline using Python, scikit-learn, and Azure Functions. Implemented automated feature engineering, model training/validation, and real-time prediction serving. Achieved 95% accuracy in predictive maintenance models.',
-      nl: 'Bouwde schaalbare ML pipeline met Python, scikit-learn, en Azure Functions. Implementeerde geautomatiseerde feature engineering, model training/validatie, en real-time voorspelling serving. Behaalde 95% nauwkeurigheid in predictive maintenance modellen.'
+      en: 'Built enterprise-grade task queue system using Go, Redis, and PostgreSQL. Implemented concurrent worker pools, atomic job state management, Prometheus metrics, and comprehensive testing. Handles 1,200+ jobs/minute with horizontal scaling capabilities.',
+      nl: 'Bouwde enterprise-grade taak queue systeem met Go, Redis, en PostgreSQL. Implementeerde concurrent worker pools, atomaire job state management, Prometheus metrics, en uitgebreide testing. Verwerkt 1.200+ jobs/minuut met horizontale schaalbaarheid.'
     } as LocalizedContent,
     technologies: [
-      'Python', 
-      'Machine Learning', 
-      'scikit-learn', 
-      'Azure Functions', 
-      'Pandas', 
-      'NumPy', 
-      createTech('Real-time Processing', 'Real-time Verwerking') as string
+      'Go',
+      'Redis', 
+      'PostgreSQL',
+      'Docker',
+      'Prometheus',
+      'GitHub Actions',
+      createTech('Distributed Systems', 'Gedistribueerde Systemen') as string,
+      createTech('Microservices', 'Microservices') as string
     ],
-    category: 'data',
-    status: 'completed',
-    startDate: new Date('2023-08-01'),
-    endDate: new Date('2024-06-30'),
-    githubUrl: 'https://github.com/lucakeizer/ml-data-pipeline',
-    images: ['/projects/ml-pipeline/architecture.jpg', '/projects/ml-pipeline/dashboard.jpg'],
-    client: 'Sonic Equipment B.V.',
-    role: 'Data Solutions Engineer',
-    challenges: {
-      en: [
-        'Processing high-volume sensor data in real-time',
-        'Building robust ML models for industrial environments',
-        'Automated model retraining and deployment',
-        'Integration with existing monitoring systems'
-      ],
-      nl: [
-        'Verwerken van hoog-volume sensorgegevens in real-time',
-        'Bouwen van robuuste ML modellen voor industriële omgevingen',
-        'Geautomatiseerde model hertraining en deployment',
-        'Integratie met bestaande monitoring systemen'
-      ]
-    },
-    solutions: {
-      en: [
-        'Implemented serverless architecture with Azure Functions',
-        'Created automated feature engineering pipeline',
-        'Built CI/CD pipeline for model deployment',
-        'Developed real-time monitoring and alerting system'
-      ],
-      nl: [
-        'Implementeerde serverless architectuur met Azure Functions',
-        'Creëerde geautomatiseerde feature engineering pipeline',
-        'Bouwde CI/CD pipeline voor model deployment',
-        'Ontwikkelde real-time monitoring en alerting systeem'
-      ]
-    },
-    results: {
-      en: [
-        '95% accuracy in predictive maintenance models',
-        '70% reduction in manual data analysis time',
-        'Real-time processing of 10,000+ data points per hour',
-        'Prevented 12 equipment failures through early detection'
-      ],
-      nl: [
-        '95% nauwkeurigheid in predictive maintenance modellen',
-        '70% vermindering in handmatige data analyse tijd',
-        'Real-time verwerking van 10.000+ datapunten per uur',
-        'Voorkwam 12 apparatuur storingen door vroege detectie'
-      ]
-    },
-    businessImpact: {
-      en: 'Transformed reactive maintenance to predictive maintenance, reducing downtime and maintenance costs.',
-      nl: 'Transformeerde reactief onderhoud naar predictief onderhoud, verminderde downtime en onderhoudskosten.'
-    } as LocalizedContent,
-    technicalDetails: {
-      en: 'Microservices architecture with containerized ML models, event-driven processing, comprehensive logging and monitoring, and automated model versioning.',
-      nl: 'Microservices architectuur met gecontaineriseerde ML modellen, event-driven processing, uitgebreide logging en monitoring, en geautomatiseerde model versioning.'
-    } as LocalizedContent
-  },
-  {
-    id: 'cad-automation-suite',
-    title: {
-      en: 'CAD Automation Framework',
-      nl: 'CAD Automatisering Framework'
-    } as LocalizedContent,
-    description: {
-      en: 'Comprehensive automation framework for electrical engineering CAD workflows',
-      nl: 'Uitgebreid automatiseringsframework voor elektrotechnische CAD workflows'
-    } as LocalizedContent,
-    longDescription: {
-      en: 'Advanced automation suite for Revit and Dynamo workflows, featuring 50+ custom scripts and tools for electrical engineering teams.',
-      nl: 'Geavanceerde automatiseringssuite voor Revit en Dynamo workflows, met 50+ aangepaste scripts en tools voor elektrotechnische teams.'
-    } as LocalizedContent,
-    freelanceDescription: {
-      en: 'Custom automation solution that saved 10+ hours per project for electrical engineering team.',
-      nl: 'Aangepaste automatiseringsoplossing die 10+ uur per project bespaarde voor elektrotechnisch team.'
-    } as LocalizedContent,
-    professionalDescription: {
-      en: 'Developed comprehensive automation framework using Python, C#, and Revit API. Created custom Dynamo nodes, automated drawing generation, and implemented robust error handling. Built testing framework for CAD script reliability.',
-      nl: 'Ontwikkelde uitgebreid automatiseringsframework met Python, C#, en Revit API. Creëerde aangepaste Dynamo nodes, geautomatiseerde tekening generatie, en implementeerde robuuste error handling. Bouwde test framework voor CAD script betrouwbaarheid.'
-    } as LocalizedContent,
-    technologies: [
-      'Python', 
-      'C#', 
-      'Revit API', 
-      'Dynamo', 
-      '.NET Framework', 
-      createTech('CAD Integration', 'CAD Integratie') as string, 
-      createTech('Automated Testing', 'Geautomatiseerd Testen') as string
-    ],
-    category: 'automation',
-    status: 'completed',
-    startDate: new Date('2022-04-01'),
-    endDate: new Date('2022-08-31'),
-    githubUrl: 'https://github.com/lucakeizer/cad-automation',
-    images: ['/projects/cad-automation/dynamo.jpg', '/projects/cad-automation/revit.jpg'],
-    client: 'Smit Elektra',
-    role: 'Software Developer Intern',
-    challenges: {
-      en: [
-        'Complex CAD software API integration',
-        'Maintaining script reliability across software versions',
-        'Creating user-friendly interfaces for non-programmers',
-        'Performance optimization for large CAD models'
-      ],
-      nl: [
-        'Complexe CAD software API integratie',
-        'Behouden van script betrouwbaarheid over software versies',
-        'Creëren van gebruiksvriendelijke interfaces voor niet-programmeurs',
-        'Prestatie optimalisatie voor grote CAD modellen'
-      ]
-    },
-    solutions: {
-      en: [
-        'Built robust error handling and logging system',
-        'Created comprehensive unit and integration testing suite',
-        'Developed intuitive GUI interfaces using WPF',
-        'Implemented efficient algorithms for large dataset processing'
-      ],
-      nl: [
-        'Bouwde robuust error handling en logging systeem',
-        'Creëerde uitgebreide unit en integratie test suite',
-        'Ontwikkelde intuïtieve GUI interfaces met WPF',
-        'Implementeerde efficiënte algoritmes voor grote dataset verwerking'
-      ]
-    },
-    results: {
-      en: [
-        '10+ hours saved per project (50+ scripts deployed)',
-        '90% reduction in manual CAD work',
-        'Zero critical errors in production environment',
-        '100% team adoption rate'
-      ],
-      nl: [
-        '10+ uur bespaard per project (50+ scripts gedeployed)',
-        '90% vermindering in handmatig CAD werk',
-        'Nul kritieke fouten in productie omgeving',
-        '100% team adoptie rate'
-      ]
-    },
-    businessImpact: {
-      en: 'Dramatically improved productivity for electrical engineering team, allowing focus on design rather than repetitive tasks.',
-      nl: 'Dramatisch verbeterde productiviteit voor elektrotechnisch team, waardoor focus op ontwerp mogelijk werd in plaats van repetitieve taken.'
-    } as LocalizedContent,
-    technicalDetails: {
-      en: 'Deep integration with Revit and Dynamo APIs, custom node development, comprehensive error handling, automated testing framework, and version control integration.',
-      nl: 'Diepe integratie met Revit en Dynamo APIs, aangepaste node ontwikkeling, uitgebreide error handling, geautomatiseerd test framework, en version control integratie.'
-    } as LocalizedContent
-  },
-  {
-    id: 'distributed-system',
-    title: {
-      en: 'Distributed Computing Framework',
-      nl: 'Gedistribueerd Computing Framework'
-    } as LocalizedContent,
-    description: {
-      en: 'Scalable distributed system for parallel data processing and analysis',
-      nl: 'Schaalbaar gedistribueerd systeem voor parallelle gegevensverwerking en analyse'
-    } as LocalizedContent,
-    longDescription: {
-      en: 'Custom distributed computing framework built with Go and Docker for processing large-scale datasets across multiple nodes.',
-      nl: 'Aangepast gedistribueerd computing framework gebouwd met Go en Docker voor het verwerken van grootschalige datasets over meerdere nodes.'
-    } as LocalizedContent,
-    freelanceDescription: {
-      en: 'High-performance system for processing large datasets efficiently.',
-      nl: 'High-performance systeem voor het efficiënt verwerken van grote datasets.'
-    } as LocalizedContent,
-    professionalDescription: {
-      en: 'Built from scratch using Go and Docker, implementing distributed task scheduling, fault tolerance, and automatic load balancing. Designed for horizontal scaling and achieved 10x performance improvement over single-node processing.',
-      nl: 'Vanaf nul gebouwd met Go en Docker, implementeerde gedistribueerde taak scheduling, fault tolerance, en automatische load balancing. Ontworpen voor horizontale schaling en behaalde 10x prestatie verbetering over single-node verwerking.'
-    } as LocalizedContent,
-    technologies: [
-      'Go', 
-      'Docker', 
-      'Kubernetes', 
-      createTech('Distributed Systems', 'Gedistribueerde Systemen') as string, 
-      createTech('Message Queues', 'Berichtenrijen') as string, 
-      createTech('Load Balancing', 'Load Balancing') as string
-    ],
-    category: 'automation',
+    category: 'backend',
     status: 'completed',
     startDate: new Date('2024-01-01'),
-    endDate: new Date('2024-05-31'),
-    githubUrl: 'https://github.com/lucakeizer/distributed-framework',
-    images: ['/projects/distributed/architecture.jpg', '/projects/distributed/monitoring.jpg'],
+    endDate: new Date('2024-02-15'),
+    githubUrl: 'https://github.com/lucakeizer/taskflow',
+    images: ['/projects/taskflow/architecture.jpg', '/projects/taskflow/dashboard.jpg'],
     client: 'Personal Project',
-    role: 'Software Engineer',
+    role: 'Backend Engineer',
     challenges: {
       en: [
-        'Designing fault-tolerant distributed architecture',
-        'Implementing efficient task scheduling algorithms',
-        'Managing inter-node communication and state synchronization',
-        'Optimizing performance for different workload types'
+        'Ensuring atomic job state transitions across distributed workers',
+        'Implementing efficient job queuing with Redis at scale',
+        'Building robust retry mechanisms with exponential backoff',
+        'Creating comprehensive monitoring and observability'
       ],
       nl: [
-        'Ontwerpen van fault-tolerante gedistribueerde architectuur',
-        'Implementeren van efficiënte taak scheduling algoritmes',
-        'Beheren van inter-node communicatie en state synchronisatie',
-        'Optimaliseren van prestaties voor verschillende workload types'
+        'Zorgen voor atomaire job state transities over gedistribueerde workers',
+        'Implementeren van efficiënte job queuing met Redis op schaal',
+        'Bouwen van robuuste retry mechanismen met exponential backoff',
+        'Creëren van uitgebreide monitoring en observability'
       ]
     },
     solutions: {
       en: [
-        'Implemented consensus algorithm for distributed coordination',
-        'Built custom message queue system for reliable communication',
-        'Created dynamic load balancing with health checking',
-        'Developed comprehensive monitoring and alerting system'
+        'Implemented Redis pipeline operations for atomic job transitions',
+        'Built concurrent worker pools with goroutines and channels',
+        'Created pluggable job processor architecture',
+        'Added Prometheus metrics and structured logging'
       ],
       nl: [
-        'Implementeerde consensus algoritme voor gedistribueerde coördinatie',
-        'Bouwde aangepast message queue systeem voor betrouwbare communicatie',
-        'Creëerde dynamische load balancing met health checking',
-        'Ontwikkelde uitgebreid monitoring en alerting systeem'
+        'Implementeerde Redis pipeline operaties voor atomaire job transities',
+        'Bouwde concurrent worker pools met goroutines en channels',
+        'Creëerde pluggable job processor architectuur',
+        'Voegde Prometheus metrics en gestructureerde logging toe'
       ]
     },
     results: {
       en: [
-        '10x performance improvement over single-node processing',
-        '99.9% system uptime with automatic failover',
-        'Linear scaling performance up to 20 nodes',
-        'Processed 1TB+ datasets efficiently'
+        '1,200+ jobs processed per minute on modest hardware',
+        '99.5% job completion reliability with automatic retries',
+        'Sub-100ms average job pickup latency',
+        'Horizontal scaling with multiple worker instances'
       ],
       nl: [
-        '10x prestatie verbetering over single-node verwerking',
-        '99.9% systeem uptime met automatische failover',
-        'Lineaire schaling prestaties tot 20 nodes',
-        'Verwerkte 1TB+ datasets efficiënt'
+        '1.200+ jobs verwerkt per minuut op bescheiden hardware',
+        '99.5% job voltooiing betrouwbaarheid met automatische retries',
+        'Sub-100ms gemiddelde job pickup latentie',
+        'Horizontale schaalbaarheid met meerdere worker instanties'
       ]
     },
     businessImpact: {
-      en: 'Demonstrated ability to design and implement complex distributed systems for enterprise-scale data processing.',
-      nl: 'Toonde het vermogen aan om complexe gedistribueerde systemen te ontwerpen en implementeren voor enterprise-schaal gegevensverwerking.'
+      en: 'Enables reliable asynchronous processing for high-throughput applications, reducing system coupling and improving user experience.',
+      nl: 'Maakt betrouwbare asynchrone verwerking mogelijk voor high-throughput applicaties, vermindert systeem koppeling en verbetert gebruikerservaring.'
     } as LocalizedContent,
     technicalDetails: {
-      en: 'Implemented using Go for performance, containerized with Docker, orchestrated with Kubernetes, featuring custom consensus algorithms and comprehensive observability.',
-      nl: 'Geïmplementeerd met Go voor prestaties, gecontaineriseerd met Docker, georkestreerd met Kubernetes, met aangepaste consensus algoritmes en uitgebreide observeerbaarheid.'
+      en: 'Built with Go using Redis for job queuing and PostgreSQL for persistence. Features include atomic job state management, concurrent processing with worker pools, comprehensive testing with 95%+ coverage, CI/CD pipeline with GitHub Actions, and production-ready monitoring.',
+      nl: 'Gebouwd met Go met Redis voor job queuing en PostgreSQL voor persistentie. Features omvatten atomaire job state management, concurrent verwerking met worker pools, uitgebreide testing met 95%+ coverage, CI/CD pipeline met GitHub Actions, en productie-klare monitoring.'
+    } as LocalizedContent
+  },
+  {
+    id: 'nutriparse-app',
+    title: {
+      en: 'NutriParse Recipe Analyzer',
+      nl: 'NutriParse Recept Analyzer'
+    } as LocalizedContent,
+    description: {
+      en: 'AI-powered web application that transforms recipe text into detailed nutritional information',
+      nl: 'AI-gedreven webapplicatie die recepttekst omzet naar gedetailleerde voedingswaarde informatie'
+    } as LocalizedContent,
+    longDescription: {
+      en: 'Full-stack web application using React, Django, and Natural Language Processing to parse recipe text and calculate comprehensive nutritional information.',
+      nl: 'Full-stack webapplicatie met React, Django, en Natural Language Processing om recepttekst te parseren en uitgebreide voedingswaarde informatie te berekenen.'
+    } as LocalizedContent,
+    freelanceDescription: {
+      en: 'Advanced recipe parsing application demonstrating full-stack development and NLP integration capabilities.',
+      nl: 'Geavanceerde recept parsing applicatie die full-stack ontwikkeling en NLP integratie mogelijkheden demonstreert.'
+    } as LocalizedContent,
+    professionalDescription: {
+      en: 'Developed comprehensive recipe analysis platform using React with TypeScript, Django REST Framework, and spaCy NLP. Implemented intelligent ingredient parsing, nutrition database integration, and interactive data visualization. Built robust authentication system and responsive UI components.',
+      nl: 'Ontwikkelde uitgebreid recept analyse platform met React met TypeScript, Django REST Framework, en spaCy NLP. Implementeerde intelligente ingrediënt parsing, voedingswaarde database integratie, en interactieve data visualisatie. Bouwde robuust authenticatie systeem en responsieve UI componenten.'
+    } as LocalizedContent,
+    technologies: [
+      'React', 
+      'TypeScript', 
+      'Django', 
+      'Django REST Framework', 
+      'PostgreSQL', 
+      'spaCy', 
+      'Material-UI', 
+      createTech('Natural Language Processing', 'Natural Language Processing') as string, 
+      createTech('Chart.js', 'Chart.js') as string
+    ],
+    category: 'automation',
+    status: 'completed',
+    startDate: new Date('2025-01-01'),
+    endDate: new Date('2025-01-31'),
+    githubUrl: 'https://github.com/LucaKeizer/nutriparse',
+    images: ['/projects/nutriparse/parser.jpg', '/projects/nutriparse/nutrition-chart.jpg'],
+    client: 'Personal Project',
+    role: 'Full-Stack Developer',
+    challenges: {
+      en: [
+        'Complex NLP parsing of unstructured recipe text',
+        'Accurate ingredient matching to nutrition database',
+        'Unit conversion between different measurement systems',
+        'Real-time nutrition calculation and visualization'
+      ],
+      nl: [
+        'Complexe NLP parsing van ongestructureerde recepttekst',
+        'Accurate ingrediënt matching naar voedingswaarde database',
+        'Eenheid conversie tussen verschillende meetsystemen',
+        'Real-time voedingswaarde berekening en visualisatie'
+      ]
+    },
+    solutions: {
+      en: [
+        'Built advanced NLP pipeline using spaCy for ingredient extraction',
+        'Created comprehensive nutrition database with fuzzy matching',
+        'Developed robust unit conversion system with measurement standardization',
+        'Implemented interactive charts and responsive data visualization'
+      ],
+      nl: [
+        'Bouwde geavanceerde NLP pipeline met spaCy voor ingrediënt extractie',
+        'Creëerde uitgebreide voedingswaarde database met fuzzy matching',
+        'Ontwikkelde robuust eenheid conversie systeem met meting standaardisatie',
+        'Implementeerde interactieve grafieken en responsieve data visualisatie'
+      ]
+    },
+    results: {
+      en: [
+        '95%+ ingredient parsing accuracy achieved',
+        'Comprehensive nutrition analysis for 1000+ food items',
+        'Sub-second recipe processing time',
+        'Fully responsive design across all devices'
+      ],
+      nl: [
+        '95%+ ingrediënt parsing accuratesse behaald',
+        'Uitgebreide voedingswaarde analyse voor 1000+ voedingsproducten',
+        'Sub-seconde recept verwerkingstijd',
+        'Volledig responsief ontwerp op alle apparaten'
+      ]
+    },
+    businessImpact: {
+      en: 'Demonstrates advanced full-stack development skills with cutting-edge NLP integration, showcasing ability to build complex data processing applications.',
+      nl: 'Demonstreert geavanceerde full-stack ontwikkeling vaardigheden met cutting-edge NLP integratie, toont vermogen om complexe data verwerkings applicaties te bouwen.'
+    } as LocalizedContent,
+    technicalDetails: {
+      en: 'Advanced TypeScript React frontend with Material-UI, Django backend with REST API, PostgreSQL database design, spaCy NLP integration, comprehensive testing strategy, and Docker containerization.',
+      nl: 'Geavanceerde TypeScript React frontend met Material-UI, Django backend met REST API, PostgreSQL database ontwerp, spaCy NLP integratie, uitgebreide test strategie, en Docker containerisatie.'
     } as LocalizedContent
   }
 ]

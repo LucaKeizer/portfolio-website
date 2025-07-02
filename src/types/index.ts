@@ -8,7 +8,7 @@ export interface Project {
   description: LocalizedContent
   longDescription?: LocalizedContent
   technologies: string[]
-  category: 'web' | 'data' | 'mobile' | 'automation' | 'ml'
+  category: 'web' | 'data' | 'mobile' | 'automation' | 'ml' | 'backend' | 'other'
   status: 'completed' | 'in-progress' | 'concept'
   startDate: Date
   endDate?: Date
