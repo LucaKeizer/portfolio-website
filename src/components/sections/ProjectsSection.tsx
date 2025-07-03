@@ -121,25 +121,7 @@ function ProjectsList({ projects, language, viewMode }: {
                 </div>
               )}
               
-              {/* Overlay with links */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center space-x-4">
-                {project.liveUrl && (
-                  <Button variant="secondary" size="sm" asChild>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      {language === 'en' ? 'Live Demo' : 'Live Demo'}
-                    </a>
-                  </Button>
-                )}
-                {project.githubUrl && !isFreelance && (
-                  <Button variant="secondary" size="sm" asChild>
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-4 w-4 mr-2" />
-                      {language === 'en' ? 'Code' : 'Code'}
-                    </a>
-                  </Button>
-                )}
-              </div>
+
             </div>
           </div>
 
