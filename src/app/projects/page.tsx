@@ -114,10 +114,6 @@ function ProjectCard({ project, language, viewMode }: {
       {/* Project Content */}
       <div className="p-6">
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(project.startDate, language)}</span>
-          </div>
           {project.status === 'completed' && (
             <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
               {language === 'en' ? 'Completed' : 'Voltooid'}
