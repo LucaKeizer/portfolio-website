@@ -129,7 +129,7 @@ export const clientProjects: Project[] = [
   category: 'web',
   status: 'completed',
   liveUrl: 'https://empathys.nl',
-  images: ['/projects/empathys/hero.jpg'],
+  images: ['/projects/empathys/hero.png'],
   client: 'Empathys Child Therapy Practice',
   role: 'Full-Stack Developer',
   challenges: {
