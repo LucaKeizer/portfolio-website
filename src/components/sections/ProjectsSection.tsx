@@ -149,14 +149,8 @@ function ProjectsList({ projects, language, viewMode }: {
             {/* Header */}
             <div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
-                <Calendar className="h-4 w-4" />
-                <span>
-                  {formatDate(project.startDate, language)}
-                  {project.endDate && ` - ${formatDate(project.endDate, language)}`}
-                </span>
                 {project.client && (
                   <>
-                    <span>•</span>
                     <Users className="h-4 w-4" />
                     <span>{project.client}</span>
                   </>

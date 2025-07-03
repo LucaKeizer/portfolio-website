@@ -10,8 +10,6 @@ export interface Project {
   technologies: string[]
   category: 'web' | 'data' | 'mobile' | 'automation' | 'ml' | 'backend' | 'other'
   status: 'completed' | 'in-progress' | 'concept'
-  startDate: Date
-  endDate?: Date
   githubUrl?: string
   liveUrl?: string
   caseStudyUrl?: string
