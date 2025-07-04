@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin, Shield, Zap } from 'lucide-react'
+import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin, Shield, Zap, Star, Trophy, Users, Rocket, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
@@ -16,7 +16,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       duration: 0.6,
-      staggerChildren: 0.2
+      staggerChildren: 0.15
     }
   }
 }
@@ -40,6 +40,18 @@ const modeVariants = {
   }
 }
 
+// Subtle floating animation
+const subtleFloatVariants = {
+  animate: {
+    y: [-5, 5, -5],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  }
+}
+
 export default function HeroSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
   const isProfessional = viewMode === 'professional'
@@ -47,15 +59,71 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
   const currentDiscount = getCurrentDiscount()
 
   return (
-    <section className="min-h-[70vh] md:min-h-screen lg:min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-24">
-      {/* Background Elements */}
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20">
+      
+      {/* Enhanced Background Elements */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-600/5 rounded-full blur-3xl"></div>
+        {/* Main gradient blobs - more impactful */}
+        <motion.div 
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-full blur-3xl"
+          animate={{
+            x: [-10, 10, -10],
+            y: [-5, 5, -5],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-green-500/12 to-blue-500/12 rounded-full blur-3xl"
+          animate={{
+            x: [10, -10, 10],
+            y: [5, -5, 5],
+            scale: [1.1, 1, 1.1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        {/* Subtle floating tech icons */}
+        <motion.div
+          className="absolute top-32 left-20 hidden lg:block opacity-20"
+          variants={subtleFloatVariants}
+          animate="animate"
+        >
+          <div className="p-2 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+            <Code2 className="h-4 w-4 text-blue-400" />
+          </div>
+        </motion.div>
+        
+        <motion.div
+          className="absolute bottom-40 right-24 hidden lg:block opacity-20"
+          variants={subtleFloatVariants}
+          animate="animate"
+          transition={{ delay: 2, duration: 4, repeat: Infinity }}
+        >
+          <div className="p-2 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+            <Database className="h-4 w-4 text-green-400" />
+          </div>
+        </motion.div>
+
+        {/* Enhanced grid pattern */}
+        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.4) 1px, transparent 0)`,
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
       </div>
 
       <motion.div 
-        className="container-padding text-center"
+        className="container-padding text-center relative z-10"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -64,224 +132,415 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
         {/* Main Content */}
         <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
           
-          {/* Greeting - More compact on mobile */}
-          <motion.p 
+          {/* Enhanced Avatar with more impact */}
+          <motion.div 
             variants={itemVariants}
-            className="text-sm md:text-lg text-muted-foreground mb-2 md:mb-4"
+            className="relative inline-block mb-6 md:mb-8"
           >
-            {language === 'en' ? 'Hello, I\'m' : 'Hallo, ik ben'}
-          </motion.p>
+            <div className="w-32 h-32 md:w-40 md:h-40 mx-auto relative">
+              {/* More impactful border with animation */}
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 p-1.5"
+                animate={{
+                  background: [
+                    "linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3))",
+                    "linear-gradient(45deg, rgba(147, 51, 234, 0.3), rgba(34, 197, 94, 0.3))",
+                    "linear-gradient(45deg, rgba(34, 197, 94, 0.3), rgba(59, 130, 246, 0.3))"
+                  ]
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <div className="w-full h-full rounded-full bg-background flex items-center justify-center border border-border/50">
+                  {/* Enhanced avatar */}
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl md:text-3xl shadow-lg">
+                    LK
+                  </div>
+                </div>
+              </motion.div>
+              
+              {/* Enhanced status indicator */}
+              <motion.div 
+                className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 bg-green-500 rounded-full border-3 border-background flex items-center justify-center shadow-lg"
+                animate={{
+                  scale: [1, 1.1, 1],
+                  boxShadow: [
+                    "0 0 0 0 rgba(34, 197, 94, 0.4)",
+                    "0 0 0 8px rgba(34, 197, 94, 0)",
+                    "0 0 0 0 rgba(34, 197, 94, 0)"
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity
+                }}
+              >
+                <div className="w-4 h-4 md:w-5 md:h-5 bg-white rounded-full"></div>
+              </motion.div>
+            </div>
+          </motion.div>
 
-          {/* Name - Smaller on mobile */}
+          {/* Greeting with more personality */}
+          <motion.div 
+            variants={itemVariants}
+            className="flex items-center justify-center space-x-2 mb-4"
+          >
+            <motion.div
+              animate={{ rotate: [0, 20, 0] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
+              className="text-2xl"
+            >
+              👋
+            </motion.div>
+            <p className="text-base md:text-lg text-muted-foreground font-medium">
+              {language === 'en' ? 'Hey, I\'m' : 'Hallo, ik ben'}
+            </p>
+          </motion.div>
+
+          {/* Enhanced name with more impact */}
           <motion.h1 
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 relative"
           >
-            <span className="gradient-text">Luca Keizer</span>
+            <motion.span 
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              style={{
+                backgroundSize: '200% 200%'
+              }}
+            >
+              Luca Keizer
+            </motion.span>
           </motion.h1>
 
-          {/* Title/Role - More compact on mobile */}
-          <motion.h2 
+          {/* Enhanced title with better visual hierarchy */}
+          <motion.div 
             key={`title-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="text-base sm:text-lg md:text-2xl lg:text-3xl text-muted-foreground font-medium mb-3 md:mb-8"
+            className="mb-6 md:mb-8"
           >
-            {isFreelance ? (
-              language === 'en' 
-                ? 'Custom Web Developer'
-                : 'Custom Webontwikkelaar'
-            ) : (
-              language === 'en'
-                ? 'Software Engineer'
-                : 'Software Engineer'
-            )}
-          </motion.h2>
+            <div className="flex flex-col items-center space-y-4">
+              <div className="flex items-center space-x-3">
+                {isFreelance ? (
+                  <motion.div
+                    className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl border border-blue-200 dark:border-blue-800"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <Briefcase className="h-6 w-6 md:h-7 md:w-7 text-blue-600" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl border border-purple-200 dark:border-purple-800"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <Code2 className="h-6 w-6 md:h-7 md:w-7 text-purple-600" />
+                  </motion.div>
+                )}
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground font-semibold">
+                  {isFreelance ? (
+                    language === 'en' 
+                      ? 'Custom Web Developer'
+                      : 'Custom Webontwikkelaar'
+                  ) : (
+                    language === 'en'
+                      ? 'Software Engineer'
+                      : 'Software Engineer'
+                  )}
+                </h2>
+              </div>
+              
+              {/* Professional experience badge with more impact */}
+              <motion.div
+                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-primary/5 rounded-full border border-primary/20"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Trophy className="h-5 w-5 text-primary" />
+                <span className="text-sm md:text-base font-semibold text-primary">
+                  {yearsOfExperience}+ {language === 'en' ? 'years experience' : 'jaar ervaring'}
+                </span>
+              </motion.div>
+            </div>
+          </motion.div>
 
-          {/* Description - Much shorter on mobile */}
+          {/* Streamlined description with more impact */}
           <motion.div 
             key={`description-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="mb-4 md:mb-8 max-w-3xl mx-auto"
+            className="mb-6 md:mb-8 max-w-3xl mx-auto"
           >
-            {/* Mobile version - very concise */}
-            <p className="text-sm md:hidden text-muted-foreground leading-relaxed">
-              {isFreelance ? (
-                language === 'en' 
-                  ? `Professional websites for North Holland businesses. Hand-coded, fast & secure.`
-                  : `Professionele websites voor Noord-Holland bedrijven. Handgecodeerd, snel & veilig.`
-              ) : (
-                language === 'en'
-                  ? `${yearsOfExperience}+ years building scalable solutions with Python & TypeScript.`
-                  : `${yearsOfExperience}+ jaar het bouwen van schaalbare oplossingen met Python & TypeScript.`
+            <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border p-6 md:p-8 shadow-lg">
+              <p className="text-base md:text-xl text-muted-foreground leading-relaxed">
+                {isFreelance ? (
+                  language === 'en' 
+                    ? (
+                      <>
+                        I build <strong className="text-foreground">professional custom websites</strong> for North Holland businesses. 
+                        Hand-coded from scratch with <strong className="text-foreground">enterprise-quality</strong> development practices.
+                      </>
+                    )
+                    : (
+                      <>
+                        Ik bouw <strong className="text-foreground">professionele custom websites</strong> voor Noord-Holland bedrijven. 
+                        Handgecodeerd vanaf nul met <strong className="text-foreground">enterprise-kwaliteit</strong> ontwikkelingspraktijken.
+                      </>
+                    )
+                ) : (
+                  language === 'en'
+                    ? (
+                      <>
+                        <strong className="text-foreground">{yearsOfExperience}+ years</strong> building scalable solutions with Python, TypeScript, and Azure. 
+                        Passionate about creating <strong className="text-foreground">efficient, maintainable software</strong> that delivers real value.
+                      </>
+                    )
+                    : (
+                      <>
+                        <strong className="text-foreground">{yearsOfExperience}+ jaar</strong> het bouwen van schaalbare oplossingen met Python, TypeScript en Azure. 
+                        Gepassioneerd over het creëren van <strong className="text-foreground">efficiënte, onderhoudbare software</strong> die echte waarde levert.
+                      </>
+                    )
+                )}
+              </p>
+              
+              {/* Inline quality indicators for freelance - much more compact */}
+              {isFreelance && (
+                <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 pt-4 border-t border-border/50">
+                  <div className="flex items-center space-x-1.5 text-sm">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="font-medium text-foreground">
+                      {language === 'en' ? 'Hand-Coded' : 'Handgecodeerd'}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 text-sm">
+                    <Zap className="h-4 w-4 text-yellow-500" />
+                    <span className="font-medium text-foreground">
+                      {language === 'en' ? 'Lightning Fast' : 'Bliksem Snel'}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 text-sm">
+                    <Shield className="h-4 w-4 text-blue-500" />
+                    <span className="font-medium text-foreground">
+                      {language === 'en' ? 'Professional Quality' : 'Professionele Kwaliteit'}
+                    </span>
+                  </div>
+                </div>
               )}
-            </p>
-            
-            {/* Desktop version - full text */}
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed hidden md:block">
-              {isFreelance ? (
-                language === 'en' 
-                  ? `Professional hand-coded websites for local businesses in North Holland. Built from scratch with modern technologies - no templates, just fast and secure custom solutions. ${yearsOfExperience}+ years of professional software engineering experience.`
-                  : `Professionele handgecodeerde websites voor lokale bedrijven in Noord-Holland. Vanaf nul gebouwd met moderne technologieën - geen templates, alleen snelle en veilige custom oplossingen. ${yearsOfExperience}+ jaar professionele software engineering ervaring.`
-              ) : (
-                language === 'en'
-                  ? `Passionate about building scalable solutions with Python, TypeScript, and modern cloud technologies. ${yearsOfExperience}+ years of experience in full-stack development and data analysis.`
-                  : `Gepassioneerd over het bouwen van schaalbare oplossingen met Python, TypeScript en moderne cloud technologieën. ${yearsOfExperience}+ jaar ervaring in full-stack ontwikkeling en data-analyse.`
-              )}
-            </p>
+            </div>
           </motion.div>
 
-          {/* Quality Badges - Hidden on mobile to save space */}
-          {isFreelance && (
-            <motion.div 
-              variants={itemVariants}
-              className="hidden md:flex flex-wrap items-center justify-center gap-3 md:gap-6 mb-6 md:mb-8 text-xs md:text-sm"
-            >
-              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
-                <Code2 className="h-3 w-3 md:h-4 md:w-4 text-green-600" />
-                <span className="font-medium">
-                  {language === 'en' ? 'Custom Coded' : 'Custom Gecodeerd'}
-                </span>
-              </div>
-              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
-                <Zap className="h-3 w-3 md:h-4 md:w-4 text-purple-600" />
-                <span className="font-medium">
-                  {language === 'en' ? 'Lightning Fast' : 'Bliksem Snel'}
-                </span>
-              </div>
-              <div className="flex items-center space-x-1 md:space-x-2 text-muted-foreground">
-                <Shield className="h-3 w-3 md:h-4 md:w-4 text-blue-600" />
-                <span className="font-medium">
-                  {language === 'en' ? 'Professional Quality' : 'Professionele Kwaliteit'}
-                </span>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Tech Stack Icons - Smaller and fewer on mobile */}
+          {/* Enhanced tech stack with more visual impact */}
           <motion.div 
             variants={itemVariants}
-            className="flex items-center justify-center space-x-3 md:space-x-6 mb-6 md:mb-12"
+            className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10"
           >
-            <div className="flex items-center space-x-1 text-muted-foreground">
-              <Code2 className="h-3 w-3 md:h-5 md:w-5" />
-              <span className="text-xs md:text-sm font-medium">Python</span>
-            </div>
-            <div className="flex items-center space-x-1 text-muted-foreground">
-              <Globe className="h-3 w-3 md:h-5 md:w-5" />
-              <span className="text-xs md:text-sm font-medium">TypeScript</span>
-            </div>
-            <div className="hidden sm:flex items-center space-x-1 text-muted-foreground">
-              <Database className="h-3 w-3 md:h-5 md:w-5" />
-              <span className="text-xs md:text-sm font-medium">React</span>
-            </div>
-            <div className="hidden sm:flex items-center space-x-1 text-muted-foreground">
-              <Cloud className="h-3 w-3 md:h-5 md:w-5" />
-              <span className="text-xs md:text-sm font-medium">Azure</span>
-            </div>
+            {[
+              { icon: Code2, label: 'Python', color: 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800' },
+              { icon: Globe, label: 'TypeScript', color: 'text-blue-600 bg-blue-100 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' },
+              { icon: Database, label: 'React', color: 'text-cyan-600 bg-cyan-100 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800' },
+              { icon: Cloud, label: 'Azure', color: 'text-purple-600 bg-purple-100 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800' }
+            ].map((tech, index) => (
+              <motion.div
+                key={tech.label}
+                className={`flex items-center space-x-2 px-3 md:px-4 py-2 md:py-3 rounded-lg border ${tech.color}`}
+                whileHover={{ 
+                  scale: 1.05,
+                  y: -2
+                }}
+                animate={{
+                  y: [0, -3, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: index * 0.5
+                }}
+              >
+                <tech.icon className="h-4 w-4 md:h-5 md:w-5" />
+                <span className="text-sm md:text-base font-semibold">{tech.label}</span>
+              </motion.div>
+            ))}
           </motion.div>
 
-          {/* Discount Banner - More compact on mobile */}
+          {/* Enhanced discount banner */}
           {isFreelance && showDiscountBanner && (
             <motion.div 
               variants={itemVariants}
-              className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/30 dark:to-red-900/30 border border-orange-300 dark:border-orange-700 rounded-lg md:rounded-xl p-2 md:p-4 mb-6 md:mb-12 max-w-2xl mx-auto"
+              className="mb-8 md:mb-10 max-w-2xl mx-auto"
             >
-              <div className="flex items-center justify-center space-x-1 md:space-x-2 mb-1">
-                <Zap className="h-3 w-3 md:h-4 md:w-4 text-orange-600" />
-                <span className="font-bold text-orange-800 dark:text-orange-200 text-xs md:text-sm">
-                  {language === 'en' ? currentDiscount.bannerInfo.title.en : currentDiscount.bannerInfo.title.nl}
-                </span>
-              </div>
-              <p className="text-orange-700 dark:text-orange-300 text-xs md:text-sm text-center">
-                {language === 'en' 
-                  ? 'Professional custom websites at portfolio prices!'
-                  : 'Professionele custom websites tegen portfolio prijzen!'
-                }
-              </p>
+              <motion.div 
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl p-6 md:p-8 shadow-2xl border-2 border-orange-300 relative overflow-hidden"
+                animate={{
+                  boxShadow: [
+                    "0 0 30px rgba(251, 146, 60, 0.3)",
+                    "0 0 50px rgba(251, 146, 60, 0.6)",
+                    "0 0 30px rgba(251, 146, 60, 0.3)"
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity
+                }}
+              >
+                {/* Background decoration */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center justify-center space-x-2 mb-3">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Zap className="h-6 w-6 md:h-7 md:w-7" />
+                    </motion.div>
+                    <span className="font-bold text-xl md:text-2xl">
+                      {language === 'en' ? currentDiscount.bannerInfo.title.en : currentDiscount.bannerInfo.title.nl}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: [0, -360] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Star className="h-6 w-6 md:h-7 md:w-7" />
+                    </motion.div>
+                  </div>
+                  <p className="text-base md:text-lg text-center opacity-95">
+                    {language === 'en' 
+                      ? '🎯 Professional custom development at unbeatable portfolio prices!'
+                      : '🎯 Professionele custom ontwikkeling tegen onverslaanbare portfolio prijzen!'
+                    }
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           )}
 
-          {/* CTA Buttons - Compact mobile layout */}
+          {/* Enhanced CTA buttons with more impact */}
           <motion.div 
             key={`cta-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col gap-2 md:gap-4 md:flex-row justify-center items-center mb-6 md:mb-16"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 md:mb-12"
           >
             {isFreelance ? (
               <>
-                <Button size="sm" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto max-w-xs" variant="gradient" asChild>
-                  <a href="#contact">
-                    <Briefcase className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
-                  </a>
-                </Button>
-                <Button size="sm" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto max-w-xs" variant="outline" asChild>
-                  <a href="#services">
-                    {language === 'en' ? 'View Services' : 'Bekijk Diensten'}
-                  </a>
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    size="lg" 
+                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px] shadow-xl" 
+                    variant="gradient" 
+                    asChild
+                  >
+                    <a href="#contact" className="flex items-center">
+                      <Rocket className="h-5 w-5 mr-2" />
+                      {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
+                    </a>
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    size="lg" 
+                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px]" 
+                    variant="outline" 
+                    asChild
+                  >
+                    <a href="#services" className="flex items-center">
+                      <Users className="h-5 w-5 mr-2" />
+                      {language === 'en' ? 'View Services' : 'Bekijk Diensten'}
+                    </a>
+                  </Button>
+                </motion.div>
               </>
             ) : (
               <>
-                <Button size="sm" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto max-w-xs" variant="gradient" asChild>
-                  <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center">
-                    <Linkedin className="h-4 w-4 mr-2" />
-                    {language === 'en' ? 'LinkedIn' : 'LinkedIn'}
-                  </a>
-                </Button>
-                <Button size="sm" className="md:!h-12 md:!px-10 md:!text-base w-full sm:w-auto max-w-xs" variant="outline" asChild>
-                  <a href="#contact">
-                    {language === 'en' ? 'Contact' : 'Contact'}
-                  </a>
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    size="lg" 
+                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px] shadow-xl" 
+                    variant="gradient" 
+                    asChild
+                  >
+                    <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      <Linkedin className="h-5 w-5 mr-2" />
+                      {language === 'en' ? 'LinkedIn Profile' : 'LinkedIn Profiel'}
+                    </a>
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button 
+                    size="lg" 
+                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px]" 
+                    variant="outline" 
+                    asChild
+                  >
+                    <a href="#contact" className="flex items-center">
+                      <Users className="h-5 w-5 mr-2" />
+                      {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                    </a>
+                  </Button>
+                </motion.div>
               </>
             )}
           </motion.div>
 
-          {/* Location & Availability - More compact on mobile */}
+          {/* Enhanced location & availability */}
           <motion.div 
             key={`location-${viewMode}`}
             variants={modeVariants}
             initial="hidden"
             animate="visible"
-            className="text-center text-muted-foreground"
+            className="text-center"
           >
-            <p className="text-xs md:text-sm">
-              📍 {language === 'en' ? 'Volendam, Netherlands' : 'Volendam, Nederland'}
-            </p>
-            {isFreelance && (
-              <p className="text-xs md:text-sm mt-1">
-                ✅ {language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten'}
-              </p>
-            )}
-            {isProfessional && (
-              <p className="text-xs md:text-sm mt-1">
-                💼 {language === 'en' ? 'Open to opportunities' : 'Open voor kansen'}
-              </p>
-            )}
+            <div className="inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 px-6 py-4 bg-muted/50 backdrop-blur-sm rounded-xl border border-border/50">
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-lg"
+                >
+                  📍
+                </motion.div>
+                <span className="text-sm md:text-base font-medium">
+                  {language === 'en' ? 'Volendam, Netherlands' : 'Volendam, Nederland'}
+                </span>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  className="w-3 h-3 bg-green-500 rounded-full"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [1, 0.5, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity
+                  }}
+                />
+                <span className="text-sm md:text-base font-medium">
+                  {isFreelance 
+                    ? (language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten')
+                    : (language === 'en' ? 'Open to opportunities' : 'Open voor kansen')
+                  }
+                </span>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator - Hidden on mobile to save space */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ArrowDown className="h-6 w-6 text-muted-foreground" />
-          </motion.div>
-        </motion.div>
       </motion.div>
     </section>
   )
