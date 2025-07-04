@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Main homepage -->
+  <url>
+    <loc>https://lucakeizer.nl/</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lucakeizer.nl/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://lucakeizer.nl/?lang=nl"/>
+  </url>
+
+  <!-- All projects page (freelance mode only) -->
+  <url>
+    <loc>https://lucakeizer.nl/projects</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://lucakeizer.nl/projects?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://lucakeizer.nl/projects?lang=nl"/>
+  </url>
+
+  <!-- Homepage sections as separate URLs for better indexing -->
+  <url>
+    <loc>https://lucakeizer.nl/#about</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://lucakeizer.nl/#projects</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://lucakeizer.nl/#experience</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://lucakeizer.nl/#services</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://lucakeizer.nl/#contact</loc>
+    <lastmod>2025-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

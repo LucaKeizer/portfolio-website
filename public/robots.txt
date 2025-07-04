@@ -1,0 +1,40 @@
+# Robots.txt for lucakeizer.nl
+# Allow all web crawlers to access the site
+
+User-agent: *
+Allow: /
+
+# Disallow crawling of API routes (they don't need to be indexed)
+Disallow: /api/
+
+# Disallow crawling of Next.js internal files
+Disallow: /_next/
+Disallow: /_vercel/
+
+# Allow crawling of important assets
+Allow: /_next/static/
+Allow: /images/
+Allow: /projects/
+Allow: /resume/
+
+# Sitemap location
+Sitemap: https://lucakeizer.nl/sitemap.xml
+
+# Crawl delay (optional - helps prevent overwhelming your server)
+Crawl-delay: 1
+
+# Additional directives for specific search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block any bad bots (add as needed)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
