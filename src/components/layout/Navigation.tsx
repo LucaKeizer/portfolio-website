@@ -200,7 +200,7 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Navigation - Improved spacing and touch targets */}
+        {/* IMPROVED Mobile Navigation - Reordered for better UX */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -208,29 +208,48 @@ export default function Navigation() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden border-t border-border"
+              className="lg:hidden border-t border-border bg-background/95 backdrop-blur-sm"
             >
-              <div className="py-3 md:py-4 space-y-3 md:space-y-4">
+              <div className="py-3 space-y-3">
                 
+                {/* Quick Actions FIRST - Most important controls at top */}
+                <div className="space-y-2 px-2">
+                  
+                  {/* Theme and Language in one row - Always visible at top */}
+                  <div className="flex items-center justify-between">
+                    <ThemeToggle showText />
+                    
+                    <button
+                      onClick={() => setLanguage(language === 'en' ? 'nl' : 'en')}
+                      className="flex items-center space-x-2 py-2 px-3 text-muted-foreground hover:text-foreground transition-colors touch-manipulation rounded-lg hover:bg-muted/50"
+                    >
+                      <Globe className="h-4 w-4" />
+                      <span className="text-sm font-medium">
+                        {language === 'en' ? 'NL' : 'EN'}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
                 {/* Discount Badge Mobile - Only in Freelance Mode when active */}
                 {isFreelanceMode && showDiscountBanner && (
-                  <div className="flex justify-center pb-3 md:pb-4 border-b border-border">
-                    <div className="flex items-center space-x-1 text-xs bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-3 py-2 rounded-full border border-orange-200 dark:border-orange-800">
+                  <div className="flex justify-center pb-2 border-b border-border/50">
+                    <div className="flex items-center space-x-1 text-xs bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 px-3 py-1.5 rounded-full border border-orange-200 dark:border-orange-800">
                       <Zap className="h-3 w-3" />
                       <span className="font-medium">
-                        {discountPercentage}% {language === 'en' ? 'OFF Custom Sites' : 'KORTING Custom Sites'}
+                        {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
                       </span>
                     </div>
                   </div>
                 )}
 
-                {/* Mode Toggle Mobile - Better touch targets */}
-                <div className="flex items-center justify-center">
-                  <div className="flex items-center bg-muted rounded-lg p-1">
+                {/* Mode Toggle Mobile - More compact */}
+                <div className="flex items-center justify-center pb-2">
+                  <div className="flex items-center bg-muted rounded-lg p-0.5">
                     <button
                       onClick={() => setViewMode('freelance')}
                       className={cn(
-                        "px-4 py-2.5 text-sm font-medium rounded-md transition-all touch-manipulation",
+                        "px-3 py-1.5 text-sm font-medium rounded-md transition-all touch-manipulation",
                         isFreelanceMode 
                           ? "bg-background text-foreground shadow-sm" 
                           : "text-muted-foreground"
@@ -241,7 +260,7 @@ export default function Navigation() {
                     <button
                       onClick={() => setViewMode('professional')}
                       className={cn(
-                        "px-4 py-2.5 text-sm font-medium rounded-md transition-all touch-manipulation",
+                        "px-3 py-1.5 text-sm font-medium rounded-md transition-all touch-manipulation",
                         isProfessionalMode 
                           ? "bg-background text-foreground shadow-sm" 
                           : "text-muted-foreground"
@@ -252,56 +271,55 @@ export default function Navigation() {
                   </div>
                 </div>
 
-                {/* Navigation Links - Better touch targets */}
-                {filteredNavItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors py-2.5 touch-manipulation"
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span className="font-medium text-base">{item.label[language]}</span>
-                  </Link>
-                ))}
+                {/* Navigation Links - More compact */}
+                <div className="grid grid-cols-2 gap-2 px-2">
+                  {filteredNavItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors py-2 px-3 rounded-lg hover:bg-muted/50 touch-manipulation text-sm"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      <span className="font-medium">{item.label[language]}</span>
+                    </Link>
+                  ))}
+                </div>
 
-                {/* Controls Mobile - Better spacing and touch targets */}
-                <div className="pt-3 md:pt-4 border-t border-border space-y-3">
+                {/* Action Buttons at bottom */}
+                <div className="pt-2 border-t border-border/50 space-y-2 px-2">
                   
-                  {/* Theme Toggle */}
-                  <div className="flex justify-center">
-                    <ThemeToggle showText />
-                  </div>
-
-                  {/* Language Toggle - Better touch target */}
-                  <button
-                    onClick={() => setLanguage(language === 'en' ? 'nl' : 'en')}
-                    className="flex items-center justify-center space-x-2 w-full py-2.5 text-muted-foreground hover:text-foreground transition-colors touch-manipulation"
-                  >
-                    <Globe className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      {language === 'en' ? 'Switch to Dutch' : 'Switch to English'}
-                    </span>
-                  </button>
-
                   {/* Resume Download - Only in Professional Mode */}
                   {isProfessionalMode && (
-                    <Button variant="outline" className="w-full py-2.5 touch-manipulation" onClick={handleResumeDownload}>
+                    <Button variant="outline" className="w-full py-2 touch-manipulation" onClick={handleResumeDownload}>
                       <Download className="h-4 w-4 mr-2" />
                       {language === 'en' ? 'Download Resume' : 'Download CV'}
                     </Button>
                   )}
 
-                  {/* Contact CTA - Better touch target */}
+                  {/* Contact CTA - More compact for mobile */}
                   <Button variant="gradient" className="w-full py-2.5 touch-manipulation" asChild>
-                    <a href="#contact" onClick={() => setIsOpen(false)}>
-                      <Mail className="h-4 w-4 mr-2" />
-                      {isFreelanceMode && showDiscountBanner && (
-                        <span className="mr-2 text-xs">
-                          {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
-                        </span>
+                    <a href="#contact" onClick={() => setIsOpen(false)} className="flex items-center justify-center">
+                      {isFreelanceMode && showDiscountBanner ? (
+                        // Discount version - more compact
+                        <>
+                          <span className="text-xs font-bold">
+                            {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
+                          </span>
+                          <span className="mx-1">•</span>
+                          <span className="text-sm">
+                            {language === 'en' ? 'Contact' : 'Contact'}
+                          </span>
+                        </>
+                      ) : (
+                        // Normal version with icon
+                        <>
+                          <Mail className="h-4 w-4 mr-2" />
+                          <span>
+                            {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                          </span>
+                        </>
                       )}
-                      {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
                     </a>
                   </Button>
                 </div>

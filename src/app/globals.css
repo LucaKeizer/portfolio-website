@@ -101,12 +101,14 @@
     50% { background-position: 100% 50%; }
   }
 
+  /* MOBILE-FIRST SECTION PADDING - Much more compact on mobile */
   .section-padding {
-    @apply py-12 md:py-16 lg:py-20; /* Reduced from py-16 md:py-20 lg:py-24 */
+    @apply py-6 md:py-16 lg:py-20; /* Reduced mobile from py-12 to py-6 */
   }
 
+  /* MOBILE-OPTIMIZED CONTAINER PADDING */
   .container-padding {
-    @apply px-4 mx-auto max-w-7xl sm:px-6 lg:px-8;
+    @apply px-3 mx-auto max-w-7xl sm:px-6 lg:px-8; /* Reduced mobile from px-4 to px-3 */
   }
 
   /* Optimize card hover animations */
@@ -242,6 +244,29 @@
   .animate-delay-200 { animation-delay: 0.1s; }
   .animate-delay-300 { animation-delay: 0.15s; }
   .animate-delay-400 { animation-delay: 0.2s; }
+
+  /* MOBILE-SPECIFIC OPTIMIZATIONS */
+  @media (max-width: 768px) {
+    /* Even more compact spacing on small screens */
+    .section-padding {
+      @apply py-4; /* Super compact on mobile */
+    }
+    
+    /* Smaller text on mobile for better density */
+    .mobile-compact {
+      @apply text-sm leading-relaxed;
+    }
+    
+    /* Hide decorative elements on mobile */
+    .mobile-hidden {
+      @apply hidden md:block;
+    }
+    
+    /* Stack elements more tightly on mobile */
+    .mobile-stack {
+      @apply space-y-2 md:space-y-4;
+    }
+  }
 }
 
 @layer utilities {

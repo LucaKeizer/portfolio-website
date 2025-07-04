@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Code2, 
@@ -14,7 +15,9 @@ import {
   ArrowRight,
   Star,
   Zap,
-  Award
+  Award,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, LocalizedContent } from '@/types'
@@ -60,9 +63,9 @@ const modeContentVariants = {
 }
 
 const serviceIcons: Record<string, React.ReactNode> = {
-  'simple-website': <Globe className="h-6 w-6" />,
-  'business-website': <Calendar className="h-6 w-6" />,
-  'custom-website': <Code2 className="h-6 w-6" />
+  'simple-website': <Globe className="h-5 w-5 md:h-6 md:w-6" />,
+  'business-website': <Calendar className="h-5 w-5 md:h-6 md:w-6" />,
+  'custom-website': <Code2 className="h-5 w-5 md:h-6 md:w-6" />
 }
 
 const complexityColors = {
@@ -140,11 +143,10 @@ function formatPrice(amount: number, currency: string) {
   }).format(amount)
 }
 
-function calculateDiscount(original: number, current: number) {
-  return Math.round(((original - current) / original) * 100)
-}
-
 function ServicesContent({ language }: { language: 'en' | 'nl' }) {
+  const [expandedService, setExpandedService] = useState<string | null>('business-website')
+  const [showAllServices, setShowAllServices] = useState(false)
+
   // Helper function to get localized text
   const getText = (content: LocalizedContent): string => {
     return content[language]
@@ -163,6 +165,9 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
   // Get banner styling
   const bannerStyle = bannerColors[currentDiscount.bannerInfo.bannerColor]
 
+  // Show only featured service on mobile initially
+  const servicesToShow = showAllServices ? services : services.slice(1, 2) // Show only business website
+
   return (
     <motion.div
       variants={modeContentVariants}
@@ -170,53 +175,214 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
       animate="visible"
       exit="hidden"
     >
-      {/* Dynamic Discount Banner */}
+      {/* Responsive Discount Banner */}
       {showBanner && (
         <motion.div 
           variants={itemVariants}
-          className={`mb-12 bg-gradient-to-r ${bannerStyle.background} p-6 rounded-xl border-2 ${bannerStyle.border}`}
+          className={`mb-6 md:mb-12 bg-gradient-to-r ${bannerStyle.background} p-3 md:p-6 rounded-lg md:rounded-xl border-2 ${bannerStyle.border}`}
         >
           <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-3">
-              <Zap className={`h-5 w-5 ${bannerStyle.icon}`} />
-              <span className={`text-lg font-bold ${bannerStyle.text.title}`}>
+            <div className="flex items-center justify-center space-x-1 md:space-x-2 mb-2 md:mb-3">
+              <Zap className={`h-4 w-4 md:h-5 md:w-5 ${bannerStyle.icon}`} />
+              <span className={`text-sm md:text-lg font-bold ${bannerStyle.text.title}`}>
                 {getText(currentDiscount.bannerInfo.title)}
               </span>
-              <Zap className={`h-5 w-5 ${bannerStyle.icon}`} />
+              <Zap className={`h-4 w-4 md:h-5 md:w-5 ${bannerStyle.icon}`} />
             </div>
-            <p className={`font-medium mb-3 ${bannerStyle.text.subtitle}`}>
+            <p className={`text-xs md:text-sm font-medium mb-2 md:mb-3 ${bannerStyle.text.subtitle}`}>
               {getText(currentDiscount.bannerInfo.subtitle)}
             </p>
-            <p className={`text-sm max-w-2xl mx-auto mb-4 ${bannerStyle.text.description}`}>
-              {getText(currentDiscount.bannerInfo.description)}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-3xl mx-auto mb-4">
-              {currentDiscount.bannerInfo.features.map((feature, index) => (
-                <div key={index} className={`flex items-center space-x-2 text-sm ${bannerStyle.text.features}`}>
-                  <CheckCircle className={`h-4 w-4 ${bannerStyle.icon} flex-shrink-0`} />
-                  <span>{getText(feature)}</span>
-                </div>
-              ))}
-            </div>
-            <div className={`${bannerStyle.background2} p-3 rounded-lg border ${bannerStyle.border2}`}>
-              <p className={`text-sm font-medium ${bannerStyle.text.limitations}`}>
-                {getText(currentDiscount.bannerInfo.limitations)}
+            
+            {/* Mobile: Simplified description */}
+            <div className="md:hidden">
+              <p className={`text-xs max-w-2xl mx-auto ${bannerStyle.text.description}`}>
+                {language === 'en' 
+                  ? 'Professional custom-coded websites at unbeatable portfolio prices!'
+                  : 'Professionele custom-gecodeerde websites tegen onverslaanbare portfolio prijzen!'
+                }
               </p>
+            </div>
+            
+            {/* Desktop: Full features */}
+            <div className="hidden md:block">
+              <p className={`text-sm max-w-2xl mx-auto mb-4 ${bannerStyle.text.description}`}>
+                {getText(currentDiscount.bannerInfo.description)}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-3xl mx-auto mb-4">
+                {currentDiscount.bannerInfo.features.map((feature, index) => (
+                  <div key={index} className={`flex items-center space-x-2 text-sm ${bannerStyle.text.features}`}>
+                    <CheckCircle className={`h-4 w-4 ${bannerStyle.icon} flex-shrink-0`} />
+                    <span>{getText(feature)}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={`${bannerStyle.background2} p-3 rounded-lg border ${bannerStyle.border2}`}>
+                <p className={`text-sm font-medium ${bannerStyle.text.limitations}`}>
+                  {getText(currentDiscount.bannerInfo.limitations)}
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
       )}
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      {/* MOBILE ONLY: Compact Services Display */}
+      <div className="block md:hidden space-y-4 mb-8">
+        {servicesToShow.map((service, index) => (
+          <motion.div 
+            key={service.id}
+            variants={itemVariants}
+            className="bg-card p-4 rounded-lg border border-border card-hover group relative"
+          >
+            
+            {/* Popular Badge */}
+            {service.id === 'business-website' && (
+              <div className="absolute -top-2 -right-2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
+                <Star className="h-3 w-3" />
+                <span>{language === 'en' ? 'Popular' : 'Populair'}</span>
+              </div>
+            )}
+
+            {/* Mobile Header */}
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  {serviceIcons[service.id] || <Code2 className="h-5 w-5" />}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm">{getText(service.title)}</h3>
+                  {service.complexity && (
+                    <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border mt-1 ${
+                      complexityColors[service.complexity]
+                    }`}>
+                      {service.complexity === 'simple' && (language === 'en' ? 'Simple' : 'Eenvoudig')}
+                      {service.complexity === 'medium' && (language === 'en' ? 'Advanced' : 'Geavanceerd')}
+                      {service.complexity === 'complex' && (language === 'en' ? 'Complex' : 'Complex')}
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              {/* Price */}
+              {service.price && (
+                <div className="text-right">
+                  {service.originalPrice && (
+                    <div className="text-xs text-muted-foreground line-through mb-1">
+                      {service.originalPrice.to 
+                        ? `${formatPrice(service.originalPrice.from, service.originalPrice.currency)} - ${formatPrice(service.originalPrice.to, service.originalPrice.currency)}`
+                        : `${formatPrice(service.originalPrice.from, service.originalPrice.currency)}+`
+                      }
+                    </div>
+                  )}
+                  <div className="font-bold text-sm text-green-600">
+                    {service.price.to 
+                      ? `${formatPrice(service.price.from, service.price.currency)} - ${formatPrice(service.price.to, service.price.currency)}`
+                      : `${formatPrice(service.price.from, service.price.currency)}+`
+                    }
+                  </div>
+                  {service.originalPrice && discountPercentage > 0 && (
+                    <div className="text-xs text-green-600 font-medium">
+                      {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Description */}
+            <p className="text-muted-foreground text-sm mb-3 leading-relaxed">
+              {getText(service.description)}
+            </p>
+
+            {/* Timeline */}
+            <div className="flex items-center space-x-2 text-xs text-muted-foreground mb-3">
+              <Clock className="h-3 w-3" />
+              <span>{getText(service.timeline)}</span>
+            </div>
+
+            {/* Features */}
+            <div className="space-y-1 mb-4">
+              {getArray(service.features).slice(0, 3).map((feature, featureIndex) => (
+                <div key={featureIndex} className="flex items-start space-x-2 text-xs">
+                  <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+              
+              <AnimatePresence>
+                {expandedService === service.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-1"
+                  >
+                    {getArray(service.features).slice(3).map((feature, featureIndex) => (
+                      <div key={featureIndex + 3} className="flex items-start space-x-2 text-xs">
+                        <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              {getArray(service.features).length > 3 && (
+                <button
+                  onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
+                  className="flex items-center space-x-1 text-xs text-primary font-medium hover:text-primary/80 transition-colors"
+                >
+                  <span>
+                    {expandedService === service.id 
+                      ? (language === 'en' ? 'Show Less' : 'Toon Minder')
+                      : (language === 'en' ? `+${getArray(service.features).length - 3} More` : `+${getArray(service.features).length - 3} Meer`)
+                    }
+                  </span>
+                  {expandedService === service.id ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                </button>
+              )}
+            </div>
+
+            {/* CTA Button */}
+            <Button 
+              variant={service.id === 'business-website' ? 'gradient' : 'outline'}
+              className="w-full transition-colors text-sm"
+              asChild
+            >
+              <a href="#contact">
+                {language === 'en' ? 'Get Started' : 'Begin Nu'}
+                <ArrowRight className="h-3 w-3 ml-2" />
+              </a>
+            </Button>
+          </motion.div>
+        ))}
+
+        {/* Show All Button */}
+        {!showAllServices && (
+          <motion.div variants={itemVariants} className="text-center">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowAllServices(true)}
+              className="w-full"
+            >
+              {language === 'en' ? 'View All Services' : 'Bekijk Alle Diensten'}
+              <ChevronDown className="h-4 w-4 ml-2" />
+            </Button>
+          </motion.div>
+        )}
+      </div>
+
+      {/* DESKTOP ONLY: Original Grid Layout */}
+      <div className="hidden md:grid md:grid-cols-3 gap-6 mb-16">
         {services.map((service, index) => (
           <motion.div 
             key={service.id}
             variants={itemVariants}
-            className={`bg-card p-6 rounded-xl border border-border card-hover group relative`}
+            className="bg-card p-6 rounded-xl border border-border card-hover group relative"
           >
             
-            {/* Popular Badge for Business Website */}
+            {/* Popular Badge */}
             {service.id === 'business-website' && (
               <div className="absolute -top-3 -right-3 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-1">
                 <Star className="h-3 w-3" />
@@ -243,7 +409,6 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
               
               {service.price && (
                 <div className="text-right">
-                  {/* Original Price (crossed out) */}
                   {service.originalPrice && (
                     <div className="text-sm text-muted-foreground line-through mb-1">
                       {service.originalPrice.to 
@@ -253,7 +418,6 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
                     </div>
                   )}
                   
-                  {/* Current Price */}
                   <div className="font-bold text-lg text-green-600">
                     {service.price.to 
                       ? `${formatPrice(service.price.from, service.price.currency)} - ${formatPrice(service.price.to, service.price.currency)}`
@@ -261,7 +425,6 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
                     }
                   </div>
                   
-                  {/* Discount Percentage */}
                   {service.originalPrice && discountPercentage > 0 && (
                     <div className="text-xs text-green-600 font-medium">
                       {discountPercentage}% {language === 'en' ? 'OFF' : 'KORTING'}
@@ -325,48 +488,36 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
 
       {/* Process Section */}
       <motion.div variants={itemVariants}>
-        <div className="text-center mb-12">
-          <h3 className="text-2xl font-bold mb-4">
-            {language === 'en' ? 'How We Build Your Website' : 'Hoe We Je Website Bouwen'}
+        <div className="text-center mb-6 md:mb-12">
+          <h3 className="text-lg md:text-2xl font-bold mb-2 md:mb-4">
+            {language === 'en' ? 'Simple Process' : 'Eenvoudig Proces'}
           </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
             {language === 'en' 
-              ? 'A transparent, step-by-step process to ensure you get exactly what your business needs'
-              : 'Een transparant, stap-voor-stap proces om ervoor te zorgen dat je precies krijgt wat je bedrijf nodig heeft'
+              ? 'From idea to live website in just a few steps'
+              : 'Van idee naar live website in slechts een paar stappen'
             }
           </p>
         </div>
 
-        {/* Process Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
           {processSteps.map((step, index) => (
             <div key={step.step} className="relative">
-              
-              {/* Connector Line */}
               {index < processSteps.length - 1 && (
                 <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-border -translate-x-1/2 z-0"></div>
               )}
 
-              {/* Step Content */}
-              <div className="relative bg-card p-6 rounded-xl border border-border text-center">
-                
-                {/* Step Number */}
-                <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4">
+              <div className="relative bg-card p-3 md:p-6 rounded-lg md:rounded-xl border border-border text-center">
+                <div className="w-8 h-8 md:w-12 md:h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-sm md:text-lg mx-auto mb-2 md:mb-4">
                   {step.step}
                 </div>
-
-                {/* Step Title */}
-                <h4 className="font-semibold mb-2">{getText(step.title)}</h4>
-                
-                {/* Step Description */}
-                <p className="text-sm text-muted-foreground mb-3">
-                  {getText(step.description)}
-                </p>
-
-                {/* Duration */}
-                <div className="text-xs text-primary font-medium">
+                <h4 className="font-semibold text-xs md:text-base mb-1 md:mb-2">{getText(step.title)}</h4>
+                <div className="text-xs md:text-sm text-primary font-medium">
                   {getText(step.duration)}
                 </div>
+                <p className="hidden md:block text-sm text-muted-foreground mb-3 mt-2">
+                  {getText(step.description)}
+                </p>
               </div>
             </div>
           ))}
@@ -376,35 +527,35 @@ function ServicesContent({ language }: { language: 'en' | 'nl' }) {
       {/* CTA Section */}
       <motion.div 
         variants={itemVariants}
-        className="mt-16 text-center bg-gradient-to-br from-primary/5 to-primary/10 p-8 rounded-xl border border-primary/20"
+        className="mt-8 md:mt-16 text-center bg-gradient-to-br from-primary/5 to-primary/10 p-4 md:p-8 rounded-lg md:rounded-xl border border-primary/20"
       >
-        <div className="flex items-center justify-center space-x-2 mb-4">
-          <Award className="h-6 w-6 text-primary" />
-          <h3 className="text-2xl font-bold">
-            {language === 'en' ? 'Ready to Get Your Website?' : 'Klaar Om Je Website Te Krijgen?'}
+        <div className="flex items-center justify-center space-x-1 md:space-x-2 mb-2 md:mb-4">
+          <Award className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+          <h3 className="text-lg md:text-2xl font-bold">
+            {language === 'en' ? 'Ready to Start?' : 'Klaar Om Te Starten?'}
           </h3>
         </div>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-sm md:text-base mb-4 md:mb-6 max-w-2xl mx-auto">
           {discountPercentage > 0 
             ? (language === 'en' 
-                ? `Take advantage of our ${discountPercentage}% discount and get your professional website today!`
-                : `Profiteer van onze ${discountPercentage}% korting en krijg vandaag nog je professionele website!`
+                ? `Get ${discountPercentage}% off your website today!`
+                : `Krijg ${discountPercentage}% korting op je website vandaag!`
               )
             : (language === 'en' 
-                ? 'Get your professional website built by an experienced developer with modern technologies.'
-                : 'Laat je professionele website bouwen door een ervaren ontwikkelaar met moderne technologieën.'
+                ? 'Get your professional website built with modern technologies.'
+                : 'Laat je professionele website bouwen met moderne technologieën.'
               )
           }
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="gradient" size="lg" asChild>
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+          <Button variant="gradient" size="default" className="w-full sm:w-auto" asChild>
             <a href="#contact">
-              {language === 'en' ? 'Start My Website Project' : 'Start Mijn Website Project'}
+              {language === 'en' ? 'Start My Project' : 'Start Mijn Project'}
             </a>
           </Button>
-          <Button variant="outline" size="lg" asChild>
+          <Button variant="outline" size="default" className="w-full sm:w-auto" asChild>
             <a href="tel:+31619948201">
-              {language === 'en' ? 'Call for Quick Chat' : 'Bel Voor Kort Gesprek'}
+              {language === 'en' ? 'Call Now' : 'Bel Nu'}
             </a>
           </Button>
         </div>
@@ -438,15 +589,15 @@ export default function ServicesSection({ language, viewMode }: SectionProps) {
           {/* Section Header */}
           <motion.div 
             variants={itemVariants} 
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'en' ? 'Website Development Services' : 'Website Ontwikkeling Diensten'}
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
+              {language === 'en' ? 'Website Development' : 'Website Ontwikkeling'}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
               {language === 'en' 
-                ? 'Professional websites for North Holland businesses - from simple landing pages to complete e-commerce solutions'
-                : 'Professionele websites voor Noord-Holland bedrijven - van eenvoudige landingspagina\'s tot complete e-commerce oplossingen'
+                ? 'Professional websites for North Holland businesses'
+                : 'Professionele websites voor Noord-Holland bedrijven'
               }
             </p>
           </motion.div>
