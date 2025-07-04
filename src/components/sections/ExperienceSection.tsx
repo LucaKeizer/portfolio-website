@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calendar, MapPin, Building, ExternalLink, Award } from 'lucide-react'
+import { Calendar, MapPin, Building, ExternalLink, Award, ChevronDown, ChevronUp, Briefcase, GraduationCap } from 'lucide-react'
 import type { SectionProps, LocalizedContent } from '@/types'
 import { workExperience, education } from '@/data/experience'
 import { formatDate } from '@/lib/utils'
@@ -50,6 +51,9 @@ interface TimelineItemProps {
   technologies: string[]
   type: 'work' | 'education'
   language: 'en' | 'nl'
+  isCompact?: boolean
+  isExpanded?: boolean
+  onToggleExpand?: () => void
 }
 
 function TimelineItem({ 
@@ -62,8 +66,135 @@ function TimelineItem({
   achievements, 
   technologies, 
   type,
-  language 
+  language,
+  isCompact = false,
+  isExpanded = false,
+  onToggleExpand
 }: TimelineItemProps) {
+  
+  if (isCompact) {
+    // Mobile Compact Version
+    return (
+      <motion.div variants={itemVariants} className="bg-card p-4 rounded-lg border border-border">
+        {/* Compact Header */}
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center space-x-2">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              {type === 'work' ? 
+                <Briefcase className="h-4 w-4 text-primary" /> : 
+                <GraduationCap className="h-4 w-4 text-primary" />
+              }
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-sm line-clamp-1">{title}</h3>
+              <p className="text-xs text-muted-foreground">{company}</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-muted-foreground">
+              {formatDate(startDate, language)}
+              {endDate ? ` - ${formatDate(endDate, language)}` : ` - ${language === 'en' ? 'Present' : 'Heden'}`}
+            </div>
+          </div>
+        </div>
+
+        {/* Brief Description */}
+        <p className="text-muted-foreground text-xs mb-3 line-clamp-2">
+          {description}
+        </p>
+
+        {/* Top Technologies */}
+        <div className="flex flex-wrap gap-1 mb-3">
+          {technologies.slice(0, 3).map((tech, index) => (
+            <span key={index} className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
+              {tech}
+            </span>
+          ))}
+          {technologies.length > 3 && (
+            <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
+              +{technologies.length - 3}
+            </span>
+          )}
+        </div>
+
+        {/* Expandable Content */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-3 border-t border-border pt-3"
+            >
+              {/* Location */}
+              <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                <MapPin className="h-3 w-3" />
+                <span>{location}</span>
+              </div>
+
+              {/* Achievements */}
+              {achievements.length > 0 && (
+                <div>
+                  <h4 className="font-semibold text-xs mb-2 flex items-center space-x-1">
+                    <Award className="h-3 w-3 text-primary" />
+                    <span>{language === 'en' ? 'Key Achievements' : 'Belangrijkste Prestaties'}</span>
+                  </h4>
+                  <ul className="space-y-1">
+                    {achievements.slice(0, 3).map((achievement, index) => (
+                      <li key={index} className="flex items-start space-x-2 text-xs">
+                        <div className="h-1 w-1 bg-primary rounded-full mt-1.5 flex-shrink-0"></div>
+                        <span>{achievement}</span>
+                      </li>
+                    ))}
+                    {achievements.length > 3 && (
+                      <li className="text-xs text-muted-foreground">
+                        +{achievements.length - 3} {language === 'en' ? 'more achievements' : 'meer prestaties'}
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
+
+              {/* All Technologies */}
+              {technologies.length > 3 && (
+                <div>
+                  <h4 className="font-semibold text-xs mb-2">
+                    {language === 'en' ? 'All Technologies' : 'Alle Technologieën'}
+                  </h4>
+                  <div className="flex flex-wrap gap-1">
+                    {technologies.map((tech, index) => (
+                      <span key={index} className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Expand/Collapse Button */}
+        {onToggleExpand && (
+          <button
+            onClick={onToggleExpand}
+            className="flex items-center space-x-1 text-xs text-primary font-medium hover:text-primary/80 transition-colors mt-3 w-full justify-center"
+          >
+            <span>
+              {isExpanded 
+                ? (language === 'en' ? 'Show Less' : 'Toon Minder')
+                : (language === 'en' ? 'View Details' : 'Bekijk Details')
+              }
+            </span>
+            {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+          </button>
+        )}
+      </motion.div>
+    )
+  }
+
+  // Desktop Full Version (original)
   return (
     <motion.div variants={itemVariants} className="relative">
       {/* Timeline Line */}
@@ -143,6 +274,9 @@ function TimelineItem({
 }
 
 function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
+  const [expandedItem, setExpandedItem] = useState<string | null>(null)
+  const [showAllItems, setShowAllItems] = useState(false)
+
   // Helper function to get localized text
   const getText = (content: LocalizedContent | string): string => {
     if (typeof content === 'string') return content
@@ -176,11 +310,14 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
     }))
   ].sort((a, b) => b.startDate.getTime() - a.startDate.getTime())
 
+  // Show only 2 items on mobile initially
+  const itemsToShow = showAllItems ? allExperience : allExperience.slice(0, 2)
+
   // Resume download handler
   const handleResumeDownload = () => {
-    const resumeFile = language === 'en' ? '/resume/Luca-Keizer-Resume-EN.pdf' : '/resume/Luca-Keizer-CV-NL.pdf'
-    const fileName = language === 'en' ? 'Luca-Keizer-Resume-EN.pdf' : 'Luca-Keizer-CV-NL.pdf'
-
+    const resumeFile = language === 'en' ? '/resume/resume-en.pdf' : '/resume/resume-nl.pdf'
+    const fileName = language === 'en' ? 'Luca_Keizer_Resume.pdf' : 'Luca_Keizer_CV.pdf'
+    
     // Create a temporary anchor element to trigger download
     const link = document.createElement('a')
     link.href = resumeFile
@@ -198,9 +335,9 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
       animate="visible"
       exit="hidden"
     >
-      {/* Timeline */}
-      <div className="relative">
-        {allExperience.map((exp, index) => (
+      {/* MOBILE ONLY: Compact Timeline */}
+      <div className="block md:hidden space-y-4 mb-8">
+        {itemsToShow.map((exp) => (
           <TimelineItem
             key={exp.id}
             title={exp.position}
@@ -213,34 +350,76 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
             technologies={exp.technologies}
             type={exp.type}
             language={language}
+            isCompact={true}
+            isExpanded={expandedItem === exp.id}
+            onToggleExpand={() => setExpandedItem(
+              expandedItem === exp.id ? null : exp.id
+            )}
           />
         ))}
+
+        {/* Show More Button */}
+        {!showAllItems && allExperience.length > 2 && (
+          <div className="text-center pt-4">
+            <button
+              onClick={() => setShowAllItems(true)}
+              className="flex items-center space-x-2 text-sm text-primary font-medium hover:text-primary/80 transition-colors mx-auto bg-muted/50 px-4 py-2 rounded-lg"
+            >
+              <span>
+                {language === 'en' ? `View All ${allExperience.length} Experiences` : `Bekijk Alle ${allExperience.length} Ervaringen`}
+              </span>
+              <ChevronDown className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Additional Info */}
+      {/* DESKTOP ONLY: Original Timeline */}
+      <div className="hidden md:block">
+        <div className="relative">
+          {allExperience.map((exp, index) => (
+            <TimelineItem
+              key={exp.id}
+              title={exp.position}
+              company={exp.company}
+              location={exp.location}
+              startDate={exp.startDate}
+              endDate={exp.endDate}
+              description={exp.description}
+              achievements={exp.achievements}
+              technologies={exp.technologies}
+              type={exp.type}
+              language={language}
+              isCompact={false}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Call to Action - Compact on mobile */}
       <motion.div 
         variants={itemVariants}
-        className="mt-12 bg-gradient-to-br from-primary/5 to-primary/10 p-6 rounded-xl border border-primary/20"
+        className="mt-8 md:mt-12 bg-gradient-to-br from-primary/5 to-primary/10 p-4 md:p-6 rounded-xl border border-primary/20"
       >
-        <h3 className="text-lg font-semibold mb-3">
+        <h3 className="text-lg md:text-xl font-semibold mb-3">
           {language === 'en' ? 'What\'s Next?' : 'Wat Komt Er?'}
         </h3>
-        <p className="text-muted-foreground mb-4">
+        <p className="text-muted-foreground text-sm md:text-base mb-4">
           {language === 'en' 
-            ? 'I\'m always interested in new challenges and opportunities to grow as a software engineer. Whether it\'s a exciting startup, established company, or innovative project - let\'s talk!'
-            : 'Ik ben altijd geïnteresseerd in nieuwe uitdagingen en kansen om te groeien als software engineer. Of het nu een spannende startup, gevestigd bedrijf of innovatief project is - laten we praten!'
+            ? 'I\'m always interested in new challenges and opportunities to grow as a software engineer.'
+            : 'Ik ben altijd geïnteresseerd in nieuwe uitdagingen en kansen om te groeien als software engineer.'
           }
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <a 
             href="mailto:keizerluca@gmail.com"
-            className="btn-primary inline-flex items-center justify-center"
+            className="btn-primary inline-flex items-center justify-center text-sm md:text-base"
           >
             {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
           </a>
           <button 
             onClick={handleResumeDownload}
-            className="btn-secondary inline-flex items-center justify-center"
+            className="btn-secondary inline-flex items-center justify-center text-sm md:text-base"
           >
             <ExternalLink className="h-4 w-4 mr-2" />
             {language === 'en' ? 'Download Resume' : 'Download CV'}
@@ -252,8 +431,8 @@ function ExperienceContent({ language }: { language: 'en' | 'nl' }) {
 }
 
 export default function ExperienceSection({ language, viewMode }: SectionProps) {
-  // Don't render at all in freelance mode
-  if (viewMode !== 'professional') {
+  // Only show in professional mode
+  if (viewMode === 'freelance') {
     return null
   }
 
@@ -268,18 +447,18 @@ export default function ExperienceSection({ language, viewMode }: SectionProps) 
           className="max-w-4xl mx-auto"
         >
           
-          {/* Section Header */}
+          {/* Section Header - More compact on mobile */}
           <motion.div 
             variants={itemVariants} 
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
               {language === 'en' ? 'Professional Journey' : 'Professionele Reis'}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
               {language === 'en' 
-                ? 'My career progression in software engineering, from education to current role'
-                : 'Mijn carrièreontwikkeling in software engineering, van opleiding tot huidige rol'
+                ? 'My career progression in software engineering'
+                : 'Mijn carrièreontwikkeling in software engineering'
               }
             </p>
           </motion.div>
