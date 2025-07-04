@@ -30,9 +30,9 @@ export default function Navigation() {
 
   // Resume download handler
   const handleResumeDownload = () => {
-    const resumeFile = language === 'en' ? '/resume/resume-en.pdf' : '/resume/resume-nl.pdf'
-    const fileName = language === 'en' ? 'Luca_Keizer_Resume.pdf' : 'Luca_Keizer_CV.pdf'
-    
+    const resumeFile = language === 'en' ? '/resume/Luca-Keizer-Resume-EN.pdf' : '/resume/Luca-Keizer-CV-NL.pdf'
+    const fileName = language === 'en' ? 'Luca-Keizer-Resume-EN.pdf' : 'Luca-Keizer-CV-NL.pdf'
+
     // Create a temporary anchor element to trigger download
     const link = document.createElement('a')
     link.href = resumeFile
