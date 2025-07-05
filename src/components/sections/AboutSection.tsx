@@ -3,17 +3,14 @@
 import { motion } from 'framer-motion'
 import { 
   Code2, 
-  Database, 
   Cloud, 
   Globe,
   MapPin,
   Calendar,
   Languages,
-  Target,
   Monitor,
   Smartphone,
   Zap,
-  Award,
   Plane,
   User
 } from 'lucide-react'

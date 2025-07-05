@@ -13,8 +13,6 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
-import { workExperience, education } from '@/data/experience'
-import { formatDate } from '@/lib/utils'
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },

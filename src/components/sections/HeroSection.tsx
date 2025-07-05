@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Code2, Database, Cloud, Briefcase, Globe, Linkedin, MapPin, Terminal, Zap } from 'lucide-react'
+import { ArrowRight, Code2, Database, Cloud, Briefcase, Globe, Linkedin, MapPin, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
