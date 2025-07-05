@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Code2, Database, Cloud, Briefcase, Globe, Linkedin, MapPin, Zap } from 'lucide-react'
+import { ArrowRight, Code2, Database, Cloud, Briefcase, Globe, Linkedin, MapPin, Terminal, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
@@ -102,7 +102,7 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex items-center space-x-3"
+                className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-2 sm:space-y-0"
               >
                 <div className="flex items-center space-x-2">
                   {isFreelance ? (
@@ -172,11 +172,46 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
               )}
             </motion.p>
 
+            {/* Mobile Tech Stack */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="lg:hidden"
+            >
+              <div className="grid grid-cols-2 gap-3">
+                {(isFreelance ? [
+                  { icon: Globe, label: 'React/Next.js', color: 'from-cyan-400 to-cyan-600' },
+                  { icon: Code2, label: 'TypeScript', color: 'from-blue-400 to-blue-600' },
+                  { icon: Database, label: 'Responsive Design', color: 'from-green-400 to-green-600' },
+                  { icon: Zap, label: 'Fast Performance', color: 'from-yellow-400 to-orange-600' }
+                ] : [
+                  { icon: Code2, label: 'Python', color: 'from-yellow-400 to-yellow-600' },
+                  { icon: Globe, label: 'TypeScript/React', color: 'from-blue-400 to-blue-600' },
+                  { icon: Database, label: 'SQL/APIs', color: 'from-cyan-400 to-cyan-600' },
+                  { icon: Cloud, label: 'Azure/Docker', color: 'from-indigo-400 to-indigo-600' }
+                ]).map((tech, index) => (
+                  <motion.div
+                    key={tech.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
+                    className="flex items-center space-x-2 p-3 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-lg border border-white/20 shadow-sm"
+                  >
+                    <div className={`p-2 bg-gradient-to-br ${tech.color} rounded-lg flex-shrink-0`}>
+                      <tech.icon className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">{tech.label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
             {/* CTA Buttons */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.7 }}
               className="flex flex-col sm:flex-row gap-4"
             >
               {isFreelance ? (

@@ -131,22 +131,33 @@ export default function ExperienceSection({ language, viewMode }: SectionProps) 
               <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-xl">
                 <div className="flex items-start space-x-4 mb-4">
                   <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl">
-                    <GraduationCap className="h-6 w-6 text-white" />
+                    <Briefcase className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                      {language === 'en' ? 'Software Development & Study Abroad' : 'Software Ontwikkeling & Studie in Buitenland'}
+                      {language === 'en' ? 'Interim Software Developer' : 'Interim Software Developer'}
                     </h3>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                      2022 - 2023 • {language === 'en' ? 'Netherlands & Japan' : 'Nederland & Japan'}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-sm text-slate-600 dark:text-slate-400 space-y-1 sm:space-y-0">
+                      <div className="flex items-center space-x-1">
+                        <Building className="h-4 w-4" />
+                        <span>Smit Elektra</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <MapPin className="h-4 w-4" />
+                        <span>Volendam</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>Apr 2022 - Aug 2022</span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   {language === 'en' 
-                    ? 'Completed software development internship and spent a year studying in Japan, developing technical skills and international perspective.'
-                    : 'Voltooide software ontwikkeling stage en bracht een jaar door met studeren in Japan, ontwikkelde technische vaardigheden en internationaal perspectief.'
+                    ? 'Created 50+ automated scripts for Dynamo and Revit, increasing team productivity with over 10 hours of time saved per project.'
+                    : 'Creëerde 50+ geautomatiseerde scripts voor Dynamo en Revit, verhoogde teamproductiviteit met meer dan 10 uur tijdsbesparing per project.'
                   }
                 </p>
               </div>

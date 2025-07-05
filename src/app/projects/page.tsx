@@ -2,21 +2,20 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ExternalLink, Github, Calendar, Filter, Code2 } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Github, Filter, Code2, Eye, Folder } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useViewMode } from '@/hooks/useViewMode'
 import { allProjects, projectCategories, ExtendedProject } from '@/data/allProjects'
-import { formatDate } from '@/lib/utils'
-import type { Project, LocalizedContent } from '@/types'
+import type { LocalizedContent } from '@/types'
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.05
     }
   }
 }
@@ -26,130 +25,164 @@ const cardVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 }
+    transition: { duration: 0.4 }
   }
 }
 
-function ProjectCard({ project, language, viewMode }: { 
+function CompactProjectCard({ project, language, viewMode }: { 
   project: ExtendedProject, 
   language: 'en' | 'nl', 
   viewMode: 'freelance' | 'professional' 
 }) {
   const [imageError, setImageError] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
   const isFreelance = viewMode === 'freelance'
 
-  // Helper function to get localized text
   const getText = (content: LocalizedContent): string => {
     return content[language]
   }
 
-  // Helper function to get localized technology name
   const getTechName = (tech: string | { en: string; nl: string }): string => {
     if (typeof tech === 'string') return tech
     return tech[language]
   }
 
-  const handleImageError = () => {
-    setImageError(true)
-  }
-
-  const renderProjectImage = () => {
-    const hasValidImage = project.images && project.images.length > 0 && !imageError
-
-    if (hasValidImage) {
-      return (
-        <img
-          src={project.images[0]}
-          alt={getText(project.title)}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          onError={handleImageError}
-        />
-      )
-    }
-
-    // Fallback placeholder (similar to ProjectsSection)
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-primary/10 to-primary/20 flex items-center justify-center text-muted-foreground">
-        <div className="text-center">
-          <Code2 className="h-12 w-12 mx-auto mb-3 opacity-50" />
-          <p className="text-sm font-medium opacity-75">
-            {getText(project.title)}
-          </p>
-          <p className="text-xs mt-1 opacity-50">
-            {language === 'en' ? 'Project' : 'Project'}
-          </p>
-        </div>
+  // Check if we have a valid image path
+  const hasImagePath = project.images && project.images.length > 0 && project.images[0]
+  
+  const renderFallback = () => (
+    <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-indigo-500/20 flex items-center justify-center relative overflow-hidden">
+      <div className="absolute inset-0 opacity-30">
+        <div className="h-full w-full" style={{
+          backgroundImage: `radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.3) 0%, transparent 50%)`,
+        }} />
       </div>
-    )
-  }
+      <div className="text-center relative z-10 text-white/90">
+        <Code2 className="h-8 w-8 mx-auto mb-2 opacity-80" />
+        <p className="text-xs font-medium opacity-90 px-2 line-clamp-2 leading-tight">
+          {getText(project.title)}
+        </p>
+      </div>
+    </div>
+  )
+
+  // Determine the primary link
+  const primaryUrl = project.liveUrl || project.githubUrl
+  const CardWrapper = primaryUrl ? 'a' : 'div'
+  const cardProps = primaryUrl ? {
+    href: primaryUrl,
+    target: '_blank',
+    rel: 'noopener noreferrer'
+  } : {}
 
   return (
-    <motion.div
-      variants={cardVariants}
-      className="bg-card rounded-xl border border-border overflow-hidden card-hover group"
-    >
-      {/* Project Image */}
-      <div className="relative h-48 overflow-hidden">
-        {renderProjectImage()}
-        
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-3">
-          {project.liveUrl && (
-            <Button variant="secondary" size="sm" asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
+    <motion.div variants={cardVariants} className="group">
+      <CardWrapper
+        {...cardProps}
+        className="block bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+      >
+        {/* Image container */}
+        <div className="relative h-40 overflow-hidden">
+          
+          {hasImagePath && !imageError ? (
+            <>
+              {/* Actual image */}
+              <img
+                src={project.images[0]}
+                alt={getText(project.title)}
+                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                onError={() => {
+                  setImageError(true)
+                }}
+                onLoad={() => {
+                  setImageLoaded(true)
+                }}
+              />
+              
+              {/* Show fallback overlay while loading */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-indigo-500/20 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-30">
+                    <div className="h-full w-full" style={{
+                      backgroundImage: `radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.3) 0%, transparent 50%)`,
+                    }} />
+                  </div>
+                  <div className="text-center relative z-10 text-white/90">
+                    <Code2 className="h-8 w-8 mx-auto mb-2 opacity-80" />
+                    <p className="text-xs font-medium opacity-90 px-2 line-clamp-2 leading-tight">
+                      {getText(project.title)}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            // No image or failed to load - show fallback only
+            renderFallback()
           )}
-          {project.githubUrl && !isFreelance && (
-            <Button variant="secondary" size="sm" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4" />
-              </a>
-            </Button>
-          )}
-        </div>
-      </div>
 
-      {/* Project Content */}
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-3">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          
+          {/* Action button on hover */}
+          <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            {project.liveUrl ? (
+              <div className="bg-white/95 text-slate-900 rounded-md px-2 py-1 text-xs font-medium flex items-center">
+                <Eye className="h-3 w-3 mr-1" />
+                Live
+              </div>
+            ) : project.githubUrl && !isFreelance ? (
+              <div className="bg-white/95 text-slate-900 rounded-md px-2 py-1 text-xs font-medium flex items-center">
+                <Github className="h-3 w-3 mr-1" />
+                Code
+              </div>
+            ) : null}
+          </div>
+
+          {/* Status badge */}
           {project.status === 'completed' && (
-            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-              {language === 'en' ? 'Completed' : 'Voltooid'}
-            </span>
+            <div className="absolute top-2 left-2">
+              <span className="px-2 py-1 bg-green-500/90 text-white text-xs rounded-full font-medium">
+                {language === 'en' ? 'Live' : 'Live'}
+              </span>
+            </div>
           )}
         </div>
 
-        <h3 className="font-semibold text-lg mb-2 line-clamp-1">
-          {getText(project.title)}
-        </h3>
-        
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-          {getText(project.description)}
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-1 mb-4">
-          {project.technologies.slice(0, 3).map((tech, index) => (
-            <span key={index} className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
-              {getTechName(tech)}
-            </span>
-          ))}
-          {project.technologies.length > 3 && (
-            <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
-              +{project.technologies.length - 3}
-            </span>
+        {/* Content */}
+        <div className="p-4">
+          <h3 className="font-bold text-slate-900 dark:text-white text-sm mb-2 line-clamp-2 leading-tight">
+            {getText(project.title)}
+          </h3>
+          
+          {project.client && isFreelance && (
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
+              {project.client}
+            </p>
           )}
-        </div>
-
-        {/* Client */}
-        {project.client && isFreelance && (
-          <p className="text-xs text-muted-foreground">
-            {language === 'en' ? 'Client: ' : 'Klant: '}{project.client}
+          
+          <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-3 line-clamp-2">
+            {getText(project.description)}
           </p>
-        )}
-      </div>
+
+          {/* Tech tags */}
+          <div className="flex gap-1 flex-wrap">
+            {project.technologies.slice(0, 2).map((tech, index) => (
+              <span 
+                key={index}
+                className="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs rounded"
+              >
+                {getTechName(tech)}
+              </span>
+            ))}
+            {project.technologies.length > 2 && (
+              <span className="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-xs rounded">
+                +{project.technologies.length - 2}
+              </span>
+            )}
+          </div>
+        </div>
+      </CardWrapper>
     </motion.div>
   )
 }
@@ -162,18 +195,18 @@ export default function AllProjectsPage() {
   // Redirect to home if not in freelance mode
   if (viewMode !== 'freelance') {
     return (
-      <div className="min-h-screen bg-background pt-16 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">
-            {language === 'en' ? 'Page Not Available' : 'Pagina Niet Beschikbaar'}
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 pt-16 flex items-center justify-center">
+        <div className="text-center bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-xl">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+            {language === 'en' ? 'Switch to Freelance Mode' : 'Schakel naar Freelance Modus'}
           </h1>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
             {language === 'en' 
-              ? 'This page is only available in freelance mode.'
-              : 'Deze pagina is alleen beschikbaar in freelance modus.'
+              ? 'This page shows client projects and is only available in freelance mode.'
+              : 'Deze pagina toont klantprojecten en is alleen beschikbaar in freelance modus.'
             }
           </p>
-          <Button asChild>
+          <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
             <Link href="/">
               {language === 'en' ? 'Back to Home' : 'Terug naar Home'}
             </Link>
@@ -183,59 +216,79 @@ export default function AllProjectsPage() {
     )
   }
 
-  // Only show freelance projects
+  // Filter projects
   const filteredProjects = allProjects
     .filter(project => project.showInFreelance)
     .filter(project => {
-      // Filter by category
       if (selectedCategory === 'all') return true
       return project.category === selectedCategory
     })
 
-  // Get available categories for freelance projects only
+  // Get available categories
   const availableCategories = projectCategories.filter(cat => {
     if (cat.id === 'all') return true
     return filteredProjects.some(project => project.category === cat.id)
   })
 
   return (
-    <div className="min-h-screen bg-background pt-16">
-      <div className="container-padding py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 pt-16">
+      
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div 
+          className="absolute top-20 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      <div className="container-padding py-8 md:py-12 relative z-10">
         
         {/* Header */}
-        <div className="mb-12">
-          <Link href="/" className="inline-flex items-center space-x-2 text-muted-foreground hover:text-foreground mb-8 link-hover">
+        <div className="mb-8 md:mb-12">
+          <Link href="/" className="inline-flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-6 transition-colors">
             <ArrowLeft className="h-4 w-4" />
-            <span>{language === 'en' ? 'Back to Home' : 'Terug naar Home'}</span>
+            <span className="text-sm font-medium">{language === 'en' ? 'Back to Home' : 'Terug naar Home'}</span>
           </Link>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            {language === 'en' ? 'All Client Projects' : 'Alle Klant Projecten'}
-          </h1>
-          
-          <p className="text-xl text-muted-foreground max-w-3xl">
-            {language === 'en' 
-              ? 'A complete overview of websites and digital solutions I\'ve built for businesses across North Holland.'
-              : 'Een compleet overzicht van websites en digitale oplossingen die ik heb gebouwd voor bedrijven in Noord-Holland.'
-            }
-          </p>
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center space-x-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/20 shadow-lg mb-6">
+              <Folder className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {language === 'en' ? 'Complete Portfolio' : 'Complete Portfolio'}
+              </span>
+            </div>
+
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-100 dark:to-purple-100 bg-clip-text text-transparent">
+              {language === 'en' ? 'All Client Work' : 'Al Mijn Klantwerk'}
+            </h1>
+            
+            <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              {language === 'en' 
+                ? 'Complete overview of websites and solutions built for Noord-Holland businesses'
+                : 'Compleet overzicht van websites en oplossingen gebouwd voor Noord-Holland bedrijven'
+              }
+            </p>
+          </div>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-3 mb-12">
-          <div className="flex items-center space-x-2 text-sm text-muted-foreground mr-4">
-            <Filter className="h-4 w-4" />
-            <span>{language === 'en' ? 'Filter by:' : 'Filter op:'}</span>
-          </div>
-          
+        {/* Filter buttons */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8 md:mb-12">
           {availableCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
                 selectedCategory === category.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-white/70 dark:bg-slate-800/70 text-slate-600 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-700 backdrop-blur-xl border border-white/20'
               }`}
             >
               {category.label[language]}
@@ -243,15 +296,15 @@ export default function AllProjectsPage() {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-12"
         >
           {filteredProjects.map((project) => (
-            <ProjectCard 
+            <CompactProjectCard 
               key={project.id} 
               project={project} 
               language={language} 
@@ -260,33 +313,39 @@ export default function AllProjectsPage() {
           ))}
         </motion.div>
 
-        {/* Empty State */}
+        {/* Empty state */}
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">
-              {language === 'en' 
-                ? 'No projects found for this category.'
-                : 'Geen projecten gevonden voor deze categorie.'
-              }
-            </p>
+            <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-lg max-w-md mx-auto">
+              <Code2 className="h-12 w-12 mx-auto mb-4 text-slate-400" />
+              <p className="text-slate-600 dark:text-slate-400">
+                {language === 'en' 
+                  ? 'No projects found for this category.'
+                  : 'Geen projecten gevonden voor deze categorie.'
+                }
+              </p>
+            </div>
           </div>
         )}
 
         {/* CTA */}
-        <div className="text-center mt-16">
-          <div className="bg-muted/30 rounded-xl p-8">
-            <h3 className="text-2xl font-bold mb-4">
-              {language === 'en' ? 'Ready to Start Your Project?' : 'Klaar Om Je Project Te Starten?'}
+        <div className="text-center">
+          <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-2xl p-6 md:p-8 border border-white/20 shadow-xl max-w-2xl mx-auto">
+            <h3 className="text-xl md:text-2xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {language === 'en' ? 'Ready for Your Project?' : 'Klaar Voor Je Project?'}
             </h3>
-            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm md:text-base">
               {language === 'en' 
-                ? 'Let\'s discuss your business needs and create a solution that drives real results.'
-                : 'Laten we je bedrijfsbehoeften bespreken en een oplossing creëren die echte resultaten oplevert.'
+                ? 'Let\'s create something amazing for your business'
+                : 'Laten we iets geweldigs creëren voor je bedrijf'
               }
             </p>
-            <Button variant="gradient" size="lg" asChild>
+            <Button 
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              asChild
+            >
               <Link href="/#contact">
-                {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
               </Link>
             </Button>
           </div>

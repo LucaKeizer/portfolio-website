@@ -207,16 +207,16 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                     target={method.href.startsWith('http') ? '_blank' : undefined}
                     rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     variants={itemVariants}
-                    className="flex items-center space-x-4 p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                    className="flex items-center space-x-3 lg:space-x-4 p-4 lg:p-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-xl lg:rounded-2xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
                   >
-                    <div className={`p-4 bg-gradient-to-br ${method.color} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                      <method.icon className="h-6 w-6 text-white" />
+                    <div className={`p-3 lg:p-4 bg-gradient-to-br ${method.color} rounded-lg lg:rounded-xl group-hover:scale-110 transition-transform duration-300`}>
+                      <method.icon className="h-5 w-5 lg:h-6 lg:w-6 text-white" />
                     </div>
                     <div>
-                      <div className="font-semibold text-slate-900 dark:text-white mb-1">
+                      <div className="font-semibold text-slate-900 dark:text-white mb-1 text-sm lg:text-base">
                         {method.title}
                       </div>
-                      <div className="text-slate-600 dark:text-slate-400">
+                      <div className="text-slate-600 dark:text-slate-400 text-sm lg:text-base">
                         {method.value}
                       </div>
                     </div>
@@ -225,18 +225,18 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
               </div>
 
               {/* Location & Availability */}
-              <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl">
-                    <MapPin className="h-5 w-5 text-white" />
+              <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-xl lg:rounded-2xl p-4 lg:p-6 border border-white/20 shadow-lg">
+                <div className="flex items-start space-x-3 lg:space-x-4">
+                  <div className="p-2 lg:p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg lg:rounded-xl">
+                    <MapPin className="h-4 w-4 lg:h-5 lg:w-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-2 text-sm lg:text-base">
                       {language === 'en' ? 'Location & Availability' : 'Locatie & Beschikbaarheid'}
                     </h4>
-                    <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                    <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm text-slate-600 dark:text-slate-400">
                       <div className="flex items-center space-x-2">
-                        <MapPin className="h-4 w-4" />
+                        <MapPin className="h-3 w-3 lg:h-4 lg:w-4" />
                         <span>{language === 'en' ? 'Volendam, Netherlands' : 'Volendam, Nederland'}</span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -249,7 +249,7 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Clock className="h-4 w-4" />
+                        <Clock className="h-3 w-3 lg:h-4 lg:w-4" />
                         <span>
                           {language === 'en' 
                             ? 'Usually responds within 24 hours'

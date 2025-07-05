@@ -3,14 +3,17 @@
 import { motion } from 'framer-motion'
 import { 
   Code2, 
+  Database, 
   Cloud, 
   Globe,
   MapPin,
   Calendar,
   Languages,
+  Target,
   Monitor,
   Smartphone,
   Zap,
+  Award,
   Plane,
   User
 } from 'lucide-react'
@@ -70,7 +73,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
 
       <div className="container-padding relative z-10">
         
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center lg:min-h-[80vh]">
           
           {/* Left Column - Story */}
           <motion.div
@@ -78,7 +81,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-6 lg:space-y-8"
           >
             
             {/* Section Badge */}
@@ -96,7 +99,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
             </motion.div>
 
             {/* Main Heading */}
-            <div className="space-y-4">
+            <div className="space-y-3 lg:space-y-4">
               <motion.h2 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +141,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
-              className="flex flex-wrap gap-6 text-sm text-slate-600 dark:text-slate-400"
+              className="flex flex-wrap gap-4 lg:gap-6 text-sm text-slate-600 dark:text-slate-400"
             >
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-blue-600" />
@@ -312,10 +315,10 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="lg:hidden mt-12"
+          className="lg:hidden mt-8"
         >
           <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center mb-6">
+            <h3 className="text-lg lg:text-xl font-bold text-slate-900 dark:text-white text-center mb-4 lg:mb-6">
               {isFreelance ? (
                 language === 'en' ? 'Core Technologies' : 'Kern Technologieën'
               ) : (
