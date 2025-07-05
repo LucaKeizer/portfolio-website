@@ -159,16 +159,12 @@ export const technicalProjects: Project[] = [
 
 // FEATURED PROJECTS - Dynamically selected based on mode
 export const getFeaturedProjects = (viewMode: 'freelance' | 'professional') => {
-  console.log('getFeaturedProjects called with mode:', viewMode)
-  
   try {
     if (viewMode === 'freelance') {
       const projects = clientProjects.slice(0, 3)
-      console.log('Returning client projects:', projects.length)
       return projects
     } else {
       const projects = technicalProjects.slice(0, 3)
-      console.log('Returning technical projects:', projects.length)
       return projects
     }
   } catch (error) {

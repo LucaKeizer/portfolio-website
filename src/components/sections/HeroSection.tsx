@@ -183,8 +183,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
                 {(isFreelance ? [
                   { icon: Globe, label: 'React/Next.js', color: 'from-cyan-400 to-cyan-600' },
                   { icon: Code2, label: 'TypeScript', color: 'from-blue-400 to-blue-600' },
-                  { icon: Database, label: 'Responsive Design', color: 'from-green-400 to-green-600' },
-                  { icon: Zap, label: 'Fast Performance', color: 'from-yellow-400 to-orange-600' }
+                  { icon: Database, label: 'Databases', color: 'from-green-400 to-green-600' },
+                  { icon: Zap, label: 'SEO', color: 'from-yellow-400 to-orange-600' }
                 ] : [
                   { icon: Code2, label: 'Python', color: 'from-yellow-400 to-yellow-600' },
                   { icon: Globe, label: 'TypeScript/React', color: 'from-blue-400 to-blue-600' },
