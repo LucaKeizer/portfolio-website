@@ -6,28 +6,20 @@ import type { Language } from '@/types'
 interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string, fallback?: string) => string
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('nl')
+  const [language, setLanguageState] = useState<Language>('nl') // Default to Dutch
 
   useEffect(() => {
     // Check localStorage for saved preference
     const saved = localStorage.getItem('preferred-language') as Language
     if (saved && (saved === 'en' || saved === 'nl')) {
       setLanguageState(saved)
-    } else {
-      // Detect browser language
-      const browserLang = navigator.language.toLowerCase()
-      if (browserLang.startsWith('nl')) {
-        setLanguageState('nl')
-      } else {
-        setLanguageState('en')
-      }
     }
+    // Remove automatic browser language detection - keep Dutch as default
   }, [])
 
   const setLanguage = (lang: Language) => {
@@ -38,15 +30,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = lang
   }
 
-  // Simple translation function - will be enhanced with actual translations
-  const t = (key: string, fallback?: string): string => {
-    // For now, return the key as fallback
-    // This will be connected to actual translation data later
-    return fallback || key
-  }
-
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
     </LanguageContext.Provider>
   )

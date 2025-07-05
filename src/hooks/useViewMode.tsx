@@ -13,7 +13,7 @@ interface ViewModeContextType {
 const ViewModeContext = createContext<ViewModeContextType | undefined>(undefined)
 
 export function ViewModeProvider({ children }: { children: ReactNode }) {
-  const [viewMode, setViewModeState] = useState<ViewMode>('freelance')
+  const [viewMode, setViewModeState] = useState<ViewMode>('freelance') // Default to freelance
 
   useEffect(() => {
     // Check localStorage for saved preference
@@ -24,14 +24,8 @@ export function ViewModeProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const setViewMode = (mode: ViewMode) => {
-    console.log('setViewMode called with:', mode)
     setViewModeState(mode)
     localStorage.setItem('preferred-view-mode', mode)
-    
-    // Add a small delay to ensure proper state synchronization
-    setTimeout(() => {
-      console.log('ViewMode set to:', mode)
-    }, 50)
   }
 
   const isFreelanceMode = viewMode === 'freelance'

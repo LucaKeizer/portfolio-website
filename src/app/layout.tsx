@@ -6,11 +6,10 @@ import { ViewModeProvider } from '@/hooks/useViewMode'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { Analytics } from '@vercel/analytics/react'
 
-// Optimize font loading with display swap and preload
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'swap', // Prevents invisible text during font load
+  display: 'swap',
   preload: true,
 })
 
@@ -18,12 +17,12 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
-  preload: false, // Only preload main font
+  preload: false,
 })
 
 export const metadata: Metadata = {
   title: 'Luca Keizer - Software Engineer & Web Developer',
-  description: 'Gepassioneerde Software Engineer met 2+ jaar ervaring in full-stack ontwikkeling, data-analyse en moderne cloud technologieën. Freelance web development services beschikbaar.',
+  description: 'Software Engineer met 2+ jaar ervaring in full-stack ontwikkeling en moderne cloud technologieën. Freelance web development services beschikbaar.',
   keywords: [
     'Software Engineer',
     'Web Developer', 
@@ -32,7 +31,6 @@ export const metadata: Metadata = {
     'React',
     'Next.js',
     'Azure',
-    'Machine Learning',
     'Volendam',
     'Netherlands',
     'Freelance',
@@ -47,41 +45,13 @@ export const metadata: Metadata = {
     url: 'https://lucakeizer.nl',
     siteName: 'Luca Keizer Portfolio',
     title: 'Luca Keizer - Software Engineer & Web Developer',
-    description: 'Gepassioneerde Software Engineer gespecialiseerd in Python, TypeScript en moderne cloud technologieën.',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Luca Keizer - Software Engineer',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Luca Keizer - Software Engineer & Web Developer',
-    description: 'Software Engineer gespecialiseerd in Python, TypeScript en cloud technologieën.',
-    images: ['/images/og-image.jpg'],
+    description: 'Software Engineer gespecialiseerd in Python, TypeScript en moderne cloud technologieën.',
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   metadataBase: new URL('https://lucakeizer.nl'),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'nl': '/nl',
-      'en': '/en',
-    },
-  },
 }
 
 export default function RootLayout({
@@ -91,17 +61,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
-      <head>
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/_next/static/css/app/layout.css"
-          as="style"
-        />
-        {/* Optimize font loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider>
           <LanguageProvider>
