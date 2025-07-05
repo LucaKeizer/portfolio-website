@@ -1,547 +1,330 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Code2, Database, Cloud, Briefcase, Globe, Linkedin, Shield, Zap, Star, Trophy, Users, Rocket, CheckCircle } from 'lucide-react'
+import { ArrowRight, Code2, Database, Cloud, Briefcase, Globe, Linkedin, MapPin, Terminal, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { SectionProps } from '@/types'
 import { calculateYearsOfExperience } from '@/lib/utils'
-import { shouldShowDiscountBanner, getCurrentDiscount } from '@/data/services'
 
-const startDate = new Date('2022-04-01') // Your career start date
+const startDate = new Date('2022-04-01')
 const yearsOfExperience = calculateYearsOfExperience(startDate)
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      staggerChildren: 0.15
-    }
-  }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-}
-
-// Animation variants for mode switching
-const modeVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" }
-  }
-}
-
-// Subtle floating animation
-const subtleFloatVariants = {
-  animate: {
-    y: [-5, 5, -5],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-}
 
 export default function HeroSection({ language, viewMode }: SectionProps) {
   const isFreelance = viewMode === 'freelance'
-  const isProfessional = viewMode === 'professional'
-  const showDiscountBanner = shouldShowDiscountBanner()
-  const currentDiscount = getCurrentDiscount()
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20">
+    <section className="min-h-screen flex items-center relative overflow-hidden">
       
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        {/* Main gradient blobs - more impactful */}
-        <motion.div 
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/15 to-purple-500/15 rounded-full blur-3xl"
-          animate={{
-            x: [-10, 10, -10],
-            y: [-5, 5, -5],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div 
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-green-500/12 to-blue-500/12 rounded-full blur-3xl"
-          animate={{
-            x: [10, -10, 10],
-            y: [5, -5, 5],
-            scale: [1.1, 1, 1.1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        
-        {/* Subtle floating tech icons */}
-        <motion.div
-          className="absolute top-32 left-20 hidden lg:block opacity-20"
-          variants={subtleFloatVariants}
-          animate="animate"
-        >
-          <div className="p-2 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-            <Code2 className="h-4 w-4 text-blue-400" />
-          </div>
-        </motion.div>
-        
-        <motion.div
-          className="absolute bottom-40 right-24 hidden lg:block opacity-20"
-          variants={subtleFloatVariants}
-          animate="animate"
-          transition={{ delay: 2, duration: 4, repeat: Infinity }}
-        >
-          <div className="p-2 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-            <Database className="h-4 w-4 text-green-400" />
-          </div>
-        </motion.div>
-
-        {/* Enhanced grid pattern */}
-        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(59, 130, 246, 0.4) 1px, transparent 0)`,
+      {/* Dynamic Background with Grid */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-20 dark:opacity-10">
+          <div className="h-full w-full" style={{
+            backgroundImage: `
+              linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+            `,
             backgroundSize: '50px 50px'
           }} />
         </div>
+        
+        {/* Floating Elements */}
+        <motion.div 
+          className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full blur-xl"
+          animate={{
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-green-400/20 to-blue-500/20 rounded-full blur-xl"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
 
-      <motion.div 
-        className="container-padding text-center relative z-10"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <div className="container-padding relative z-10 w-full">
         
-        {/* Main Content */}
-        <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
           
-          {/* Enhanced Avatar with more impact */}
-          <motion.div 
-            variants={itemVariants}
-            className="relative inline-block mb-6 md:mb-8"
+          {/* Left Column - Main Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <div className="w-32 h-32 md:w-40 md:h-40 mx-auto relative">
-              {/* More impactful border with animation */}
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 p-1.5"
-                animate={{
-                  background: [
-                    "linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3))",
-                    "linear-gradient(45deg, rgba(147, 51, 234, 0.3), rgba(34, 197, 94, 0.3))",
-                    "linear-gradient(45deg, rgba(34, 197, 94, 0.3), rgba(59, 130, 246, 0.3))"
-                  ]
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <div className="w-full h-full rounded-full bg-background flex items-center justify-center border border-border/50">
-                  {/* Enhanced avatar */}
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl md:text-3xl shadow-lg">
-                    LK
-                  </div>
-                </div>
-              </motion.div>
-              
-              {/* Enhanced status indicator */}
-              <motion.div 
-                className="absolute -bottom-2 -right-2 w-10 h-10 md:w-12 md:h-12 bg-green-500 rounded-full border-3 border-background flex items-center justify-center shadow-lg"
-                animate={{
-                  scale: [1, 1.1, 1],
-                  boxShadow: [
-                    "0 0 0 0 rgba(34, 197, 94, 0.4)",
-                    "0 0 0 8px rgba(34, 197, 94, 0)",
-                    "0 0 0 0 rgba(34, 197, 94, 0)"
-                  ]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity
-                }}
-              >
-                <div className="w-4 h-4 md:w-5 md:h-5 bg-white rounded-full"></div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Greeting with more personality */}
-          <motion.div 
-            variants={itemVariants}
-            className="flex items-center justify-center space-x-2 mb-4"
-          >
+            
+            {/* Status Badge */}
             <motion.div
-              animate={{ rotate: [0, 20, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
-              className="text-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="inline-flex items-center space-x-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 shadow-lg"
             >
-              👋
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {isFreelance 
+                  ? (language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten')
+                  : (language === 'en' ? 'Open to opportunities' : 'Open voor kansen')
+                }
+              </span>
             </motion.div>
-            <p className="text-base md:text-lg text-muted-foreground font-medium">
-              {language === 'en' ? 'Hey, I\'m' : 'Hallo, ik ben'}
-            </p>
-          </motion.div>
 
-          {/* Enhanced name with more impact */}
-          <motion.h1 
-            variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 relative"
-          >
-            <motion.span 
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent"
-              animate={{
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              style={{
-                backgroundSize: '200% 200%'
-              }}
-            >
-              Luca Keizer
-            </motion.span>
-          </motion.h1>
-
-          {/* Enhanced title with better visual hierarchy */}
-          <motion.div 
-            key={`title-${viewMode}`}
-            variants={modeVariants}
-            initial="hidden"
-            animate="visible"
-            className="mb-6 md:mb-8"
-          >
-            <div className="flex flex-col items-center space-y-4">
-              <div className="flex items-center space-x-3">
-                {isFreelance ? (
-                  <motion.div
-                    className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl border border-blue-200 dark:border-blue-800"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Briefcase className="h-6 w-6 md:h-7 md:w-7 text-blue-600" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl border border-purple-200 dark:border-purple-800"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Code2 className="h-6 w-6 md:h-7 md:w-7 text-purple-600" />
-                  </motion.div>
-                )}
-                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-foreground font-semibold">
-                  {isFreelance ? (
-                    language === 'en' 
-                      ? 'Custom Web Developer'
-                      : 'Custom Webontwikkelaar'
-                  ) : (
-                    language === 'en'
-                      ? 'Software Engineer'
-                      : 'Software Engineer'
-                  )}
-                </h2>
-              </div>
-              
-              {/* Professional experience badge with more impact */}
-              <motion.div
-                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-primary/5 rounded-full border border-primary/20"
-                whileHover={{ scale: 1.05 }}
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-5xl md:text-6xl lg:text-7xl font-bold"
               >
-                <Trophy className="h-5 w-5 text-primary" />
-                <span className="text-sm md:text-base font-semibold text-primary">
-                  {yearsOfExperience}+ {language === 'en' ? 'years experience' : 'jaar ervaring'}
+                <span className="text-slate-900 dark:text-white">Luca</span>
+                <br />
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                  Keizer
                 </span>
-              </motion.div>
-            </div>
-          </motion.div>
-
-          {/* Streamlined description with more impact */}
-          <motion.div 
-            key={`description-${viewMode}`}
-            variants={modeVariants}
-            initial="hidden"
-            animate="visible"
-            className="mb-6 md:mb-8 max-w-3xl mx-auto"
-          >
-            <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border p-6 md:p-8 shadow-lg">
-              <p className="text-base md:text-xl text-muted-foreground leading-relaxed">
-                {isFreelance ? (
-                  language === 'en' 
-                    ? (
-                      <>
-                        I build <strong className="text-foreground">professional custom websites</strong> for North Holland businesses. 
-                        Hand-coded from scratch with <strong className="text-foreground">enterprise-quality</strong> development practices.
-                      </>
-                    )
-                    : (
-                      <>
-                        Ik bouw <strong className="text-foreground">professionele custom websites</strong> voor Noord-Holland bedrijven. 
-                        Handgecodeerd vanaf nul met <strong className="text-foreground">enterprise-kwaliteit</strong> ontwikkelingspraktijken.
-                      </>
-                    )
-                ) : (
-                  language === 'en'
-                    ? (
-                      <>
-                        <strong className="text-foreground">{yearsOfExperience}+ years</strong> building scalable solutions with Python, TypeScript, and Azure. 
-                        Passionate about creating <strong className="text-foreground">efficient, maintainable software</strong> that delivers real value.
-                      </>
-                    )
-                    : (
-                      <>
-                        <strong className="text-foreground">{yearsOfExperience}+ jaar</strong> het bouwen van schaalbare oplossingen met Python, TypeScript en Azure. 
-                        Gepassioneerd over het creëren van <strong className="text-foreground">efficiënte, onderhoudbare software</strong> die echte waarde levert.
-                      </>
-                    )
-                )}
-              </p>
+              </motion.h1>
               
-              {/* Inline quality indicators for freelance - much more compact */}
-              {isFreelance && (
-                <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 pt-4 border-t border-border/50">
-                  <div className="flex items-center space-x-1.5 text-sm">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="font-medium text-foreground">
-                      {language === 'en' ? 'Hand-Coded' : 'Handgecodeerd'}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-1.5 text-sm">
-                    <Zap className="h-4 w-4 text-yellow-500" />
-                    <span className="font-medium text-foreground">
-                      {language === 'en' ? 'Lightning Fast' : 'Bliksem Snel'}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-1.5 text-sm">
-                    <Shield className="h-4 w-4 text-blue-500" />
-                    <span className="font-medium text-foreground">
-                      {language === 'en' ? 'Professional Quality' : 'Professionele Kwaliteit'}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Enhanced tech stack with more visual impact */}
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10"
-          >
-            {[
-              { icon: Code2, label: 'Python', color: 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800' },
-              { icon: Globe, label: 'TypeScript', color: 'text-blue-600 bg-blue-100 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' },
-              { icon: Database, label: 'React', color: 'text-cyan-600 bg-cyan-100 dark:bg-cyan-900/20 border-cyan-200 dark:border-cyan-800' },
-              { icon: Cloud, label: 'Azure', color: 'text-purple-600 bg-purple-100 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800' }
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.label}
-                className={`flex items-center space-x-2 px-3 md:px-4 py-2 md:py-3 rounded-lg border ${tech.color}`}
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -2
-                }}
-                animate={{
-                  y: [0, -3, 0]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: index * 0.5
-                }}
-              >
-                <tech.icon className="h-4 w-4 md:h-5 md:w-5" />
-                <span className="text-sm md:text-base font-semibold">{tech.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Enhanced discount banner */}
-          {isFreelance && showDiscountBanner && (
-            <motion.div 
-              variants={itemVariants}
-              className="mb-8 md:mb-10 max-w-2xl mx-auto"
-            >
               <motion.div 
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-2xl p-6 md:p-8 shadow-2xl border-2 border-orange-300 relative overflow-hidden"
-                animate={{
-                  boxShadow: [
-                    "0 0 30px rgba(251, 146, 60, 0.3)",
-                    "0 0 50px rgba(251, 146, 60, 0.6)",
-                    "0 0 30px rgba(251, 146, 60, 0.3)"
-                  ]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-center space-x-3"
               >
-                {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                <div className="flex items-center space-x-2">
+                  {isFreelance ? (
+                    <Briefcase className="h-5 w-5 text-blue-600" />
+                  ) : (
+                    <Code2 className="h-5 w-5 text-blue-600" />
+                  )}
+                  <span className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-medium">
+                    {isFreelance ? (
+                      language === 'en' 
+                        ? 'Web Developer'
+                        : 'Webontwikkelaar'
+                    ) : (
+                      language === 'en'
+                        ? 'Software Engineer'
+                        : 'Software Engineer'
+                    )}
+                  </span>
+                </div>
                 
-                <div className="relative z-10">
-                  <div className="flex items-center justify-center space-x-2 mb-3">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Zap className="h-6 w-6 md:h-7 md:w-7" />
-                    </motion.div>
-                    <span className="font-bold text-xl md:text-2xl">
-                      {language === 'en' ? currentDiscount.bannerInfo.title.en : currentDiscount.bannerInfo.title.nl}
-                    </span>
-                    <motion.div
-                      animate={{ rotate: [0, -360] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Star className="h-6 w-6 md:h-7 md:w-7" />
-                    </motion.div>
-                  </div>
-                  <p className="text-base md:text-lg text-center opacity-95">
-                    {language === 'en' 
-                      ? '🎯 Professional custom development at unbeatable portfolio prices!'
-                      : '🎯 Professionele custom ontwikkeling tegen onverslaanbare portfolio prijzen!'
-                    }
-                  </p>
+                <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-500">
+                  <MapPin className="h-4 w-4" />
+                  <span className="text-sm">Volendam</span>
                 </div>
               </motion.div>
-            </motion.div>
-          )}
+            </div>
 
-          {/* Enhanced CTA buttons with more impact */}
-          <motion.div 
-            key={`cta-${viewMode}`}
-            variants={modeVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 md:mb-12"
-          >
-            {isFreelance ? (
-              <>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            {/* Description */}
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl"
+            >
+              {isFreelance ? (
+                language === 'en' 
+                  ? (
+                    <>
+                      Building <span className="font-semibold text-slate-900 dark:text-white">custom websites</span> for 
+                      Noord-Holland businesses with <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ years</span> of 
+                      professional development experience.
+                    </>
+                  )
+                  : (
+                    <>
+                      Bouw <span className="font-semibold text-slate-900 dark:text-white">custom websites</span> voor 
+                      Noord-Holland bedrijven met <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> professionele 
+                      ontwikkelingservaring.
+                    </>
+                  )
+              ) : (
+                language === 'en'
+                  ? (
+                    <>
+                      <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ years</span> building 
+                      scalable solutions with modern technologies. Passionate about creating 
+                      <span className="font-semibold text-slate-900 dark:text-white"> efficient, maintainable software</span>.
+                    </>
+                  )
+                  : (
+                    <>
+                      <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> het bouwen van 
+                      schaalbare oplossingen met moderne technologieën. Gepassioneerd over het creëren van 
+                      <span className="font-semibold text-slate-900 dark:text-white"> efficiënte, onderhoudbare software</span>.
+                    </>
+                  )
+              )}
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              {isFreelance ? (
+                <>
                   <Button 
                     size="lg" 
-                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px] shadow-xl" 
-                    variant="gradient" 
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300" 
                     asChild
                   >
-                    <a href="#contact" className="flex items-center">
-                      <Rocket className="h-5 w-5 mr-2" />
-                      {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
+                    <a href="#projects" className="flex items-center">
+                      {language === 'en' ? 'View My Work' : 'Bekijk Mijn Werk'}
+                      <ArrowRight className="h-4 w-4 ml-2" />
                     </a>
                   </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button 
                     size="lg" 
-                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px]" 
                     variant="outline" 
+                    className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 hover:bg-white dark:hover:bg-slate-700" 
                     asChild
                   >
-                    <a href="#services" className="flex items-center">
-                      <Users className="h-5 w-5 mr-2" />
-                      {language === 'en' ? 'View Services' : 'Bekijk Diensten'}
-                    </a>
-                  </Button>
-                </motion.div>
-              </>
-            ) : (
-              <>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="lg" 
-                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px] shadow-xl" 
-                    variant="gradient" 
-                    asChild
-                  >
-                    <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                      <Linkedin className="h-5 w-5 mr-2" />
-                      {language === 'en' ? 'LinkedIn Profile' : 'LinkedIn Profiel'}
-                    </a>
-                  </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Button 
-                    size="lg" 
-                    className="!h-14 !px-8 !text-lg w-full sm:w-auto min-w-[220px]" 
-                    variant="outline" 
-                    asChild
-                  >
-                    <a href="#contact" className="flex items-center">
-                      <Users className="h-5 w-5 mr-2" />
+                    <a href="#contact">
                       {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
                     </a>
                   </Button>
-                </motion.div>
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300" 
+                    asChild
+                  >
+                    <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      <Linkedin className="h-4 w-4 mr-2" />
+                      {language === 'en' ? 'LinkedIn Profile' : 'LinkedIn Profiel'}
+                    </a>
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-white/20 hover:bg-white dark:hover:bg-slate-700" 
+                    asChild
+                  >
+                    <a href="#projects" className="flex items-center">
+                      {language === 'en' ? 'View Projects' : 'Bekijk Projecten'}
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </a>
+                  </Button>
+                </>
+              )}
+            </motion.div>
           </motion.div>
 
-          {/* Enhanced location & availability */}
-          <motion.div 
-            key={`location-${viewMode}`}
-            variants={modeVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-center"
+          {/* Right Column - Interactive Visual */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden lg:flex items-center justify-center"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 px-6 py-4 bg-muted/50 backdrop-blur-sm rounded-xl border border-border/50">
-              <div className="flex items-center space-x-2">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="text-lg"
-                >
-                  📍
-                </motion.div>
-                <span className="text-sm md:text-base font-medium">
-                  {language === 'en' ? 'Volendam, Netherlands' : 'Volendam, Nederland'}
-                </span>
-              </div>
+            <div className="relative">
               
-              <div className="flex items-center space-x-2">
+              {/* Main Card */}
+              <div className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8 max-w-sm">
+                
+                {/* Profile Section */}
+                <div className="text-center mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 relative">
+                    <span>LK</span>
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
+                      <div className="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                  <h3 className="font-bold text-slate-900 dark:text-white">Luca Keizer</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {isFreelance ? (
+                      language === 'en' ? 'Web Developer' : 'Webontwikkelaar'
+                    ) : (
+                      'Software Engineer'
+                    )}
+                  </p>
+                </div>
+
+                {/* Tech Stack */}
+                <div className="space-y-3">
+                  <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                    {language === 'en' ? 'Tech Stack' : 'Tech Stack'}
+                  </h4>
+                  
+                  {[
+                    { icon: Code2, label: 'Python', color: 'from-yellow-400 to-yellow-600' },
+                    { icon: Globe, label: 'TypeScript', color: 'from-blue-400 to-blue-600' },
+                    { icon: Database, label: 'React', color: 'from-cyan-400 to-cyan-600' },
+                    { icon: Cloud, label: 'Azure', color: 'from-indigo-400 to-indigo-600' }
+                  ].map((tech, index) => (
+                    <motion.div
+                      key={tech.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.8 + index * 0.1 }}
+                      className="flex items-center space-x-3 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                    >
+                      <div className={`p-2 bg-gradient-to-br ${tech.color} rounded-lg`}>
+                        <tech.icon className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{tech.label}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Experience Badge */}
                 <motion.div
-                  className="w-3 h-3 bg-green-500 rounded-full"
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [1, 0.5, 1]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity
-                  }}
-                />
-                <span className="text-sm md:text-base font-medium">
-                  {isFreelance 
-                    ? (language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten')
-                    : (language === 'en' ? 'Open to opportunities' : 'Open voor kansen')
-                  }
-                </span>
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.2 }}
+                  className="mt-6 p-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg border border-green-200 dark:border-green-800"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Zap className="h-4 w-4 text-green-600" />
+                    <span className="text-sm font-semibold text-green-700 dark:text-green-400">
+                      {yearsOfExperience}+ {language === 'en' ? 'years experience' : 'jaar ervaring'}
+                    </span>
+                  </div>
+                </motion.div>
               </div>
+
+              {/* Floating Terminal Window */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, rotate: -5 }}
+                animate={{ opacity: 1, y: 0, rotate: -5 }}
+                transition={{ delay: 1.4, duration: 0.6 }}
+                className="absolute -top-4 -left-8 bg-slate-900 dark:bg-slate-800 rounded-lg shadow-xl border border-slate-700 p-3 text-xs font-mono"
+              >
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="text-green-400">
+                  <span className="text-slate-500">$</span> npm run build
+                  <br />
+                  <span className="text-blue-400">✓</span> Ready in 2.3s
+                </div>
+              </motion.div>
             </div>
           </motion.div>
-        </motion.div>
-
-      </motion.div>
+        </div>
+      </div>
     </section>
   )
 }

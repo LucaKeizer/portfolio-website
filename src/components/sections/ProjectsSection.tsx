@@ -2,13 +2,12 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Calendar, Users, TrendingUp, Code2, Linkedin, ChevronDown, ChevronUp, Eye, Globe, Database, Cloud, Star, Award } from 'lucide-react'
+import { ExternalLink, Github, ArrowRight, Code2, Folder, Eye, Zap } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import type { SectionProps, LocalizedContent } from '@/types'
 import { getFeaturedProjects } from '@/data/projects'
 import type { Project } from '@/types'
-import { formatDate } from '@/lib/utils'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -21,15 +20,14 @@ const containerVariants = {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 }
+    transition: { duration: 0.6 }
   }
 }
 
-// Smooth transition variants for mode switching
 const modeContentVariants = {
   hidden: { 
     opacity: 0, 
@@ -43,47 +41,18 @@ const modeContentVariants = {
   }
 }
 
-const getTechName = (tech: string | { en: string; nl: string }, language: 'en' | 'nl'): string => {
-  if (typeof tech === 'string') return tech
-  return tech[language]
-}
-
-// Get technology icon
-const getTechIcon = (techName: string) => {
-  const lowerTech = techName.toLowerCase()
-  if (lowerTech.includes('python') || lowerTech.includes('django')) return Code2
-  if (lowerTech.includes('react') || lowerTech.includes('next') || lowerTech.includes('typescript') || lowerTech.includes('javascript')) return Globe
-  if (lowerTech.includes('postgres') || lowerTech.includes('mysql') || lowerTech.includes('database') || lowerTech.includes('prisma')) return Database
-  if (lowerTech.includes('azure') || lowerTech.includes('aws') || lowerTech.includes('cloud') || lowerTech.includes('docker')) return Cloud
-  return Code2 // fallback
-}
-
-// Get technology color
-const getTechColor = (techName: string) => {
-  const lowerTech = techName.toLowerCase()
-  if (lowerTech.includes('python') || lowerTech.includes('django')) return 'bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800'
-  if (lowerTech.includes('react') || lowerTech.includes('next')) return 'bg-cyan-100 text-cyan-700 border-cyan-200 dark:bg-cyan-900/20 dark:text-cyan-400 dark:border-cyan-800'
-  if (lowerTech.includes('typescript') || lowerTech.includes('javascript')) return 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800'
-  if (lowerTech.includes('postgres') || lowerTech.includes('mysql') || lowerTech.includes('database')) return 'bg-green-100 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800'
-  if (lowerTech.includes('azure') || lowerTech.includes('aws') || lowerTech.includes('cloud')) return 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/20 dark:text-purple-400 dark:border-purple-800'
-  return 'bg-gray-100 text-gray-700 border-gray-200 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800'
-}
-
-function MobileProjectCard({ 
+function ProjectCard({ 
   project, 
   language, 
-  viewMode, 
-  isExpanded = false,
-  onToggleExpand
+  viewMode,
+  index 
 }: { 
   project: Project, 
   language: 'en' | 'nl', 
   viewMode: 'freelance' | 'professional',
-  isExpanded?: boolean,
-  onToggleExpand?: () => void
+  index: number
 }) {
   const [imageError, setImageError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
   const isFreelance = viewMode === 'freelance'
 
   // Helper function to get localized text
@@ -96,43 +65,28 @@ function MobileProjectCard({
 
     if (hasValidImage) {
       return (
-        <div className="relative w-full h-full overflow-hidden">
-          {!imageLoaded && (
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/50 to-muted animate-pulse flex items-center justify-center">
-              <div className="text-muted-foreground">
-                <Code2 className="h-8 w-8 animate-pulse" />
-              </div>
-            </div>
-          )}
-          <img
-            src={project.images[0]}
-            alt={getText(project.title)}
-            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onError={() => setImageError(true)}
-            onLoad={() => setImageLoaded(true)}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </div>
+        <img
+          src={project.images[0]}
+          alt={getText(project.title)}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          onError={() => setImageError(true)}
+        />
       )
     }
 
+    // Modern fallback with gradient
     return (
-      <div className="w-full h-full bg-gradient-to-br from-primary/10 via-primary/5 to-transparent flex items-center justify-center text-muted-foreground relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-            backgroundSize: '20px 20px'
+      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-indigo-500/20 flex items-center justify-center relative overflow-hidden">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="h-full w-full" style={{
+            backgroundImage: `radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.3) 0%, transparent 50%)`,
           }} />
         </div>
-        <div className="text-center relative z-10">
-          <Code2 className="h-12 w-12 mx-auto mb-3 opacity-60" />
-          <p className="text-sm font-medium opacity-75">
+        <div className="text-center relative z-10 text-white">
+          <Code2 className="h-12 w-12 mx-auto mb-3 opacity-80" />
+          <p className="text-sm font-medium opacity-90">
             {getText(project.title)}
-          </p>
-          <p className="text-xs mt-1 opacity-50">
-            {language === 'en' ? 'Project Preview' : 'Project Preview'}
           </p>
         </div>
       </div>
@@ -142,338 +96,153 @@ function MobileProjectCard({
   return (
     <motion.div
       variants={cardVariants}
-      className="bg-card rounded-xl border border-border overflow-hidden group shadow-sm hover:shadow-lg transition-shadow duration-300"
+      className="group relative h-full"
     >
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden">
-        {renderProjectImage()}
+      {/* Main Card */}
+      <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden h-full flex flex-col hover:shadow-3xl transition-all duration-700 hover:-translate-y-3">
         
-        <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          {project.liveUrl && (
-            <Button variant="secondary" size="sm" className="bg-white/90 backdrop-blur-sm" asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <Eye className="h-3 w-3" />
-              </a>
-            </Button>
-          )}
-          {project.githubUrl && !isFreelance && (
-            <Button variant="secondary" size="sm" className="bg-white/90 backdrop-blur-sm" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="h-3 w-3" />
-              </a>
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <h3 className="font-semibold text-base mb-2 line-clamp-1">
-              {getText(project.title)}
-            </h3>
-            {project.client && isFreelance && (
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground mb-2">
-                <Users className="h-3 w-3" />
-                <span>{project.client}</span>
-              </div>
+        {/* Project Image */}
+        <div className="relative h-64 overflow-hidden">
+          {renderProjectImage()}
+          
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+          
+          {/* Floating Action Buttons */}
+          <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            {project.liveUrl && (
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                <Button size="sm" className="bg-white/95 text-slate-900 hover:bg-white shadow-lg" asChild>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <Eye className="h-4 w-4" />
+                  </a>
+                </Button>
+              </motion.div>
+            )}
+            {project.githubUrl && !isFreelance && (
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                <Button size="sm" className="bg-white/95 text-slate-900 hover:bg-white shadow-lg" asChild>
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="h-4 w-4" />
+                  </a>
+                </Button>
+              </motion.div>
             )}
           </div>
-        </div>
 
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">
-          {isFreelance 
-            ? (project.freelanceDescription ? getText(project.freelanceDescription) : getText(project.description))
-            : (project.professionalDescription ? getText(project.professionalDescription) : getText(project.description))
-          }
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.slice(0, 3).map((tech, index) => {
-            const TechIcon = getTechIcon(getTechName(tech, language))
-            return (
-              <span 
-                key={index} 
-                className={`inline-flex items-center space-x-1 px-2 py-1 rounded-md text-xs font-medium border ${getTechColor(getTechName(tech, language))}`}
-              >
-                <TechIcon className="h-3 w-3" />
-                <span>{getTechName(tech, language)}</span>
+          {/* Project Number Badge */}
+          <div className="absolute top-4 left-4">
+            <div className="w-10 h-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 shadow-lg">
+              <span className="text-sm font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {(index + 1).toString().padStart(2, '0')}
               </span>
-            )
-          })}
-          {project.technologies.length > 3 && (
-            <span className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md border">
-              +{project.technologies.length - 3}
-            </span>
-          )}
-        </div>
-
-        {/* Expandable Content */}
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4 border-t border-border pt-4"
-            >
-              {/* Key Results/Impact */}
-              {isFreelance ? (
-                project.businessImpact && (
-                  <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
-                    <h4 className="font-semibold text-green-800 dark:text-green-200 flex items-center space-x-2 text-sm mb-2">
-                      <TrendingUp className="h-3 w-3" />
-                      <span>{language === 'en' ? 'Business Impact' : 'Bedrijfsimpact'}</span>
-                    </h4>
-                    <p className="text-green-700 dark:text-green-300 text-xs leading-relaxed">
-                      {getText(project.businessImpact)}
-                    </p>
-                  </div>
-                )
-              ) : (
-                project.technicalDetails && (
-                  <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
-                    <h4 className="font-semibold text-blue-800 dark:text-blue-200 flex items-center space-x-2 text-sm mb-2">
-                      <Code2 className="h-3 w-3" />
-                      <span>{language === 'en' ? 'Technical Highlights' : 'Technische Hoogtepunten'}</span>
-                    </h4>
-                    <p className="text-blue-700 dark:text-blue-300 text-xs leading-relaxed">
-                      {getText(project.technicalDetails)}
-                    </p>
-                  </div>
-                )
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-2">
-                {project.liveUrl && (
-                  <Button variant="gradient" size="sm" asChild>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      {language === 'en' ? 'Live Site' : 'Live Site'}
-                    </a>
-                  </Button>
-                )}
-                {project.githubUrl && !isFreelance && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-3 w-3 mr-1" />
-                      {language === 'en' ? 'Code' : 'Code'}
-                    </a>
-                  </Button>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Expand/Collapse Button */}
-        {onToggleExpand && (
-          <button
-            onClick={onToggleExpand}
-            className="flex items-center justify-center space-x-1 text-xs text-primary font-medium hover:text-primary/80 transition-colors mt-4 w-full py-2 border-t border-border"
-          >
-            <span>
-              {isExpanded 
-                ? (language === 'en' ? 'Show Less' : 'Toon Minder')
-                : (language === 'en' ? 'View Details' : 'Bekijk Details')
-              }
-            </span>
-            {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-          </button>
-        )}
-      </div>
-    </motion.div>
-  )
-}
-
-function DesktopProjectCard({ 
-  project, 
-  language, 
-  viewMode
-}: { 
-  project: Project, 
-  language: 'en' | 'nl', 
-  viewMode: 'freelance' | 'professional'
-}) {
-  const [imageError, setImageError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const isFreelance = viewMode === 'freelance'
-
-  // Helper function to get localized text
-  const getText = (content: LocalizedContent): string => {
-    return content[language]
-  }
-
-  const renderProjectImage = () => {
-    const hasValidImage = project.images && project.images.length > 0 && !imageError
-
-    if (hasValidImage) {
-      return (
-        <div className="relative w-full h-full overflow-hidden">
-          {!imageLoaded && (
-            <div className="absolute inset-0 bg-gradient-to-br from-muted/50 to-muted animate-pulse flex items-center justify-center">
-              <div className="text-muted-foreground">
-                <Code2 className="h-6 w-6 animate-pulse" />
-              </div>
             </div>
-          )}
-          <img
-            src={project.images[0]}
-            alt={getText(project.title)}
-            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onError={() => setImageError(true)}
-            onLoad={() => setImageLoaded(true)}
-          />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
-        </div>
-      )
-    }
+          </div>
 
-    return (
-      <div className="w-full h-full bg-gradient-to-br from-primary/10 via-primary/5 to-transparent flex items-center justify-center text-muted-foreground relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-            backgroundSize: '20px 20px'
-          }} />
-        </div>
-        <div className="text-center relative z-10">
-          <Code2 className="h-8 w-8 mx-auto mb-2 opacity-60" />
-          <p className="text-xs font-medium opacity-75">
-            {getText(project.title)}
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <motion.div 
-      variants={cardVariants}
-      className="bg-card rounded-xl border border-border overflow-hidden group shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col"
-    >
-      {/* Project Image */}
-      <div className="relative h-48 lg:h-52 overflow-hidden">
-        {renderProjectImage()}
-        
-        {/* Action buttons overlay */}
-        <div className="absolute top-3 right-3 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          {project.liveUrl && (
-            <Button variant="secondary" size="sm" className="bg-white/95 backdrop-blur-sm hover:bg-white shadow-md" asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
-          )}
-          {project.githubUrl && !isFreelance && (
-            <Button variant="secondary" size="sm" className="bg-white/95 backdrop-blur-sm hover:bg-white shadow-md" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="h-4 w-4" />
-              </a>
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Project Content */}
-      <div className="p-5 lg:p-6 flex flex-col flex-1">
-        <div className="flex-1">
-          {/* Header */}
-          <div className="mb-4">
-            {project.client && isFreelance && (
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground mb-2">
-                <Users className="h-3 w-3" />
-                <span>{project.client}</span>
-              </div>
-            )}
-            
-            <h3 className="text-lg lg:text-xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors duration-200">
+          {/* Bottom Content Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <h3 className="text-xl font-bold mb-2 line-clamp-1">
               {getText(project.title)}
             </h3>
             
-            <p className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
-              {isFreelance 
-                ? (project.freelanceDescription ? getText(project.freelanceDescription) : getText(project.description))
-                : (project.professionalDescription ? getText(project.professionalDescription) : getText(project.description))
-              }
-            </p>
-          </div>
-
-          {/* Technologies - Compact */}
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-1.5">
+            {/* Client Info for Freelance */}
+            {project.client && isFreelance && (
+              <p className="text-white/80 text-sm mb-2">
+                {project.client}
+              </p>
+            )}
+            
+            {/* Quick Tech Stack */}
+            <div className="flex flex-wrap gap-1 mb-3">
               {project.technologies.slice(0, 3).map((tech, techIndex) => {
-                const TechIcon = getTechIcon(getTechName(tech, language))
+                const techName = typeof tech === 'string' ? tech : (tech as any)[language] || tech;
                 return (
                   <span 
                     key={techIndex}
-                    className={`inline-flex items-center space-x-1 px-2 py-1 rounded-md text-xs font-medium border transition-transform hover:scale-105 ${getTechColor(getTechName(tech, language))}`}
+                    className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full border border-white/30"
                   >
-                    <TechIcon className="h-3 w-3" />
-                    <span>{getTechName(tech, language)}</span>
+                    {techName}
                   </span>
-                )
+                );
               })}
               {project.technologies.length > 3 && (
-                <span className="inline-flex items-center px-2 py-1 bg-muted text-muted-foreground text-xs rounded-md border">
+                <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white/80 text-xs rounded-full border border-white/30">
                   +{project.technologies.length - 3}
                 </span>
               )}
             </div>
           </div>
-
-          {/* Key Impact - Compact */}
-          {isFreelance ? (
-            project.businessImpact && (
-              <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800 mb-4">
-                <h4 className="font-semibold mb-1 text-green-800 dark:text-green-200 flex items-center space-x-1 text-xs">
-                  <TrendingUp className="h-3 w-3" />
-                  <span>{language === 'en' ? 'Impact' : 'Impact'}</span>
-                </h4>
-                <p className="text-green-700 dark:text-green-300 text-xs leading-relaxed line-clamp-2">
-                  {getText(project.businessImpact)}
-                </p>
-              </div>
-            )
-          ) : (
-            project.technicalDetails && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800 mb-4">
-                <h4 className="font-semibold mb-1 text-blue-800 dark:text-blue-200 flex items-center space-x-1 text-xs">
-                  <Code2 className="h-3 w-3" />
-                  <span>{language === 'en' ? 'Technical' : 'Technisch'}</span>
-                </h4>
-                <p className="text-blue-700 dark:text-blue-300 text-xs leading-relaxed line-clamp-2">
-                  {getText(project.technicalDetails)}
-                </p>
-              </div>
-            )
-          )}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 mt-auto">
-          {project.liveUrl && (
-            <Button variant="gradient" size="sm" className="flex-1" asChild>
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-3 w-3 mr-1" />
-                {language === 'en' ? 'Live' : 'Live'}
-              </a>
-            </Button>
+        {/* Card Body - Minimal Info */}
+        <div className="p-6 flex-1 flex flex-col">
+          
+          {/* Description */}
+          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2 flex-1">
+            {isFreelance 
+              ? (project.freelanceDescription ? getText(project.freelanceDescription) : getText(project.description))
+              : (project.professionalDescription ? getText(project.professionalDescription) : getText(project.description))
+            }
+          </p>
+
+          {/* Key Impact - Simplified */}
+          {isFreelance && project.businessImpact && (
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-3 mb-4">
+              <div className="flex items-center space-x-2 mb-1">
+                <Zap className="h-3 w-3 text-green-600" />
+                <span className="text-xs font-semibold text-green-800 dark:text-green-200">Impact</span>
+              </div>
+              <p className="text-green-700 dark:text-green-300 text-xs leading-relaxed">
+                {getText(project.businessImpact).substring(0, 80)}...
+              </p>
+            </div>
           )}
-          {project.githubUrl && !isFreelance && (
-            <Button variant="outline" size="sm" className="flex-1" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="h-3 w-3 mr-1" />
-                {language === 'en' ? 'Code' : 'Code'}
-              </a>
-            </Button>
+
+          {!isFreelance && project.technicalDetails && (
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-3 mb-4">
+              <div className="flex items-center space-x-2 mb-1">
+                <Code2 className="h-3 w-3 text-blue-600" />
+                <span className="text-xs font-semibold text-blue-800 dark:text-blue-200">Technical</span>
+              </div>
+              <p className="text-blue-700 dark:text-blue-300 text-xs leading-relaxed">
+                {getText(project.technicalDetails).substring(0, 80)}...
+              </p>
+            </div>
           )}
+
+          {/* Action Button */}
+          <div className="mt-auto">
+            {project.liveUrl ? (
+              <Button 
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300" 
+                asChild
+              >
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  {language === 'en' ? 'View Live' : 'Bekijk Live'}
+                </a>
+              </Button>
+            ) : project.githubUrl && !isFreelance ? (
+              <Button 
+                variant="outline" 
+                className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-white/20 hover:bg-white dark:hover:bg-slate-700" 
+                asChild
+              >
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
+                  <Github className="h-4 w-4 mr-2" />
+                  {language === 'en' ? 'View Code' : 'Bekijk Code'}
+                </a>
+              </Button>
+            ) : (
+              <Button 
+                variant="outline" 
+                className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-white/20" 
+                disabled
+              >
+                {language === 'en' ? 'Project Details' : 'Project Details'}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -485,61 +254,23 @@ function ProjectsList({ projects, language, viewMode }: {
   language: 'en' | 'nl', 
   viewMode: 'freelance' | 'professional' 
 }) {
-  const [expandedProject, setExpandedProject] = useState<string | null>(null)
-  const [showAllProjects, setShowAllProjects] = useState(false)
-
-  // Show only 2 projects on mobile initially
-  const projectsToShow = showAllProjects ? projects : projects.slice(0, 2)
-
   return (
     <motion.div
       variants={modeContentVariants}
       initial="hidden"
       animate="visible"
       exit="hidden"
-      className="space-y-6"
+      className="grid lg:grid-cols-3 gap-8"
     >
-      {/* Mobile: Keep the exact same version (unchanged) */}
-      <div className="block md:hidden space-y-6">
-        {projectsToShow.map((project) => (
-          <MobileProjectCard 
-            key={project.id} 
-            project={project} 
-            language={language} 
-            viewMode={viewMode}
-            isExpanded={expandedProject === project.id}
-            onToggleExpand={() => setExpandedProject(
-              expandedProject === project.id ? null : project.id
-            )}
-          />
-        ))}
-
-        {/* Show More Projects Button */}
-        {!showAllProjects && projects.length > 2 && (
-          <div className="text-center pt-4">
-            <Button 
-              variant="outline" 
-              onClick={() => setShowAllProjects(true)}
-              className="w-full"
-            >
-              {language === 'en' ? `View All ${projects.length} Projects` : `Bekijk Alle ${projects.length} Projecten`}
-              <ChevronDown className="h-4 w-4 ml-2" />
-            </Button>
-          </div>
-        )}
-      </div>
-
-      {/* Desktop: NEW Horizontal Grid Layout */}
-      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map((project) => (
-          <DesktopProjectCard 
-            key={project.id}
-            project={project} 
-            language={language} 
-            viewMode={viewMode}
-          />
-        ))}
-      </div>
+      {projects.slice(0, 3).map((project, index) => (
+        <ProjectCard 
+          key={project.id}
+          project={project} 
+          language={language} 
+          viewMode={viewMode}
+          index={index}
+        />
+      ))}
     </motion.div>
   )
 }
@@ -559,7 +290,7 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
   // Don't render if no projects available
   if (!featuredProjects || featuredProjects.length === 0) {
     return (
-      <section id="projects" className="section-padding bg-muted/30">
+      <section id="projects" className="py-20 relative overflow-hidden">
         <div className="container-padding">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
@@ -571,8 +302,38 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
   }
 
   return (
-    <section id="projects" className="section-padding bg-muted/30">
-      <div className="container-padding">
+    <section id="projects" className="py-20 relative overflow-hidden">
+      
+      {/* Modern Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900">
+        {/* Animated gradient orbs */}
+        <motion.div 
+          className="absolute top-20 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+
+      <div className="container-padding relative z-10">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -580,17 +341,22 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
           viewport={{ once: true }}
         >
           
-          {/* Enhanced Section Header */}
-          <motion.div variants={cardVariants} className="text-center mb-12 md:mb-16">
-            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 mb-6">
-              <Code2 className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
-                {language === 'en' ? 'Portfolio' : 'Portfolio'}
+          {/* Modern Section Header */}
+          <motion.div variants={cardVariants} className="text-center mb-16">
+            <motion.div 
+              className="inline-flex items-center space-x-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl px-6 py-3 rounded-full border border-white/20 shadow-xl mb-8"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Folder className="h-5 w-5 text-blue-600" />
+              <span className="font-medium text-slate-700 dark:text-slate-300">
+                {language === 'en' ? 'Featured Work' : 'Uitgelicht Werk'}
               </span>
-            </div>
+            </motion.div>
             
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
-              {language === 'en' ? 'Featured Projects' : 'Uitgelichte Projecten'}
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-100 dark:to-purple-100 bg-clip-text text-transparent">
+                {language === 'en' ? 'Selected Projects' : 'Geselecteerde Projecten'}
+              </span>
             </h2>
             
             <motion.p 
@@ -598,22 +364,22 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
               variants={modeContentVariants}
               initial="hidden"
               animate="visible"
-              className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
+              className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
             >
               {isFreelance
                 ? (language === 'en' 
-                    ? 'Real client websites built from scratch with modern technologies, delivering measurable business results'
-                    : 'Echte klantwebsites vanaf nul gebouwd met moderne technologieën, die meetbare bedrijfsresultaten leveren'
+                    ? 'Real business solutions that drive results'
+                    : 'Echte bedrijfsoplossingen die resultaten leveren'
                   )
                 : (language === 'en'
-                    ? 'Technical projects showcasing software engineering expertise, problem-solving skills, and modern development practices'
-                    : 'Technische projecten die software engineering expertise, probleemoplossende vaardigheden en moderne ontwikkelingspraktijken tonen'
+                    ? 'Technical innovation and problem-solving'
+                    : 'Technische innovatie en probleemoplossing'
                   )
               }
             </motion.p>
           </motion.div>
 
-          {/* Projects List with smooth transitions */}
+          {/* Projects Grid */}
           <AnimatePresence mode="wait">
             <ProjectsList 
               key={viewMode}
@@ -623,73 +389,59 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
             />
           </AnimatePresence>
 
-          {/* Enhanced CTA */}
-          <motion.div 
-            variants={cardVariants} 
-            className="text-center mt-12 md:mt-16"
-          >
-            <div className="bg-gradient-to-br from-primary/5 via-primary/3 to-transparent p-8 md:p-10 rounded-2xl border border-primary/20 max-w-4xl mx-auto">
-              {isFreelance ? (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-3">
-                      {language === 'en' ? 'Ready to Start Your Project?' : 'Klaar Om Je Project Te Starten?'}
-                    </h3>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
-                      {language === 'en' 
-                        ? 'Let\'s create a custom website that drives real results for your business'
-                        : 'Laten we een custom website creëren die echte resultaten oplevert voor je bedrijf'
-                      }
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="gradient" size="lg" className="w-full sm:w-auto" asChild>
-                      <a href="#contact">
-                        <Award className="h-5 w-5 mr-2" />
-                        {language === 'en' ? 'Start Your Project' : 'Start Je Project'}
-                      </a>
-                    </Button>
-                    
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                      <Link href="/projects">
-                        <Eye className="h-5 w-5 mr-2" />
-                        {language === 'en' ? 'View All Projects' : 'Bekijk Alle Projecten'}
+          {/* Modern CTA */}
+          <motion.div variants={cardVariants} className="text-center mt-20">
+            <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-3xl p-12 border border-white/20 shadow-2xl max-w-4xl mx-auto">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-8"
+              >
+                <div>
+                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    {language === 'en' ? 'Explore More Work' : 'Ontdek Meer Werk'}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                    {language === 'en' 
+                      ? 'Dive deeper into my complete portfolio with detailed case studies'
+                      : 'Duik dieper in mijn complete portfolio met gedetailleerde case studies'
+                    }
+                  </p>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button 
+                      size="lg"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl px-8 py-4 text-lg"
+                      asChild
+                    >
+                      <Link href="/projects" className="flex items-center">
+                        <Folder className="h-5 w-5 mr-3" />
+                        {language === 'en' ? 'All Projects' : 'Alle Projecten'}
+                        <ArrowRight className="h-5 w-5 ml-3" />
                       </Link>
                     </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-bold mb-3">
-                      {language === 'en' ? 'Interested in My Work?' : 'Geïnteresseerd in Mijn Werk?'}
-                    </h3>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
-                      {language === 'en' 
-                        ? 'Let\'s discuss how I can contribute to your team and projects'
-                        : 'Laten we bespreken hoe ik kan bijdragen aan jouw team en projecten'
-                      }
-                    </p>
-                  </div>
+                  </motion.div>
                   
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="gradient" size="lg" className="w-full sm:w-auto" asChild>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button 
+                      size="lg"
+                      variant="outline"
+                      className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-white/30 hover:bg-white dark:hover:bg-slate-700 px-8 py-4 text-lg"
+                      asChild
+                    >
                       <a href="#contact">
-                        <Users className="h-5 w-5 mr-2" />
-                        {language === 'en' ? 'Get in Touch' : 'Neem Contact Op'}
+                        {isFreelance 
+                          ? (language === 'en' ? 'Start Project' : 'Start Project')
+                          : (language === 'en' ? 'Get in Touch' : 'Contact')
+                        }
                       </a>
                     </Button>
-                    
-                    <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                      <a href="https://www.linkedin.com/in/lucakeizer/" target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="h-5 w-5 mr-2" />
-                        {language === 'en' ? 'LinkedIn Profile' : 'LinkedIn Profiel'}
-                      </a>
-                    </Button>
-                  </div>
+                  </motion.div>
                 </div>
-              )}
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>
