@@ -63,7 +63,7 @@ export default function Navigation() {
     },
     {
       href: '/projects',
-      label: { en: 'All Work', nl: 'Al mijn werk' },
+      label: { en: 'All Work', nl: 'Al Mijn Werk' },
       icon: Folder,
       external: true
     },

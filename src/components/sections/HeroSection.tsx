@@ -77,8 +77,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {isFreelance 
-                  ? (language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten')
-                  : (language === 'en' ? 'Open to opportunities' : 'Open voor kansen')
+                  ? (language === 'en' ? 'Available for new projects' : 'Beschikbaar voor nieuwe projecten')
+                  : (language === 'en' ? 'Open to new opportunities' : 'Open voor nieuwe kansen')
                 }
               </span>
             </motion.div>
@@ -141,16 +141,16 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
                 language === 'en' 
                   ? (
                     <>
-                      Building <span className="font-semibold text-slate-900 dark:text-white">custom websites</span> for 
-                      Noord-Holland businesses with <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ years</span> of 
-                      professional development experience.
+                      I create <span className="font-semibold text-slate-900 dark:text-white">modern websites</span> for 
+                      Noord-Holland businesses, bringing <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ years</span> of 
+                      professional development experience to every project.
                     </>
                   )
                   : (
                     <>
-                      Bouw <span className="font-semibold text-slate-900 dark:text-white">custom websites</span> voor 
-                      Noord-Holland bedrijven met <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> professionele 
-                      ontwikkelingservaring.
+                      Ik ontwikkel <span className="font-semibold text-slate-900 dark:text-white">moderne websites</span> voor 
+                      bedrijven in Noord-Holland, met <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> ervaring 
+                      in professionele webontwikkeling.
                     </>
                   )
               ) : (
@@ -164,8 +164,8 @@ export default function HeroSection({ language, viewMode }: SectionProps) {
                   )
                   : (
                     <>
-                      <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> het bouwen van 
-                      schaalbare oplossingen met moderne technologieën. Gepassioneerd over het creëren van 
+                      <span className="font-semibold text-slate-900 dark:text-white">{yearsOfExperience}+ jaar</span> ervaring met het ontwikkelen van 
+                      schaalbare oplossingen met moderne technologieën. Gepassioneerd over het bouwen van 
                       <span className="font-semibold text-slate-900 dark:text-white"> efficiënte, onderhoudbare software</span>.
                     </>
                   )

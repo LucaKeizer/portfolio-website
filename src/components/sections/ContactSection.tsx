@@ -182,11 +182,11 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
               {isFreelance
                 ? (language === 'en' 
-                    ? 'Ready to transform your business with a professional website? Let\'s discuss your project.'
-                    : 'Klaar om je bedrijf te transformeren met een professionele website? Laten we je project bespreken.'
+                    ? 'Ready to grow your business with a professional website? Let\'s discuss your project.'
+                    : 'Klaar om je bedrijf te laten groeien met een professionele website? Laten we je project bespreken.'
                   )
                 : (language === 'en'
-                    ? 'Interested in working together? I\'d love to hear about new opportunities and challenges.'
+                    ? 'Interested in collaborating? I\'d love to hear about new opportunities and challenges.'
                     : 'Geïnteresseerd in samenwerking? Ik hoor graag over nieuwe kansen en uitdagingen.'
                   )
               }
@@ -243,8 +243,8 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         <span>
                           {isFreelance 
-                            ? (language === 'en' ? 'Available for projects' : 'Beschikbaar voor projecten')
-                            : (language === 'en' ? 'Open to opportunities' : 'Open voor kansen')
+                            ? (language === 'en' ? 'Available for new projects' : 'Beschikbaar voor nieuwe projecten')
+                            : (language === 'en' ? 'Open to new opportunities' : 'Open voor nieuwe kansen')
                           }
                         </span>
                       </div>
@@ -360,11 +360,11 @@ export default function ContactSection({ language, viewMode }: SectionProps) {
                       placeholder={
                         isFreelance 
                           ? (language === 'en' 
-                              ? 'Tell me about your project, goals, and how I can help...'
-                              : 'Vertel me over je project, doelen en hoe ik kan helpen...'
+                              ? 'Tell me about your project, your goals, and how I can help bring your vision to life...'
+                              : 'Vertel me over je project, je doelen, en hoe ik je kan helpen om je visie tot leven te brengen...'
                             )
                           : (language === 'en'
-                              ? 'Tell me about the opportunity or how we might work together...'
+                              ? 'Tell me about the opportunity or how we might collaborate...'
                               : 'Vertel me over de kans of hoe we zouden kunnen samenwerken...'
                             )
                       }

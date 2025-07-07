@@ -13,11 +13,11 @@ const additionalClientProjects: ExtendedProject[] = [
     id: 'dental-clinic-website',
     title: {
       en: 'Dental Clinic - Appointment Platform',
-      nl: 'Tandartspraktijk - Afspraak Platform'
+      nl: 'Tandartspraktijk - Afsprakenplatform'
     } as LocalizedContent,
     description: {
-      en: 'Modern website for dental practice with online appointment booking and patient portal',
-      nl: 'Moderne website voor tandartspraktijk met online afspraak boeken en patiëntenportaal'
+      en: 'Modern website for dental practice with online appointment booking and patient portal.',
+      nl: 'Moderne website voor tandartspraktijk met online afspraak boeken en patiëntenportaal.'
     } as LocalizedContent,
     technologies: ['Next.js', 'TypeScript', 'Stripe', 'Calendar API'],
     category: 'web',

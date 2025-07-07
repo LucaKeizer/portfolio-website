@@ -273,7 +273,7 @@ export default function AllProjectsPage() {
             <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               {language === 'en' 
                 ? 'Complete overview of websites and solutions built for Noord-Holland businesses'
-                : 'Compleet overzicht van websites en oplossingen gebouwd voor Noord-Holland bedrijven'
+                : 'Compleet overzicht van websites en oplossingen gebouwd voor bedrijven in Noord-Holland'
               }
             </p>
           </div>

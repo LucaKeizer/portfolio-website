@@ -13,8 +13,8 @@ export const clientProjects: Project[] = [
       nl: 'Compleet boekingssysteem met klantbeheer en geautomatiseerde notificaties.'
     } as LocalizedContent,
     freelanceDescription: {
-      en: 'Modern booking platform that increased online appointments by 60% and reduced admin work.',
-      nl: 'Modern boekingsplatform dat online afspraken met 60% verhoogde en admin werk verminderde.'
+      en: 'Modern booking platform that increased online appointments by 60% and reduced administrative work.',
+      nl: 'Modern boekingsplatform dat online afspraken met 60% verhoogde en administratief werk verminderde.'
     } as LocalizedContent,
     technologies: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL'],
     category: 'web',
@@ -24,8 +24,8 @@ export const clientProjects: Project[] = [
     images: ['/projects/barbershop/homepage.png'],
     client: 'Jan\'s Barbershop, Volendam',
     businessImpact: {
-      en: 'Automated booking system that eliminated double-bookings and reduced phone calls by 40%.',
-      nl: 'Geautomatiseerd boekingssysteem dat dubbele boekingen elimineerde en telefoontjes met 40% verminderde.'
+      en: 'Automated booking system eliminated double-bookings and reduced phone calls by 40%.',
+      nl: 'Geautomatiseerd boekingssysteem elimineerde dubbele boekingen en verminderde telefoontjes met 40%.'
     } as LocalizedContent
   },
   {
@@ -49,8 +49,8 @@ export const clientProjects: Project[] = [
     images: ['/projects/empathys/hero.png'],
     client: 'Empathys Child Therapy Practice',
     businessImpact: {
-      en: 'Increased book sales by 150% and streamlined course registration process.',
-      nl: 'Verhoogde boekenverkoop met 150% en stroomlijnde cursusregistratieproces.'
+      en: 'Increased book sales by 150% and streamlined the course registration process.',
+      nl: 'Verhoogde boekenverkoop met 150% en stroomlijnde het cursusregistratieproces.'
     } as LocalizedContent
   },
   {
@@ -64,8 +64,8 @@ export const clientProjects: Project[] = [
       nl: 'Aangepaste Python automatiseringsoplossingen voor factuurgenerate en klantbeheer.'
     } as LocalizedContent,
     freelanceDescription: {
-      en: 'Automated manual processes for 3 local businesses, saving 5-10 hours per week each.',
-      nl: 'Automatiseerde handmatige processen voor 3 lokale bedrijven, bespaarde 5-10 uur per week elk.'
+      en: 'Automated manual processes for 3 local businesses, saving each 5-10 hours per week.',
+      nl: 'Automatiseerde handmatige processen voor 3 lokale bedrijven, bespaarde elk 5-10 uur per week.'
     } as LocalizedContent,
     technologies: ['Python', 'APIs', 'Email Automation', 'CSV Processing'],
     category: 'automation',
@@ -88,8 +88,8 @@ export const technicalProjects: Project[] = [
       nl: '3D Container Optimalisatiesysteem'
     } as LocalizedContent,
     description: {
-      en: 'Advanced Python application implementing 3D bin packing algorithms for logistics.',
-      nl: 'Geavanceerde Python applicatie die 3D bin packing algoritmes implementeert voor logistiek.'
+      en: 'Advanced Python application implementing 3D bin packing algorithms for logistics optimization.',
+      nl: 'Geavanceerde Python applicatie die 3D bin packing algoritmes implementeert voor logistieke optimalisatie.'
     } as LocalizedContent,
     professionalDescription: {
       en: 'Complex optimization system using custom algorithms to reduce shipping costs by 25%.',

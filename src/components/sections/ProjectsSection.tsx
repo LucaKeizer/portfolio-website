@@ -476,12 +476,12 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
             >
               {isFreelance
                 ? (language === 'en' 
-                    ? 'Real business solutions that drive results'
-                    : 'Echte bedrijfsoplossingen die resultaten leveren'
+                    ? 'Real business solutions that deliver measurable results'
+                    : 'Echte bedrijfsoplossingen die meetbare resultaten leveren'
                   )
                 : (language === 'en'
-                    ? 'Technical innovation and problem-solving'
-                    : 'Technische innovatie en probleemoplossing'
+                    ? 'Technical innovation and creative problem-solving'
+                    : 'Technische innovatie en creatieve probleemoplossing'
                   )
               }
             </motion.p>
@@ -512,8 +512,8 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 text-sm md:text-lg max-w-2xl mx-auto">
                     {language === 'en' 
-                      ? 'Dive deeper into my complete portfolio'
-                      : 'Duik dieper in mijn complete portfolio'
+                      ? 'See my complete portfolio of projects and solutions'
+                      : 'Bekijk mijn complete portfolio van projecten en oplossingen'
                     }
                   </p>
                 </div>
@@ -542,8 +542,8 @@ export default function ProjectsSection({ language, viewMode }: SectionProps) {
                     >
                       <a href="#contact">
                         {isFreelance 
-                          ? (language === 'en' ? 'Start Project' : 'Start Project')
-                          : (language === 'en' ? 'Get in Touch' : 'Contact')
+                          ? (language === 'en' ? 'Start Your Project' : 'Start Je Project')
+                          : (language === 'en' ? 'Get in Touch' : 'Neem Contact Op')
                         }
                       </a>
                     </Button>

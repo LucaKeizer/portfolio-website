@@ -127,7 +127,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
                   {isFreelance ? (
                     language === 'en' 
                       ? 'Website Developer'
-                      : 'Website Ontwikkelaar'
+                      : 'Webontwikkelaar'
                   ) : (
                     'Software Engineer'
                   )}
@@ -168,29 +168,29 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
               {isFreelance ? (
                 language === 'en' ? (
                   <>
-                    Building <span className="font-semibold text-slate-900 dark:text-white">modern websites</span> for 
-                    Noord-Holland businesses. Every site is <span className="font-semibold text-slate-900 dark:text-white">custom-coded</span> with 
-                    professional software engineering standards.
+                    I create <span className="font-semibold text-slate-900 dark:text-white">modern websites</span> for 
+                    Noord-Holland businesses, bringing <span className="font-semibold text-slate-900 dark:text-white">professional software engineering standards</span> to 
+                    every project.
                   </>
                 ) : (
                   <>
-                    Bouw <span className="font-semibold text-slate-900 dark:text-white">moderne websites</span> voor 
-                    Noord-Holland bedrijven. Elke site is <span className="font-semibold text-slate-900 dark:text-white">custom-gecodeerd</span> met 
-                    professionele software engineering standaarden.
+                    Ik ontwikkel <span className="font-semibold text-slate-900 dark:text-white">moderne websites</span> voor 
+                    bedrijven in Noord-Holland, waarbij ik <span className="font-semibold text-slate-900 dark:text-white">professionele software engineering standaarden</span> toepas 
+                    op elk project.
                   </>
                 )
               ) : (
                 language === 'en' ? (
                   <>
-                    Currently <span className="font-semibold text-slate-900 dark:text-white">Data Solutions Engineer</span> at 
-                    Sonic Equipment B.V. I build Python applications and love solving complex technical challenges. 
-                    <span className="font-semibold text-slate-900 dark:text-white"> International experience</span> from studying in Japan.
+                    I work as a <span className="font-semibold text-slate-900 dark:text-white">Data Solutions Engineer</span> at 
+                    Sonic Equipment B.V., building Python applications and solving complex technical challenges. 
+                    I have <span className="font-semibold text-slate-900 dark:text-white">international experience</span> from studying in Japan.
                   </>
                 ) : (
                   <>
-                    Momenteel <span className="font-semibold text-slate-900 dark:text-white">Data Solutions Engineer</span> bij 
-                    Sonic Equipment B.V. Ik bouw Python applicaties en hou van het oplossen van complexe technische uitdagingen. 
-                    <span className="font-semibold text-slate-900 dark:text-white"> Internationale ervaring</span> door studie in Japan.
+                    Ik werk als <span className="font-semibold text-slate-900 dark:text-white">Data Solutions Engineer</span> bij 
+                    Sonic Equipment B.V., waar ik Python applicaties ontwikkel en complexe technische uitdagingen oplos. 
+                    Ik heb <span className="font-semibold text-slate-900 dark:text-white">internationale ervaring</span> opgedaan door te studeren in Japan.
                   </>
                 )
               )}
@@ -217,7 +217,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
                   </div>
                   <h3 className="font-bold text-slate-900 dark:text-white text-lg">
                     {isFreelance ? (
-                      language === 'en' ? 'Core Technologies' : 'Kern Technologieën'
+                      language === 'en' ? 'Core Technologies' : 'Kerntechnologieën'
                     ) : (
                       language === 'en' ? 'Technical Skills' : 'Technische Vaardigheden'
                     )}
@@ -320,7 +320,7 @@ export default function AboutSection({ language, viewMode }: SectionProps) {
           <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg">
             <h3 className="text-lg lg:text-xl font-bold text-slate-900 dark:text-white text-center mb-4 lg:mb-6">
               {isFreelance ? (
-                language === 'en' ? 'Core Technologies' : 'Kern Technologieën'
+                language === 'en' ? 'Core Technologies' : 'Kerntechnologieën'
               ) : (
                 language === 'en' ? 'Technical Skills' : 'Technische Vaardigheden'
               )}
